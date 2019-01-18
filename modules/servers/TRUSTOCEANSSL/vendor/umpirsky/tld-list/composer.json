@@ -1,0 +1,34 @@
+{
+    "name": "umpirsky/tld-list",
+    "type": "library",
+    "description": "List of all top-level domains in all data formats.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Saša Stamenković",
+            "email": "umpirsky@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "ext-intl": "*",
+        "umpirsky/list-generator": "^1.2",
+        "slowprog/composer-copy-file": "^0.2"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "SlowProg\\CopyFile\\ScriptHandler::copy"
+        ],
+        "post-update-cmd": [
+            "SlowProg\\CopyFile\\ScriptHandler::copy"
+        ]
+    },
+    "extra": {
+        "copy-file": {
+            "vendor/umpirsky/list-generator/Dockerfile": "./",
+            "vendor/umpirsky/list-generator/docker-compose.yml": "./"
+        }
+    }
+}

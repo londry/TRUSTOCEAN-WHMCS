@@ -1,0 +1,47 @@
+{
+  "name": "blobfolio\/blob-domain",
+  "description": "Parse and validate domain names.",
+  "keywords": [
+    "PHP",
+    "Public Suffix List",
+    "TLD",
+    "formatting",
+    "domain",
+    "IANA",
+    "ICANN",
+    "IDN"
+  ],
+  "version": "8.0.0",
+  "type": "library",
+  "homepage": "https:\/\/github.com\/Blobfolio\/blob-domain",
+  "license": "WTFPL",
+  "authors": [
+    {
+      "name": "Josh Stoik",
+      "email": "josh@blobfolio.com",
+      "homepage": "https:\/\/blobfolio.com"
+    }
+  ],
+  "require": {
+    "php": ">= 7.0",
+    "ext-filter": "*",
+    "ext-mbstring": "*",
+    "ext-json": "*",
+    "ext-intl": "*",
+
+    "blobfolio\/blob-common": "*"
+  },
+  "require-dev": {
+    "phpunit\/phpunit": "5.7.*"
+  },
+  "config": {
+    "vendor-dir": "lib\/vendor",
+    "preferred-install": "dist"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "blobfolio\\domain\\":"lib\/blobfolio\/domain"
+    }
+  }
+}
