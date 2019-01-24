@@ -26,7 +26,8 @@
                                 <div class="form-group">
                                     <label for="inputCsr" class="control-label">{$MODLANG.trustoceanssl.enroll.choosecsr}</label>
                                     <select name="csroption" class="form-control" onclick="csrchecker2('{$vars.ismultidomain}');">
-                                        <option value="generate">{$MODLANG.trustoceanssl.enroll.generatenewcsr}</option>
+                                        {*<option value="generate">{$MODLANG.trustoceanssl.enroll.generatenewcsr}</option>*}
+                                        {* 任何集中存储私钥的方式都是不安全的，我们会尽快添加本地生成方式，请不要试图开启此功能，我们会通过合作伙伴准则进行约束*}
                                         <option value="upload">{$MODLANG.trustoceanssl.enroll.uploadnewcsr}</option>
                                     </select>
                                 </div>

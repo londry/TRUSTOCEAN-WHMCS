@@ -105,7 +105,7 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['info']['chaincert'] = "�
 // 企业证书注册字段
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['organization']['organization_name'] = "组织(企业)名称";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['organization']['organizationalUnitName'] = "申请人所在部门";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['organization']['registerted_address_line1'] = "企业注册地址";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['organization']['registered_address_line1'] = "企业注册地址";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['organization']['registerted_no'] = "统一社会信用代码或(组织机构代码)";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['organization']['country'] = "国家";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['organization']['state'] = "省/自治区/直辖市";

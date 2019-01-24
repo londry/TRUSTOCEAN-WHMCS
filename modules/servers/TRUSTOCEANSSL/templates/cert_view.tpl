@@ -17,14 +17,6 @@
     {include file="./enroll_csr.tpl"}
 {/if}
 
-{if $status==='enroll_domains'}
-    {include file="./enroll_domains.tpl"}
-{/if}
-
-{if $status==='enroll_organization'}
-    {include file="./enroll_organization.tpl"}
-{/if}
-
 {if $status==='enroll_organization_pre'}
     {include file="./enroll_organization_prevalidation.tpl"}
 {/if}
@@ -33,11 +25,7 @@
     {include file="./enroll_dcv.tpl"}
 {/if}
 
-{if $status==='enroll_ca' || $status==='enroll_submithand' || $status==='dcv_hand'}
-    {include file="./enroll_ca.tpl"}
-{/if}
-
-{if $status==='enroll_caprocessing'}
+{if $status==='enroll_caprocessing' }
     {include file="./enroll_ca.tpl"}
 {/if}
 
