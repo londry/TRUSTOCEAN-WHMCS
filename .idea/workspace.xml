@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43c26f23-da41-4ef0-bae6-16642572101f" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/chinese.php" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/chinese.php" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/cert_view.tpl" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/cert_view.tpl" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_ca.tpl" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_csr.tpl" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_csr.tpl" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_dcv_async.tpl" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_domains.tpl" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_organization.tpl" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_organization_prevalidation.tpl" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_organization_prevalidation.tpl" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -80,11 +71,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="enroll_csr.tpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="enroll_csr.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_csr.tpl">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="653">
               <caret line="136" column="25" lean-forward="true" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -186,6 +187,7 @@
         <option value="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php" />
         <option value="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/cert_view.tpl" />
         <option value="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_csr.tpl" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -197,8 +199,8 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="108" />
-    <option name="y" value="131" />
+    <option name="x" value="676" />
+    <option name="y" value="86" />
     <option name="width" value="1570" />
     <option name="height" value="1076" />
   </component>
@@ -229,35 +231,6 @@
               <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="b2602c69:ProjectViewProjectNode" />
               <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="lang" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CRAZYSSL-PRODUCTION-WHMCS - Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
           </expand>
           <select />
@@ -300,15 +273,16 @@
       <workItem from="1547784606177" duration="21112000" />
       <workItem from="1548308474180" duration="2398000" />
       <workItem from="1548313025155" duration="3300000" />
-      <workItem from="1548322314485" duration="3557000" />
+      <workItem from="1548322314485" duration="3977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30558000" />
+    <option name="totallyTimeSpent" value="30978000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="108" y="131" width="1570" height="1076" extended-state="0" />
+    <frame x="676" y="86" width="1570" height="1076" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24039735" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -319,7 +293,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32943678" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32943678" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -344,14 +318,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/languageLoader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="39" lean-forward="false" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_csr.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1037">
@@ -865,6 +831,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="653">
           <caret line="136" column="25" lean-forward="true" selection-start-line="136" selection-start-column="25" selection-end-line="136" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
           <folding />
         </state>
       </provider>
