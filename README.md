@@ -11,14 +11,15 @@
 寻找API信息: https://console.trustocean.com/partner/api-setting
 
 ## 获取开发者API权限
-注册 https://console.trustocean.com
-添加QQ： 2852368244 获取开发者权限或代理商权限
+- 注册 https://console.trustocean.com
+- 添加QQ： 2852368244 获取开发者权限或代理商权限
+- TrustOceanSSL开发者交流QQ群 941598653
 
 ## 关于证书信息同步
 目前采用主动Push进行证书签发通知，您需要在开通API账户之后联系TRUSTOCEAN技术人员为您设置Push URL地址
 
 ## Notice
-此版本可能存在一定安全隐患，需要代理商的技术人员评估代码或修改代码后进行使用。此版本不作为正式版本发放，仅供技术人员测试和试用。
+此版本可能存在一定安全隐患，任何需要使用此代码的人/企业都需要仔细评估代码后进行使用。此版本不作为正式版本发放，仅供技术人员测试和试用。
 
 ## License
 我们特别喜欢MIT-License, 毋庸置疑，此软件基于MIT协议进行授权。
