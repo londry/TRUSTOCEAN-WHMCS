@@ -15,6 +15,9 @@
 - 添加QQ： 2852368244 获取开发者权限或代理商权限
 - TrustOceanSSL开发者交流QQ群 941598653
 
+## 如何配置该模块
+请参考已发布的 [《TRUSTOCEAN SSL WHMCS 模块配置/对接/手册》](https://www.trustocean.com/repository/TRUSTOCEAN-WHMCS-MODULE-USERGUID.pdf)
+
 ## 关于证书信息同步
 目前采用主动Push进行证书签发通知，您需要在开通API账户之后联系TRUSTOCEAN技术人员为您设置Push URL地址
 
