@@ -9,7 +9,7 @@ require __DIR__.'/../../../init.php';
 
 use WHMCS\Database\Capsule;
 
-$params = $_POST; #ca push-POST params
+$params = filterWords($_POST); #ca push-POST params
 
 // 判断是否是有效的证书PUSH
 if(isset($params['trustocean_id'])){
@@ -50,6 +50,20 @@ if(isset($params['trustocean_id'])){
     TRUSTOCEANSSL_RA_sendEmailNotificationForCertIssuance($certificate, $params['cert_code'], $params['ca_code']);
   }
 }
+
+//过滤post
+function filterWords(&$str)
+{
+ $farr = array(
+  "/<(\\/?)(script|i?frame|style|html|body|title|link|meta|object|\\?|\\%)([^>]*?)>/isU",
+  "/(<[^>]*)on[a-zA-Z]+\s*=([^>]*>)/isU",
+  "/select\b|insert\b|update\b|delete\b|drop\b|;|\"|\'|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|dump/is"
+  );
+ $str = preg_replace($farr,'',$str);
+ $str = strip_tags($str);
+ return $str;
+}
+
 
 /**
  * 为用户发送证书签发的邮件通知
