@@ -57,10 +57,19 @@ function TrustOceanSSLAdmin_activate(){
     $query03 = "ALTER TABLE `tbltrustocean_certificate`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
+
     # query the database
     full_query($query01);
     full_query($query02);
     full_query($query03);
+
+
+    # upgrade query
+    $upquery01 = "ALTER TABLE `tbltrustocean_certificate` ADD `refund_status` TEXT NOT NULL AFTER `is_requested_refund`;";
+    $upquery02 = "ALTER TABLE `tbltrustocean_certificate` ADD `is_requested_refund` INT NOT NULL AFTER `is_requested_refund`;";
+    full_query($upquery01);
+    full_query($upquery02);
+
 
     # todo:: add san upgradeInvoice function to here
     $query04 = "CREATE TABLE IF NOT EXISTS `tbltrustocean_upgradeinvoice` (
