@@ -20,6 +20,6 @@ MODLANG.trustoceanssl.csrsaved = "Successfully, your CSR code has beed saved!";
 MODLANG.trustoceanssl.certinfosaved = "Successfully, your certificate request information has been saved!";
 MODLANG.enroll.status.verified = "Verified";
 MODLANG.enroll.status.processing = "Processing"; 
-MODLANG.enroll.status.emailsent = "Email Sent";
+MODLANG.enroll.status.sentemail = "Email Sent";
 MODLANG.enroll.status.selectall = "Select For ALL";
 MODLANG.enroll.status.selectdcvmethodforall = "Use the selected method for all un verified domains";

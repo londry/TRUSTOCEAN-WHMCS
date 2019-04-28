@@ -102,7 +102,7 @@ function TRUSTOCEANSSL_AdminServicesTabFields($vars) {
 <tr>
 <th>域名</th>
 <th>验证方式</th>
-<th>验证状态(非实时)</th>
+<th>验证状态</th>
 </tr>
 </thead>
 <tbody>
@@ -120,6 +120,8 @@ function TRUSTOCEANSSL_AdminServicesTabFields($vars) {
 <td>$domain</td>
 <td>".strtoupper($dcvinfo[$domain]['method'])."</td>
 <td>".$dcvinfo[$domain]['status']."</td>
+<td>
+</td>
 <td> $dcvstring </td>
 </tr>";
     }
@@ -133,7 +135,6 @@ function TRUSTOCEANSSL_AdminServicesTabFields($vars) {
         $isDisabled = $service->status === 'enroll_organization_pre'?'':'disabled';
         $orgInfo = "
         <div id=\"orderorginfo\" style=\"padding: 20px;\">
-        <p style='color: #E91E63;'>提示: 用户提交域名验证信息后可在此编辑企业信息, 正确的企业信息可以很大程度缩短订单验证时间。订单提交到TRUSTOCEAN之后, 将由TRUSTOCEAN工作人员预先处理和验证企业信息后提交到CA机构进行复审和签发。获取订单验证状态, 可持订单的TRUSTOCEAN ID至www.trustocean.com联系在线客服。</p>
         组织名称：<input type=\"text\" name=\"organization_name\" value=\"".$orginfo['organization_name']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
         部门名称：<input type=\"text\" name=\"organizationalUnitName\" value=\"".$orginfo['organizationalUnitName']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
         组织编号：<input type=\"text\" name=\"registered_no\" value=\"".$orginfo['registered_no']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
@@ -152,6 +153,12 @@ function TRUSTOCEANSSL_AdminServicesTabFields($vars) {
         <hr/>
         DUNS号码：<input type=\"text\" name=\"dunsNumber\" value=\"".$orginfo['dunsNumber']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
         DBA名称：<input type=\"text\" name=\"assumedName\" value=\"".$orginfo['assumedName']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
+        <hr/>
+        企业类型(".$orginfo['businessCategory'].")：<select name=\"businessCategory\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"b\">b - Private Organization</option> <option value=\"c\">c - Government Entity</option> <option value=\"d\">d - Business Entity</option> </select>
+        CallBack方式(".$orginfo['callbackMethod'].")：<select name=\"callbackMethod\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"T\">Telephone Callback</option> <option value=\"L\">Law Letter</option> </select>
+        申请人已验证(".$orginfo['isAppRepValidated'].")：<select name=\"isAppRepValidated\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"Y\">是-已经验证申请人权限</option> <option value=\"N\">否-COMODO会二次验证</option> </select>
+        已完成CallBack验证(".$orginfo['isCallbackCompleted'].")：<select name=\"isCallbackCompleted\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"Y\">是-TRUSTOCEAN已经完成CALLBACK</option> <option value=\"N\">否-COMODO会执行CALLBACK</option> </select>
+        是否让COMODO验证OV(".$orginfo['doAutoOV'].")：<select name=\"doAutoOV\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"Y\">是</option> <option value=\"N\">否</option> </select>
         <br>
         <button type=\"button\" class=\"btn btn-sm btn-info\" onclick=\"runTrustOceanCommand('updateorginfo',
         {organization_name:$('input[name=organization_name]').val(), 
@@ -169,24 +176,34 @@ function TRUSTOCEANSSL_AdminServicesTabFields($vars) {
         dunsNumber:$('input[name=dunsNumber]').val(), 
         assumedName:$('input[name=assumedName]').val(), 
         organizationalUnitName:$('input[name=organizationalUnitName]').val(), 
+        businessCategory:$('select[name=businessCategory]').val(), 
+        callbackMethod:$('select[name=callbackMethod]').val(), 
+        isAppRepValidated:$('select[name=isAppRepValidated]').val(), 
+        isCallbackCompleted:$('select[name=isCallbackCompleted]').val(), 
+        doAutoOV:$('select[name=doAutoOV]').val(), 
         organization_phone:$('input[name=organization_phone]').val()}, ".$service->uid.", ".$service->serviceid.")\" id=\"btnorginfo".md5($domain)."\"  ".$isDisabled.">更新企业信息</button>
         </div>
         ";
     }
 
     $fieldsarray = array(
+        '系统提示'=>'无',
         '证书状态' => $service->status."<script src=\"/modules/addons/TRUSTOCEANSSL_RA/static/js/admin.js\" type='application/javascript'></script>",
-        '正在重签' => $service->reissue === 1?'是':'否',
-        '正在续费' => $service->renew === 1?'是':'否',
+        '重签操作' => $service->reissue === 1?'是':'否',
+        '续费订单' => $service->renew === 1?'是':'否',
+        '证书ID' => $service->certificate_id,
         '提交时间' => $service->created_at,
-        'TRUSTOCEAN ID' => $service->trustocean_id,
+        'TrustOcean ID' => $service->trustocean_id,
         'COMODO ID' => $service->vendor_id,
+        '错误日志' => $service->api_error,
         'Unique ID' => strtolower($service->unique_id),
         '域名列表' => $domainTable,
-        'DCV INFO' => "<pre style='width: 500px;'>".$service->dcv_info."</pre>",
+        'DCV INFO' => $service->dcv_info,
         '企业信息' => $orgInfo,
+        '证书代码' => "<pre>".$service->cert_code."</pre>",
+        '证书链代码' => "<pre>".$service->ca_code."</pre>",
         'CSR代码' => "<pre>".$service->csr_code."</pre>",
-        'CSR解码信息' => "<pre>
+        'CSR信息' => "<pre>
 CN: ".$csrinfo['CN']."\r\n
 emailAddress: ".$csrinfo['emailAddress']."\r\n
 OU: ".$csrinfo['OU']."\r\n
@@ -195,9 +212,12 @@ L: ".$csrinfo['L']."\r\n
 ST: ".$csrinfo['ST']."\r\n
 C: ".$csrinfo['C']."\r\n
 </pre>",
-        '证书代码' => "<pre>".$service->cert_code."</pre>",
-        '证书链代码' => "<pre>".$service->ca_code."</pre>",
     );
+    if($service->is_requested_refund === 1 && $service->refund_status === "processing"){
+        $fieldsarray['系统提示'] = '<div class="infobox"><strong><span class="title">已经提交取消和退款申请</span></strong><br>CA正在处理退款申请, 完成退款后此证书将会被吊销且不可用</div>';
+    }elseif($service->is_requested_refund === 1 && $service->refund_status === "finished"){
+        $fieldsarray['系统提示'] = '<div class="errorbox"><strong><span class="title">已退款的证书</span></strong><br>此证书已经完成退款, 不可继续使用和受到信任</div>';
+    }
     return $fieldsarray;
 
 }
@@ -294,7 +314,7 @@ function TRUSTOCEANSSL_clientSynccertorderdata($vars) {
     //todo:: 证书已经签发了 需要更新本地数据库
     if($result['status'] === "success" AND $result['cert_status'] === "issued_active"){
         $order = TRUSTOCEANSSL_CALLAPI(array(
-            'action'=>'getSSLDetails',
+            'action'=>'getSSLDetails', 
             'trustocean_id'=>$service->trustocean_id,
         ));
         Capsule::table('tbltrustocean_certificate')->where('serviceid',$vars['serviceid'])->update(array(
@@ -411,7 +431,7 @@ function TRUSTOCEANSSL_CALLAPI($params){
             return $result;
         }
     }else{
-        ogActivity("TRUSTOCEAN_API_CALL result:".json_encode($curlHandle).json_encode($callResult).json_encode($callResult), 0);
+        LogActivity("TRUSTOCEAN_API_CALL result:".json_encode($curlHandle).json_encode($callResult).json_encode($callResult), 0);
         return array(
             "status"         =>  "error",
             "message"       => "CURL ERROR, Please check your API call function",
@@ -947,6 +967,9 @@ function TRUSTOCEANSSL_ajaxTryToReissueSSL($vars){
             'domains'=>json_encode($domains['domains']),
             'dcv_info'=>json_encode(TRUSTOCEANSSL_findDcvDomains($domains['domains'])),
         ));
+        Capsule::table('tblhosting')->where('id', $vars['serviceid'])->update([
+            'domain' => $domains['domains'][0]
+        ]);
         TRUSTOCEANSSL_APIRESPONSE(['status'=>'success']);
     }else{
         TRUSTOCEANSSL_APIRESPONSE($result);
@@ -1005,6 +1028,11 @@ function TRUSTOCEANSSL_ajaxTrySubmittoca($vars){
     $caprams['period'] = $service->period;
     // todo:; unique_id
     $caprams['unique_id'] = $service->unique_id;
+
+    // todo:: renew 订单
+    if(isset($service->renew) && $service->renew === 1){
+        $caprams['renew'] = "yes";
+    }
 
     // todo:: 企业联系信息
     if($vars['configoption2'] !== "dv"){
@@ -1131,8 +1159,11 @@ function TRUSTOCEANSSL_generateDcvEmails($domain){
  * @param $domain
  * @param $newdcv
  */
-function TRUSTOCEANSSL_changedcv($service, $domain, $newdcv){
+function TRUSTOCEANSSL_changedcv($vars){
     global $MODLANG;
+    $newdcv = $_POST['method'];
+    $domain = $_POST['domain'];
+    $service = Capsule::table('tbltrustocean_certificate')->where('serviceid', $vars['serviceid'])->first();
 
     //检查是否为邮件验证
     if($newdcv !== "dns" && $newdcv !== "http" && $newdcv !== "https"){
@@ -1502,6 +1533,10 @@ function TRUSTOCEANSSL_clientAreaRemoveDomain($vars){
             'dcv_info'=>json_encode($dcvinfo),
             'domains' => json_encode($newDomains),
         ));
+        // 添加域名到db.hosting.domain
+        Capsule::table('tblhosting')->where('id', $vars['serviceid'])->update([
+            'domain' => $newDomains['domains'][0]
+        ]);
         TRUSTOCEANSSL_clientApiResponse(['status'=>'success']);
     }else{
          TRUSTOCEANSSL_clientApiResponse(['status'=>'error','message'=>$remove['message']]);
@@ -1555,6 +1590,11 @@ function TRUSTOCEANSSL_syncRemoveSANDomain($vars){
             'dcv_info'  =>  json_encode($dcvInfo),
             'domains'   =>  json_encode(array_values($domains)),
         ));
+    // 添加域名到db.hosting.domain
+    $newVajDomains = array_values($domains);
+    Capsule::table('tblhosting')->where('id', $vars['serviceid'])->update([
+        'domain' => $newVajDomains['domains'][0]
+        ]);
     TRUSTOCEANSSL_clientApiResponse(['status'=>'success','md5hash'=>md5($_POST['domain']),'domain'=>$_POST['domain']]);
 
 }
@@ -1612,7 +1652,7 @@ function TRUSTOCEANSSL_ClientArea($vars) {
     add_hook('ClientAreaSecondarySidebar', 1, function (MenuItem $secondarySidebar)
     {
         GLOBAL $MODLANG;
-
+        
         // Add a panel to the end of the secondary sidebar for social media links.
         // Declare it with the name "social-media" so we can easily retrieve it
         // later.
@@ -1642,7 +1682,7 @@ function TRUSTOCEANSSL_ClientArea($vars) {
 
             $socialMediaPanel->addChild('addsan-ssl-link', array(
                 'uri' => '/upgrade.php?type=configoptions&id='.$_SESSION['service_id'],
-                'label' => '<span class="title" style="color: #7c8088;">'.$MODLANG['trustoceanssl']['enroll']['addsan']['btn'].'</span>',
+                'label' => '<span class="title" style="color: #7c8088;">'.$MODLANG['trustoceanssl']['enroll']['addsan']['btn'].'</span>', 
                 'order' => 3,
                 'icon' => 'fa fa-globe',
             ));
@@ -1709,7 +1749,7 @@ function TRUSTOCEANSSL_ClientArea($vars) {
     $returnvars['configoption2'] = $vars['configoption2'];
 
     #todo:: 提交到CA后 使用async方式查看域名验证信息
-    if($service->status === "enroll_organization_pre" || $service->status === "enroll_dcv" || $service->status === "enroll_ca" || $service->status === "submit_hand" || $service->status === "check_hand" || $service->status === "enroll_caprocessing"){
+    if($service->status === "enroll_dcv" || $service->status === "enroll_ca" || $service->status === "submit_hand" || $service->status === "check_hand" || $service->status === "enroll_caprocessing"){
         $returnvars['domains'] = json_decode($service->domains, 1);
         $returnvars['dcvinfo'] = $dcvInfo;
         $returnvars['csrhash'] = TRUSTOCEANSSL_getCsrHash($service->csr_code);
@@ -1717,6 +1757,8 @@ function TRUSTOCEANSSL_ClientArea($vars) {
         $returnvars['ismultidomain'] = $vars['configoption4'];
 
     }
+
+    $returnvars['csrcode'] = $service->csr_code;
 
     return array(
         'templatefile' => 'templates/cert_view',
@@ -1729,7 +1771,7 @@ function TRUSTOCEANSSL_ClientArea($vars) {
         ),
     );
     // parse x509 info
-
+ 
 }
 
 /**
@@ -1778,6 +1820,74 @@ function TRUSTOCEANSSL_adminSendEmailNotificationForCertIssuance($service, $cert
         )),
     ));
    return "success";
+}
+
+/**
+ * 请求取消证书订单并退款
+ * @param $vars
+ * @return mixed|string
+ */
+function TRUSTOCEANSSL_adminRequestCancelAndRefund($vars){
+    $service = Capsule::table('tbltrustocean_certificate')->where('serviceid', $vars['serviceid'])->first();
+    if($service->trustocean_id == ""){
+        return "当前证书并未提交到 TRUSTOCEAN, 因此无需使用此功能进行退款";
+    }
+    if($service->is_requested_refund === 1){
+        return "当前证书已经提交过取消和退款申请";
+    }
+
+    // 执行CA重发邮件或者重试DCV操作
+    $remote = TRUSTOCEANSSL_CALLAPI(array(
+        'action'=>'cancelAndRefund',
+        'trustocean_id'=>$service->trustocean_id,
+    ));
+    if($remote['status'] === "error"){
+        return $remote['message'];
+    }
+    if($remote['status'] === "success"){
+        Capsule::table('tbltrustocean_certificate')->where('serviceid', $vars['serviceid'])->update([
+            'is_requested_refund' => 1,
+            'refund_status'=>'processing'
+        ]);
+        return "success";
+    }
+    return "执行API过程中出错, 请求退款不成功";
+}
+/**
+ * 客户端Ajax执行DCV操作
+ * @param $vars
+ * @throws Exception
+ */
+function TRUSTOCEANSSL_clientarearesenddcvemail($vars){
+
+    $service = Capsule::table('tbltrustocean_certificate')->where('serviceid', $vars['serviceid'])->first();
+    if($service->status === "cancelled"){
+        TRUSTOCEANSSL_clientApiResponse(['status'=>'error',"message"=>"当前证书状态无法执行DCV操作.","error_code"=>90015]);
+    }
+
+    if(time() < (strtotime($service->dcvredo_clicked)+60*5)){
+        TRUSTOCEANSSL_clientApiResponse(['status'=>'error',"message"=>"每隔5分钟可重新执行域名验证, 请您稍后再试.","error_code"=>90016]);
+    }
+
+    $params = array(
+        //'orderNumber'=>$service->vendor_id,
+        'baseOrderNumber'=>$service->vendor_id,
+    );
+    // 执行CA重发邮件或者重试DCV操作
+    $remote = TRUSTOCEANSSL_CALLAPI(array(
+        'action'=>'reTryDcvEmailOrDCVCheck',
+        'trustocean_id'=>$service->trustocean_id,
+    ));
+
+    if($remote['status'] === "success"){
+        // 记录点击频率时间
+        Capsule::table('tbltrustocean_certificate')->where('serviceid', $vars['serviceid'])->update(array(
+            'dcvredo_clicked'=>date('Y-m-d H:i:s', time()),
+        ));
+        TRUSTOCEANSSL_clientApiResponse(['status'=>'success']);
+    }else{
+        TRUSTOCEANSSL_clientApiResponse(['status'=>'error','message'=>"此订单的域名已经验证通过, 请您等待签发. ","error_code"=>90017]);
+    }
 }
 
 /**
@@ -1882,6 +1992,11 @@ function TRUSTOCEANSSL_ajaxUploadCertInfo($vars){
         $key_code  = NULL;
     }
 
+    // 添加域名到db.hosting.domain
+    Capsule::table('tblhosting')->where('id', $vars['serviceid'])->update([
+        'domain' => $domains['domains'][0]
+    ]);
+
     // 更新数据库信息
     $updateParams = array(
             'csr_code'=>$csr_code,
@@ -1966,6 +2081,7 @@ function TRUSTOCEANSSL_ClientAreaAllowedFunctions(){
         "下载SSL证书" => 'downloadcertificate',
         "转换证书"  =>  'convertssl',
         '重新发送DCV邮件'=>'resendDCVEmails',
+        'changedcv'=>'changedcv',
         'clientAreaChangeDCVMethod'=>'clientAreaChangeDCVMethod',
         'clientarearesenddcvemail'=>'clientarearesenddcvemail',
         'clientAreaRemoveDomain'=>'clientAreaRemoveDomain',
@@ -1985,10 +2101,11 @@ function TRUSTOCEANSSL_ClientAreaAllowedFunctions(){
  */
 function TRUSTOCEANSSL_AdminCustomButtonArray(){
     return array(
-        "同步订单" => 'synccertorderdata',
-        "重置订单" => 'resetorderstatus',
-        "发送签发通知" => 'adminSendIssuedNotification',
+        "取回证书信息" => 'synccertorderdata',
+        "重置为新订单" => 'resetorderstatus',
+        "发送签发邮件" => 'adminSendIssuedNotification',
         "设为续费订单"=>'setRenewOrder',
+        '从CA处取消并退款' =>'adminRequestCancelAndRefund',
     );
 }
 

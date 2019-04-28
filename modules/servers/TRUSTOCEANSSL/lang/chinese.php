@@ -81,7 +81,7 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['dcv']['submit'][
 
 # 即将签发证书页面预览
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['title'] = "即将签发您的证书";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['desc'] = "1.域名验证DV版本证书，通常只需要5-10分钟完成签发。<br>2.企业验证OV和EV版本证书，通常需要3-7个工作日完成审核和签发。<br>3.证书一旦签发，我们会通过电子邮件通知您。若您在签发过程中存在任何疑问，可通过工单，在线客服，或通过热线029-88188289联系我们。";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['desc'] = "1.域名验证DV版本证书，通常只需要5-10分钟完成签发。<br>2.企业验证OV和EV版本证书，通常需要3-7个工作日完成审核和签发。<br>3.证书一旦签发，我们会通过电子邮件通知您。若您在签发过程中存在任何疑问，可通过工单，在线客服联系我们。";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['desc2'] = "DV证书超过1小时未签发请提交工单处理, 企业版EV、OV证书可能需要2-3个工作日审核信息签发证书。";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['resenddcv'] = "重新发送验证邮件";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['checkdcv'] = "查看证书签发状态";

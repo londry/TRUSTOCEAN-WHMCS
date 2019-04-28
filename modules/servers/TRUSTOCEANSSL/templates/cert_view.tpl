@@ -6,15 +6,45 @@
 
 {*<script src="/modules/servers/TRUSTOCEANSSL/assets/js/clientarea.js"></script>*}
 {* LANGUAGE FILE LIB*}
+{*{if $language === "chinese"}*}
+    {*<script src="/modules/servers/TRUSTOCEANSSL/assets/js/lang/chinese.js"></script>*}
+{*{else}*}
+    {*<script src="/modules/servers/TRUSTOCEANSSL/assets/js/lang/english.js"></script>*}
+{*{/if}*}
 <script src="/modules/servers/TRUSTOCEANSSL/assets/js/lang/chinese.js"></script>
 {include file="$assetsPath/js/clientarea-js.tpl" MODLANG=$MODLANG }
 
 <script type="application/javascript">
 
 </script>
+{*{if $status !== "issued_active" && $status !== 'enroll_apierror'}*}
+{*<div class="panel panel-default panel-product-details">*}
+    {*<div class="panel-body">*}
+    {*<div class="module-client-area">*}
+        {*<div class="section">*}
+            {*<div class="section-header">*}
+                {*<h3 style="padding-left: 22px;" class="text-success"><i class="oi" data-glyph="cog" style="margin-left: -23px;margin-top: 2px; position: absolute; padding-bottom: 3px;"></i> 开始配置您的证书</h3>*}
+                {*<p>您的证书订单开通成功, 请您继续配置您的证书以提交CSR和域名信息，企业OV、EV证书在此过程中提交企业信息。</p>*}
+                {*<p style="text-align: center;">*}
+                {*<a style="margin:0 auto;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=enroll" class="btn btn-info btn-lg btn-checkout"><i class="fas fa-ticket ls ls-new-window"></i>继续配置证书</a>*}
+                {*</p>*}
+            {*</div>*}
+        {*</div>*}
+    {*</div>*}
+    {*</div>*}
+{*</div>*}
+{*{/if}*}
 
 {if $status==='configuration'}
     {include file="./enroll_csr.tpl"}
+{/if}
+
+{if $status==='enroll_domains'}
+    {include file="./enroll_domains.tpl"}
+{/if}
+
+{if $status==='enroll_organization'}
+    {include file="./enroll_organization.tpl"}
 {/if}
 
 {if $status==='enroll_organization_pre'}
@@ -25,7 +55,11 @@
     {include file="./enroll_dcv.tpl"}
 {/if}
 
-{if $status==='enroll_caprocessing' }
+{if $status==='enroll_ca' || $status==='enroll_submithand' || $status==='dcv_hand'}
+    {include file="./enroll_ca.tpl"}
+{/if}
+
+{if $status==='enroll_caprocessing'}
     {include file="./enroll_ca.tpl"}
 {/if}
 
@@ -66,6 +100,9 @@
                 <li>
                     <a href="#chaincertificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
                 </li>
+                <li>
+                    <a href="#csrcode"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>CSR代码</a>
+                </li>
             </ul>
         </div>
         <div class="tab-content">
@@ -83,6 +120,15 @@
                     <li>
                         <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</span>
                         <textarea class="form-control" rows="25" style="width: 80%;">{$vars.chainscert}</textarea>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="csrcode">
+                <ul class="list-info list-info-50 list-info-bordered cert-info-tb">
+                    <li>
+                        <span class="list-info-title">CSR代码</span>
+                        <textarea class="form-control" rows="25" style="width: 80%;">{$vars.csrcode}</textarea>
                     </li>
                 </ul>
             </div>

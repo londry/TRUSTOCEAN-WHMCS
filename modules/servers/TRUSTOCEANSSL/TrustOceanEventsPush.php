@@ -61,11 +61,12 @@ function TRUSTOCEANSSL_RA_sendEmailNotificationForCertIssuance($service, $cert_c
   $validTo_time_t = $cert['validTo_time_t']; # 证书有效期截止
   $validFrom_time_t = $cert['validFrom_time_t']; # 证书有效期从
   $domainString = str_replace('IPAddress:',',', str_replace('DNS:',',', $cert['extensions']['subjectAltName']));
+  $domainString = str_replace(', ,',',', $domainString);
   $domainString = substr($domainString, 1); # 域名列表字符串
   // 通过WHMCS内部API进行邮件发送
    $apiresult = localAPI('SendEmail', array(
         'messagename'=>'Client Signup Email',
-        'id'=> $service->uid,
+        'id'=>$service->uid,
         'customtype' => 'general',
         'customsubject' => 'TLS/SSL Certificate Iussed Successfully!',
         'custommessage' => file_get_contents(__DIR__.'/templates/email_notification_issued.tpl'),

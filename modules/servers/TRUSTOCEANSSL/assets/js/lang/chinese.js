@@ -20,6 +20,6 @@ MODLANG.trustoceanssl.csrsaved = "CSR信息保存成功!";
 MODLANG.trustoceanssl.certinfosaved = "证书信息保存成功!";
 MODLANG.enroll.status.verified = "已验证";
 MODLANG.enroll.status.processing = "验证中";
-MODLANG.enroll.status.emailsent = "已发送邮件";
+MODLANG.enroll.status.sentemail = "已发送邮件";
 MODLANG.enroll.status.selectall = "应用全部";
 MODLANG.enroll.status.selectdcvmethodforall = "将选择的验证方式应用到所有的待验证域名";

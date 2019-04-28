@@ -12,6 +12,9 @@ $(document).ready(function(){
         apiClient( $(this).attr('action'), $(this).serialize(), $(this).attr('api-loader'), $(this).attr('api-success'), $(this).attr('api-error'), this);
         return false;
     });
+    if($('#Primary_Sidebar-Service_Details_Actions-Upgrade_Downgrade_Options') !== undefined){
+        $('#Primary_Sidebar-Service_Details_Actions-Upgrade_Downgrade_Options').html('增加域名额度');
+    }
     /**
      * DCV INFO 选择项
      */
@@ -25,7 +28,7 @@ $(document).ready(function(){
         $('tr[dcv-tds='+$(this).attr('dcv-domain')+']').find('td').hide();
         $('tr[dcv-tds='+$(this).attr('dcv-domain')+']').find('td[dcv-change]').show();
         var that = this;
-        $.post('/clientarea.php?action=productdetails&id=2&modop=custom&a=enroll',{id:$(that).attr('dcv-cert-id'), toca:'changedcv',domain:$(that).attr('dcv-domain-name'), method:$(that).val()}, function(resp){
+        $.post('/clientarea.php?action=productdetails&id='+$(that).attr('dcv-cert-id')+'&modop=custom&a=changedcv',{id:$(that).attr('dcv-cert-id'), toca:'changedcv',domain:$(that).attr('dcv-domain-name'), method:$(that).val()}, function(resp){
             $('tr[dcv-tds='+$(that).attr('dcv-domain')+']').find('td[dcv-change]').hide();
             if($(that).val() === "dns" || $(that).val() === "http" || $(that).val() === "https"){
                 $('tr[dcv-tds='+$(that).attr('dcv-domain')+']').find('td[dcv-tab='+$(that).val()+']').show();
@@ -96,7 +99,7 @@ $(document).ready(function(){
 function tryToRecheckDCV(obj){
     $(obj).button('loading');
     var that = obj;
-    $.post('/clientarea.php?action=productdetails&id='+$(that).attr('data-redo-dcv')+'&modop=custom&a=clientarearesenddcvemail',{responsetype:'json',id:$(that).attr('data-redo-dcv')},function(resp){
+    $.post('/clientarea.php?action=productdetails&id='+$(that).attr('data-redo-dcv')+'&modop=custom&a=clientarearesenddcvemail',{id:$(that).attr('data-redo-dcv')},function(resp){
         if(resp.status === "success"){
             tonotify('mainorderdcv' ,'success', MODLANG.trustoceanssl.dcvfetchsuccess);
         }else{

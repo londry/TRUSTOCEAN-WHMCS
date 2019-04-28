@@ -269,3 +269,71 @@ add_hook('InvoicePaid', 1, function($vars) {
     }
 });
 
+/**
+ * 检查是否存在多个免费产品的累计订购
+ */
+//add_hook('ShoppingCartValidateCheckout', 1, function($vars) {
+//        if(!isset($_SESSION['uid'])){
+//            return [
+//                'Please register&login to your account and confirm your email address before applying for a free wildcard certificate to avoid fraud.<a class="btn btn-sm btn-success" href="https://www.crazyssl.com/register.php" target="_blank">Register New Account</a> / <a class="btn btn-sm btn-primary" href="https://www.crazyssl.com/clientarea.php" target="_blank">Login Account</a>',
+//            ];
+//        }else{
+//            $clientIsEmailVerified = Capsule::table('tblclients')->where('id', $_SESSION['uid'])->value('email_verified');
+//            if($clientIsEmailVerified !== 1){
+//                return [
+//                    'Please confirm your email address before applying for a free wildcard certificate to avoid fraud.',
+//                ];
+//            }
+//        }
+//
+//        // 统计同时订购的条数
+//        $count = 0;
+//        foreach ($_SESSION['cart']['products'] as $product){
+//            if($product['pid'] === 4){
+//                $count += 1;
+//
+//                $issetUnIssuedTrustoceanWildcard1 = Capsule::table('tbltrustocean_certificate')->where('uid', $_SESSION['uid'])->where('status','configuration')->where('name','LIKE','TRUSTOCEAN DV Wildcard Domain Secure SSL')->first();
+//                $issetUnIssuedTrustoceanWildcard2 = Capsule::table('tbltrustocean_certificate')->where('uid', $_SESSION['uid'])->where('status','enroll_dcv')->where('name','LIKE','TRUSTOCEAN DV Wildcard Domain Secure SSL')->first();
+//                $issetUnIssuedTrustoceanWildcard3 = Capsule::table('tbltrustocean_certificate')->where('uid', $_SESSION['uid'])->where('status','enroll_caprocessing')->where('name','LIKE','TRUSTOCEAN DV Wildcard Domain Secure SSL')->first();
+//
+//                if($issetUnIssuedTrustoceanWildcard1 !== NULL || $issetUnIssuedTrustoceanWildcard2 !== NULL || $issetUnIssuedTrustoceanWildcard3 !== NULL){
+//                    // do nothing here, because the request query is empty
+//                    return [
+//                        'Please configure and issue the previous free wildcard certificate before applying for a new free wildcard certificate.',
+//                    ];
+//                }
+//            }
+//        }
+//        // todo:: 检测是否同时订购多个免费产品
+//        if($count > 1){
+//            return [
+//                'Cannot order multiple free products at the same time, Please remove excess free products.',
+//            ];
+//        }
+//
+//
+//});
+
+///**
+// * 检查每隔2小时补充库存
+// */
+//add_hook('AfterCronJob', 1, function($vars) {
+//    // Perform hook code here...
+//    $wildcardsslproduct = Capsule::table('tblproducts')->where('id', 4)->first();
+//    $suk = time() - strtotime($wildcardsslproduct->updated_at);
+//    if($suk >= 60*60*2){
+//        Capsule::table('tblproducts')->where('id', 4)->update(array(
+//            'updated_at'=>date('Y-m-d H:i:s', time()),
+//            'qty'=> 10,
+//        ));
+//    }
+//});
+//
+///**
+// * 检查下一次更新库存的时间
+// */
+//add_hook('ClientAreaHeadOutput', 1, function($vars) {
+//    $wildcardsslproduct = Capsule::table('tblproducts')->where('id', 4)->first();
+//    $nextTime = strtotime($wildcardsslproduct->updated_at)+60*60*2;
+//    $_SESSION['next_wildcardssl_update_stock_at'] = date('Y-m-d H:i:s', $nextTime);
+//});
