@@ -1,198 +1,5 @@
 [
     {
-        "name": "blobfolio/blob-common",
-        "version": "8.0.0",
-        "version_normalized": "8.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Blobfolio/blob-common.git",
-            "reference": "54a10c257c1fc0226a4281c9b10214a5e2a5c768"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Blobfolio/blob-common/zipball/54a10c257c1fc0226a4281c9b10214a5e2a5c768",
-            "reference": "54a10c257c1fc0226a4281c9b10214a5e2a5c768",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
-        },
-        "require": {
-            "blobfolio/blob-domain": "*",
-            "blobfolio/blob-mimes": "*",
-            "ext-bcmath": "*",
-            "ext-dom": "*",
-            "ext-filter": "*",
-            "ext-hash": "*",
-            "ext-json": "*",
-            "ext-mbstring": "*",
-            "php": ">= 7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "5.7.*"
-        },
-        "suggest": {
-            "blobfolio/blob-phone": "*"
-        },
-        "time": "2018-06-17T04:46:51+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "blobfolio\\common\\": "lib/blobfolio/common"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "WTFPL"
-        ],
-        "authors": [
-            {
-                "name": "Josh Stoik",
-                "email": "josh@blobfolio.com",
-                "homepage": "https://blobfolio.com"
-            }
-        ],
-        "description": "An expansive PHP toolkit with functions for sanitizing, formatting, parsing, etc.",
-        "homepage": "https://github.com/Blobfolio/blob-common",
-        "keywords": [
-            "data",
-            "formatting",
-            "parsing",
-            "php",
-            "sanitizing"
-        ]
-    },
-    {
-        "name": "blobfolio/blob-domain",
-        "version": "8.0.0",
-        "version_normalized": "8.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Blobfolio/blob-domain.git",
-            "reference": "38b24aeb1900f7b0546c09d6696e4dfefa1719d7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Blobfolio/blob-domain/zipball/38b24aeb1900f7b0546c09d6696e4dfefa1719d7",
-            "reference": "38b24aeb1900f7b0546c09d6696e4dfefa1719d7",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
-        },
-        "require": {
-            "blobfolio/blob-common": "*",
-            "ext-filter": "*",
-            "ext-intl": "*",
-            "ext-json": "*",
-            "ext-mbstring": "*",
-            "php": ">= 7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "5.7.*"
-        },
-        "time": "2018-06-17T04:11:27+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "blobfolio\\domain\\": "lib/blobfolio/domain"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "WTFPL"
-        ],
-        "authors": [
-            {
-                "name": "Josh Stoik",
-                "email": "josh@blobfolio.com",
-                "homepage": "https://blobfolio.com"
-            }
-        ],
-        "description": "Parse and validate domain names.",
-        "homepage": "https://github.com/Blobfolio/blob-domain",
-        "keywords": [
-            "Public Suffix List",
-            "domain",
-            "formatting",
-            "iana",
-            "icann",
-            "idn",
-            "php",
-            "tld"
-        ]
-    },
-    {
-        "name": "blobfolio/blob-mimes",
-        "version": "8.0.0",
-        "version_normalized": "8.0.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Blobfolio/blob-mimes.git",
-            "reference": "ca50be37826692ac2bf89da6ea63fc3bb6ff7516"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Blobfolio/blob-mimes/zipball/ca50be37826692ac2bf89da6ea63fc3bb6ff7516",
-            "reference": "ca50be37826692ac2bf89da6ea63fc3bb6ff7516",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
-        },
-        "require": {
-            "blobfolio/blob-common": "*",
-            "ext-bcmath": "*",
-            "ext-dom": "*",
-            "ext-filter": "*",
-            "ext-hash": "*",
-            "ext-json": "*",
-            "ext-mbstring": "*",
-            "php": ">= 7.0"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "5.7.*"
-        },
-        "time": "2018-06-17T04:11:12+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "blobfolio\\mimes\\": "lib/blobfolio/mimes"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "WTFPL"
-        ],
-        "authors": [
-            {
-                "name": "Josh Stoik",
-                "email": "josh@blobfolio.com",
-                "homepage": "https://blobfolio.com"
-            }
-        ],
-        "description": "A comprehensive MIME and file extension tool for PHP.",
-        "homepage": "https://github.com/Blobfolio/blob-mimes",
-        "keywords": [
-            "extensions",
-            "files",
-            "mimes",
-            "suffix"
-        ]
-    },
-    {
         "name": "umpirsky/tld-list",
         "version": "1.0.2",
         "version_normalized": "1.0.2.0",
@@ -205,13 +12,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/umpirsky/tld-list/zipball/6ae7b5aadd2279dff2bc58c1a7407714677d72a2",
             "reference": "6ae7b5aadd2279dff2bc58c1a7407714677d72a2",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": ">=5.4"
@@ -255,13 +56,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/7053f06f91b3de78e143d430e55a8f7889efc08b",
             "reference": "7053f06f91b3de78e143d430e55a8f7889efc08b",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
@@ -355,13 +150,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
             "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
@@ -417,13 +206,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/symfony/process/zipball/ee33c0322a8fee0855afcc11fff81e6b1011b529",
             "reference": "ee33c0322a8fee0855afcc11fff81e6b1011b529",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": "^7.1.3"
@@ -474,13 +257,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/0578b32b30b22de3e8664f797cf846fc9246f786",
             "reference": "0578b32b30b22de3e8664f797cf846fc9246f786",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "doctrine/lexer": "^1.0.1",
@@ -539,13 +316,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/8ddcb66ac10c392d3beb54829eef8ac1438595f4",
             "reference": "8ddcb66ac10c392d3beb54829eef8ac1438595f4",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "egulias/email-validator": "~2.0",
@@ -606,13 +377,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/mtdowling/cron-expression/zipball/9504fa9ea681b586028adaaa0877db4aecf32bad",
             "reference": "9504fa9ea681b586028adaaa0877db4aecf32bad",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
@@ -658,13 +423,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/symfony/polyfill-util/zipball/8e15d04ba3440984d23e7964b2ee1d25c8de1581",
             "reference": "8e15d04ba3440984d23e7964b2ee1d25c8de1581",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
@@ -718,13 +477,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/symfony/polyfill-php56/zipball/7b4fc009172cc0196535b0328bd1226284a28000",
             "reference": "7b4fc009172cc0196535b0328bd1226284a28000",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": ">=5.3.3",
@@ -782,13 +535,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/d0230c5c77a7e3cfa69446febf340978540958c0",
             "reference": "d0230c5c77a7e3cfa69446febf340978540958c0",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "ext-tokenizer": "*",
@@ -841,13 +588,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/jeremeamia/super_closure/zipball/5707d5821b30b9a07acfb4d76949784aaa0e9ce9",
             "reference": "5707d5821b30b9a07acfb4d76949784aaa0e9ce9",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "nikic/php-parser": "^1.2|^2.0|^3.0|^4.0",
@@ -907,13 +648,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/jobbyphp/jobby/zipball/c2d25d9b6e7954534a291e3fb22e165822a3b69e",
             "reference": "c2d25d9b6e7954534a291e3fb22e165822a3b69e",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "jeremeamia/superclosure": "^2.2",
@@ -965,13 +700,7 @@
             "type": "zip",
             "url": "https://api.github.com/repos/mikepultz/netdns2/zipball/9596a781b4358ee7c1ee0d6b884667c6c4d9a204",
             "reference": "9596a781b4358ee7c1ee0d6b884667c6c4d9a204",
-            "shasum": "",
-            "mirrors": [
-                {
-                    "url": "https://dl.laravel-china.org/%package%/%reference%.%type%",
-                    "preferred": true
-                }
-            ]
+            "shasum": ""
         },
         "require": {
             "php": ">=5.1.2"
@@ -1003,5 +732,218 @@
             "dns",
             "network"
         ]
+    },
+    {
+        "name": "blobfolio/blob-common",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Blobfolio/blob-common.git",
+            "reference": "b2d279e0d7b0056eaa6fa5bd421d6e4626a2a8bc"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Blobfolio/blob-common/zipball/b2d279e0d7b0056eaa6fa5bd421d6e4626a2a8bc",
+            "reference": "b2d279e0d7b0056eaa6fa5bd421d6e4626a2a8bc",
+            "shasum": ""
+        },
+        "require": {
+            "blobfolio/blob-domain": "*",
+            "blobfolio/blob-mimes": "*",
+            "ext-bcmath": "*",
+            "ext-dom": "*",
+            "ext-filter": "*",
+            "ext-hash": "*",
+            "ext-json": "*",
+            "ext-mbstring": "*",
+            "php": ">= 7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "5.7.*"
+        },
+        "suggest": {
+            "blobfolio/blob-phone": "*"
+        },
+        "time": "2019-08-01T18:39:10+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "blobfolio\\common\\": "lib/blobfolio/common"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "WTFPL"
+        ],
+        "authors": [
+            {
+                "name": "Josh Stoik",
+                "email": "josh@blobfolio.com",
+                "homepage": "https://blobfolio.com"
+            }
+        ],
+        "description": "An expansive PHP toolkit with functions for sanitizing, formatting, parsing, etc.",
+        "homepage": "https://github.com/Blobfolio/blob-common",
+        "keywords": [
+            "data",
+            "formatting",
+            "parsing",
+            "php",
+            "sanitizing"
+        ]
+    },
+    {
+        "name": "blobfolio/blob-mimes",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Blobfolio/blob-mimes.git",
+            "reference": "80732d160a316162646abb62eae7e04d7503ddd5"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Blobfolio/blob-mimes/zipball/80732d160a316162646abb62eae7e04d7503ddd5",
+            "reference": "80732d160a316162646abb62eae7e04d7503ddd5",
+            "shasum": ""
+        },
+        "require": {
+            "blobfolio/blob-common": "*",
+            "ext-bcmath": "*",
+            "ext-dom": "*",
+            "ext-filter": "*",
+            "ext-hash": "*",
+            "ext-json": "*",
+            "ext-mbstring": "*",
+            "php": ">= 7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "5.7.*"
+        },
+        "time": "2019-08-01T17:19:49+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "blobfolio\\mimes\\": "lib/blobfolio/mimes"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "WTFPL"
+        ],
+        "authors": [
+            {
+                "name": "Josh Stoik",
+                "email": "josh@blobfolio.com",
+                "homepage": "https://blobfolio.com"
+            }
+        ],
+        "description": "A comprehensive MIME and file extension tool for PHP.",
+        "homepage": "https://github.com/Blobfolio/blob-mimes",
+        "keywords": [
+            "extensions",
+            "files",
+            "mimes",
+            "suffix"
+        ]
+    },
+    {
+        "name": "blobfolio/blob-domain",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Blobfolio/blob-domain.git",
+            "reference": "6a63002fafd5a067b53f8fa07f6a8b902abd932e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Blobfolio/blob-domain/zipball/6a63002fafd5a067b53f8fa07f6a8b902abd932e",
+            "reference": "6a63002fafd5a067b53f8fa07f6a8b902abd932e",
+            "shasum": ""
+        },
+        "require": {
+            "blobfolio/blob-common": "*",
+            "ext-filter": "*",
+            "ext-intl": "*",
+            "ext-json": "*",
+            "ext-mbstring": "*",
+            "php": ">= 7.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "5.7.*"
+        },
+        "time": "2019-08-01T17:13:24+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "blobfolio\\domain\\": "lib/blobfolio/domain"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "WTFPL"
+        ],
+        "authors": [
+            {
+                "name": "Josh Stoik",
+                "email": "josh@blobfolio.com",
+                "homepage": "https://blobfolio.com"
+            }
+        ],
+        "description": "Parse and validate domain names.",
+        "homepage": "https://github.com/Blobfolio/blob-domain",
+        "keywords": [
+            "Public Suffix List",
+            "domain",
+            "formatting",
+            "iana",
+            "icann",
+            "idn",
+            "php",
+            "tld"
+        ]
+    },
+    {
+        "name": "londry/trustoceanssl-composer-library",
+        "version": "v1.0.1",
+        "version_normalized": "1.0.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/londry/TrustOcean-Library-Composer.git",
+            "reference": "82458c4f62119f3f81ca69be3a43548db2afd03d"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/londry/TrustOcean-Library-Composer/zipball/82458c4f62119f3f81ca69be3a43548db2afd03d",
+            "reference": "82458c4f62119f3f81ca69be3a43548db2afd03d",
+            "shasum": ""
+        },
+        "require": {
+            "blobfolio/blob-domain": "dev-master"
+        },
+        "time": "2019-06-27T04:10:16+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Londry\\TrustOceanSSL\\": "src/TrustOceanSSL"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jason Long",
+                "email": "tanglongjun@qiaokr.com"
+            }
+        ],
+        "description": "Composer Library for TrustOcean SSL Reseller API in PHP"
     }
 ]

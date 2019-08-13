@@ -1,0 +1,21 @@
+{
+    "name": "londry/trustoceanssl-composer-library",
+    "description": "Composer Library for TrustOcean SSL Reseller API in PHP",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jason Long",
+            "email": "tanglongjun@qiaokr.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "blobfolio/blob-domain": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Londry\\TrustOceanSSL\\": "src\/TrustOceanSSL"
+        }
+    }
+}

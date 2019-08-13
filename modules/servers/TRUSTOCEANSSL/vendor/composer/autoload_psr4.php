@@ -15,6 +15,7 @@ return array(
     'Symfony\\Component\\Process\\' => array($vendorDir . '/symfony/process'),
     'SuperClosure\\' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'PhpParser\\' => array($vendorDir . '/nikic/php-parser/lib/PhpParser'),
+    'Londry\\TrustOceanSSL\\' => array($vendorDir . '/londry/trustoceanssl-composer-library/src/TrustOceanSSL'),
     'Jobby\\' => array($vendorDir . '/hellogerard/jobby/src'),
     'Egulias\\EmailValidator\\' => array($vendorDir . '/egulias/email-validator/EmailValidator'),
     'Cron\\' => array($vendorDir . '/mtdowling/cron-expression/src/Cron'),

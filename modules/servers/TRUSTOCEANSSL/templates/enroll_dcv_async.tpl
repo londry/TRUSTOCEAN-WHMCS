@@ -51,7 +51,7 @@
     <div class="section-body">
         <div class="panel panel-default ssl-container" data-inputs-container="">
             <div class="panel-body">
-                <div class="table-container loading clearfix" style="border:none;max-height: none;">
+                <div class="table-container clearfix" style="border:none;max-height: none;">
                     <table id="tableDCVDomainList" data-serviceid="{$serviceid}" class="table table-list">
                         <thead>
                             <tr>

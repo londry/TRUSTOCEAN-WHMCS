@@ -10,8 +10,6 @@
 
 namespace blobfolio\common\ref;
 
-use \blobfolio\common\constants;
-
 class file {
 
 	/**
@@ -26,22 +24,22 @@ class file {
 	 */
 	public static function idn_to_ascii(&$url) {
 		// The Intl extension has to exist.
-		if (!function_exists('idn_to_ascii')) {
+		if (! \function_exists('idn_to_ascii')) {
 			return false;
 		}
 
 		// Recurse for arrays.
-		if (is_array($url)) {
+		if (\is_array($url)) {
 			foreach ($url as $k=>$v) {
 				static::idn_to_ascii($url[$k]);
 			}
 		}
 		else {
-			if (defined('INTL_IDNA_VARIANT_UTS46')) {
-				$url = idn_to_ascii($url, 0, INTL_IDNA_VARIANT_UTS46);
+			if (\defined('INTL_IDNA_VARIANT_UTS46')) {
+				$url = \idn_to_ascii($url, 0, \INTL_IDNA_VARIANT_UTS46);
 			}
 			else {
-				$url = idn_to_ascii($url);
+				$url = \idn_to_ascii($url);
 			}
 		}
 
@@ -60,22 +58,22 @@ class file {
 	 */
 	public static function idn_to_utf8(&$url) {
 		// The Intl extension has to exist.
-		if (!function_exists('idn_to_utf8')) {
+		if (! \function_exists('idn_to_utf8')) {
 			return false;
 		}
 
 		// Recurse for arrays.
-		if (is_array($url)) {
+		if (\is_array($url)) {
 			foreach ($url as $k=>$v) {
 				static::idn_to_utf8($url[$k]);
 			}
 		}
 		else {
-			if (defined('INTL_IDNA_VARIANT_UTS46')) {
-				$url = idn_to_utf8($url, 0, INTL_IDNA_VARIANT_UTS46);
+			if (\defined('INTL_IDNA_VARIANT_UTS46')) {
+				$url = \idn_to_utf8($url, 0, \INTL_IDNA_VARIANT_UTS46);
 			}
 			else {
-				$url = idn_to_utf8($url);
+				$url = \idn_to_utf8($url);
 			}
 		}
 
@@ -86,23 +84,20 @@ class file {
 	 * Add Leading Slash
 	 *
 	 * @param string $path Path.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function leadingslash(&$path, bool $constringent=false) {
-		if (is_array($path)) {
+	public static function leadingslash(&$path) {
+		if (\is_array($path)) {
 			foreach ($path as $k=>$v) {
 				static::leadingslash($path[$k]);
 			}
 		}
 		else {
-			cast::constringent($path, $constringent);
+			cast::string($path, true);
 
-			static::unleadingslash($path, true);
+			static::unleadingslash($path);
 			$path = "/$path";
 		}
-
-		return true;
 	}
 
 	/**
@@ -110,40 +105,39 @@ class file {
 	 *
 	 * @param string $path Path.
 	 * @param bool $validate Require valid file.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return bool True/false.
 	 */
-	public static function path(&$path, bool $validate=true, bool $constringent=false) {
-		if (is_array($path)) {
+	public static function path(&$path, bool $validate=true) {
+		if (\is_array($path)) {
 			foreach ($path as $k=>$v) {
 				static::path($path[$k], $validate);
 			}
 		}
 		else {
-			cast::constringent($path, $constringent);
+			cast::string($path, true);
 
 			// This might be a URL rather than something local.
 			// Only focus on the main ones.
-			if (preg_match('/^(https?|ftps?|sftp)/iu', $path)) {
-				sanitize::url($path, true);
+			if (\preg_match('/^(https?|ftps?|sftp)/iu', $path)) {
+				sanitize::url($path);
 				return true;
 			}
 
 			// Strip leading file:// scheme.
-			if (0 === strpos($path, 'file://')) {
-				$path = substr($path, 7);
+			if (0 === \strpos($path, 'file://')) {
+				$path = \substr($path, 7);
 			}
 
-			static::unixslash($path, true);
+			static::unixslash($path);
 
 			$original = $path;
 			try {
-				$path = @realpath($path);
+				$path = @\realpath($path);
 			} catch (\Throwable $e) {
 				$path = false;
 			}
 
-			if ($validate && false === $path) {
+			if ($validate && (false === $path)) {
 				$path = false;
 				return false;
 			}
@@ -151,9 +145,9 @@ class file {
 				// Try just the directory.
 				try {
 					$path = $original;
-					if (false !== $dir = @realpath(dirname($path))) {
-						static::trailingslash($dir, true);
-						$path = $dir . basename($path);
+					if (false !== $dir = @\realpath(\dirname($path))) {
+						static::trailingslash($dir);
+						$path = $dir . \basename($path);
 					}
 					else {
 						$path = $original;
@@ -165,8 +159,8 @@ class file {
 
 			$original = $path;
 			try {
-				if (@is_dir($path)) {
-					static::trailingslash($path, true);
+				if (@\is_dir($path)) {
+					static::trailingslash($path);
 				}
 			} catch (\Throwable $e) {
 				$path = $original;
@@ -180,92 +174,81 @@ class file {
 	 * Add Trailing Slash
 	 *
 	 * @param string $path Path.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function trailingslash(&$path, bool $constringent=false) {
-		if (is_array($path)) {
+	public static function trailingslash(&$path) {
+		if (\is_array($path)) {
 			foreach ($path as $k=>$v) {
 				static::trailingslash($path[$k]);
 			}
 		}
 		else {
-			cast::constringent($path, $constringent);
+			cast::string($path, true);
 
-			static::untrailingslash($path, true);
+			static::untrailingslash($path);
 			$path .= '/';
 		}
-
-		return true;
 	}
 
 	/**
 	 * Fix Path Slashes
 	 *
 	 * @param string $path Path.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function unixslash(&$path, bool $constringent=false) {
-		if (is_array($path)) {
+	public static function unixslash(&$path) {
+		if (\is_array($path)) {
 			foreach ($path as $k=>$v) {
 				static::unixslash($path[$k]);
 			}
 		}
 		else {
-			cast::constringent($path, $constringent);
-			$path = str_replace('\\', '/', $path);
-			$path = str_replace('/./', '//', $path);
-			$path = preg_replace('/\/{2,}/u', '/', $path);
-		}
+			cast::string($path, true);
 
-		return true;
+			$path = \str_replace('\\', '/', $path);
+			$path = \str_replace('/./', '//', $path);
+			$path = \preg_replace('/\/{2,}/u', '/', $path);
+		}
 	}
 
 	/**
 	 * Strip Leading Slash
 	 *
 	 * @param string $path Path.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function unleadingslash(&$path, bool $constringent=false) {
-		if (is_array($path)) {
+	public static function unleadingslash(&$path) {
+		if (\is_array($path)) {
 			foreach ($path as $k=>$v) {
 				static::unleadingslash($path[$k]);
 			}
 		}
 		else {
-			cast::constringent($path, $constringent);
+			cast::string($path, true);
 
-			static::unixslash($path, true);
-			$path = ltrim($path, '/');
+			static::unixslash($path);
+			$path = \ltrim($path, '/');
 		}
-
-		return true;
 	}
 
 	/**
 	 * Strip Trailing Slash
 	 *
 	 * @param string $path Path.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function untrailingslash(&$path, bool $constringent=false) {
-		if (is_array($path)) {
+	public static function untrailingslash(&$path) {
+		if (\is_array($path)) {
 			foreach ($path as $k=>$v) {
 				static::untrailingslash($path[$k]);
 			}
 		}
 		else {
-			cast::constringent($path, $constringent);
+			cast::string($path, true);
 
-			static::unixslash($path, true);
-			$path = rtrim($path, '/');
+			static::unixslash($path);
+			$path = \rtrim($path, '/');
 		}
-
-		return true;
 	}
 
 }

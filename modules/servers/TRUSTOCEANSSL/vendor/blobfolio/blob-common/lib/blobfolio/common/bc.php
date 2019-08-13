@@ -31,31 +31,31 @@ class bc {
 	 * @param int $bits Bits to use.
 	 * @return string Value or 0.
 	 */
-	public static function bitwise($method, $left, $right='0', $bits=null) {
+	public static function bitwise(string $method, $left, $right='0', $bits=null) {
 		// Sanitize the operation.
-		ref\cast::string($method, true);
-		$method = strtoupper($method);
+		$method = \strtoupper($method);
 		if (isset(constants::BITWISE_OPERATORS[$method])) {
 			$method = constants::BITWISE_OPERATORS[$method];
 		}
 
-		if (!$method || !in_array($method, constants::BITWISE_OPERATORS, true)) {
+		if (! $method || ! \in_array($method, constants::BITWISE_OPERATORS, true)) {
 			return '0';
 		}
 
 		// Calculate bits.
-		if (is_null($bits)) {
-			$bits = max(static::bit_size($left), static::bit_size($right));
+		if (null === $bits) {
+			$bits = \max(static::bit_size($left), static::bit_size($right));
 		}
+
 		ref\cast::int($bits, true);
 		ref\sanitize::to_range($bits, 0);
 
 		// LEFT and RIGHT operations can be done here and now.
 		if ('LEFT' === $method) {
-			return bcmul($left, bcpow('2', $bits));
+			return \bcmul($left, \bcpow('2', $bits));
 		}
 		elseif ('RIGHT' === $method) {
-			return bcdiv($left, bcpow('2', $bits));
+			return \bcdiv($left, \bcpow('2', $bits));
 		}
 
 		// For everything else, there's binary.
@@ -70,9 +70,9 @@ class bc {
 		}
 
 		// Pad all arguments to the longest bit_size.
-		$length = max(strlen($left), strlen($right), $bits);
-		$left = sprintf("%0{$length}s", $left);
-		$right = sprintf("%0{$length}s", $right);
+		$length = \max(\strlen($left), \strlen($right), $bits);
+		$left = \sprintf("%0{$length}s", $left);
+		$right = \sprintf("%0{$length}s", $right);
 
 		// Build the output bit-by-bit.
 		$out = '';
@@ -97,7 +97,7 @@ class bc {
 		}
 		// Throw it down, flip it, and reverse it.
 		elseif ('NOT' === $method) {
-			$out = strtr($left, array('0'=>'1', '1'=>'0'));
+			$out = \strtr($left, array('0'=>'1', '1'=>'0'));
 		}
 
 		// Back to a decimal.
@@ -123,11 +123,11 @@ class bc {
 
 		$bits = 0;
 		while ($num > 0) {
-			$num = bcdiv($num, '2', 0);
+			$num = \bcdiv($num, '2', 0);
 			$bits++;
 		}
 
-		return ceil($bits / 4) * 4;
+		return \ceil($bits / 4) * 4;
 	}
 
 	/**
@@ -140,10 +140,10 @@ class bc {
 		ref\cast::string($bin, true);
 
 		$dec = '0';
-		$length = strlen($bin);
+		$length = \strlen($bin);
 		for ($x = 0; $x < $length; ++$x) {
-			$dec = bcmul($dec, '2', 0);
-			$dec = bcadd($dec, $bin[$x], 0);
+			$dec = \bcmul($dec, '2', 0);
+			$dec = \bcadd($dec, $bin[$x], 0);
 		}
 
 		return $dec;
@@ -166,20 +166,19 @@ class bc {
 	 * @param int $length Pad length.
 	 * @return string Binary.
 	 */
-	public static function decbin($dec, $length=null) {
+	public static function decbin($dec, int $length=0) {
 		ref\cast::string($dec, true);
-		ref\cast::int($length, true);
 		ref\sanitize::to_range($length, 0);
 
 		$bin = '';
 		while ($dec) {
-			$m = bcmod($dec, 2);
-			$dec = bcdiv($dec, 2, 0);
-			$bin = abs($m) . $bin;
+			$m = \bcmod($dec, 2);
+			$dec = \bcdiv($dec, 2, 0);
+			$bin = \abs($m) . $bin;
 		}
 
 		if ($length) {
-			return sprintf("%0{$length}s", $bin);
+			return \sprintf("%0{$length}s", $bin);
 		}
 
 		return $bin ? $bin : '0';
@@ -192,15 +191,15 @@ class bc {
 	 * @return string Hex.
 	 */
 	public static function dechex($dec) {
-		$last = bcmod($dec, 16);
-		$remain = bcdiv(bcsub($dec, $last, 0), 16, 0);
+		$last = \bcmod($dec, 16);
+		$remain = \bcdiv(\bcsub($dec, $last, 0), 16, 0);
 
 		// The easy way.
 		if ('0' === $remain) {
-			return dechex($last);
+			return \dechex($last);
 		}
 
-		return static::dechex($remain) . dechex($last);
+		return static::dechex($remain) . \dechex($last);
 	}
 
 	/**
@@ -213,13 +212,13 @@ class bc {
 		ref\cast::string($hex, true);
 
 		// Do it the easy way.
-		if (1 === strlen($hex)) {
-			return hexdec($hex);
+		if (1 === \strlen($hex)) {
+			return \hexdec($hex);
 		}
 
-		$remain = substr($hex, 0, -1);
-		$last = substr($hex, -1);
-		return bcadd(bcmul(16, static::hexdec($remain), 0), hexdec($last), 0);
+		$remain = \substr($hex, 0, -1);
+		$last = \substr($hex, -1);
+		return \bcadd(\bcmul(16, static::hexdec($remain), 0), \hexdec($last), 0);
 	}
 
 }

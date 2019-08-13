@@ -3,11 +3,11 @@
     "description": "COMODO SSL / TRUSTOCEAN SSL MODULE FOR WHMCS",
     "type": "project",
     "require": {
-        "blobfolio/blob-domain": "^8.0",
         "umpirsky/tld-list": "^1.0",
         "phpseclib/phpseclib": "^2.0",
         "hellogerard/jobby": "^3.4",
-        "pear/Net_DNS2": "^1.4"
+        "pear/Net_DNS2": "^1.4",
+        "londry/trustoceanssl-composer-library": "^1.0"
     },
     "license": "QiaoKr OpenSource License 2",
     "authors": [
@@ -16,5 +16,5 @@
             "email": "tanglongjun@qiaokr.com"
         }
     ],
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

@@ -34,6 +34,10 @@ class ComposerStaticInit47cba1dbd06ef14ace64172ca648bdd9
         array (
             'PhpParser\\' => 10,
         ),
+        'L' => 
+        array (
+            'Londry\\TrustOceanSSL\\' => 21,
+        ),
         'J' => 
         array (
             'Jobby\\' => 6,
@@ -84,6 +88,10 @@ class ComposerStaticInit47cba1dbd06ef14ace64172ca648bdd9
         'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
+        ),
+        'Londry\\TrustOceanSSL\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/londry/trustoceanssl-composer-library/src/TrustOceanSSL',
         ),
         'Jobby\\' => 
         array (

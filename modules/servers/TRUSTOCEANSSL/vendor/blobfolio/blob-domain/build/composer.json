@@ -1,0 +1,34 @@
+{
+  "name": "blob-domain\/bob",
+  "description": "Build blob-domain package.",
+  "version": "0.1",
+  "type": "library",
+  "homepage": "https:\/\/github.com\/Blobfolio\/blob-domain",
+  "license": "WTFPL",
+  "authors": [
+    {
+      "name": "Josh Stoik",
+      "email": "josh@blobfolio.com",
+      "homepage": "https:\/\/blobfolio.com"
+    }
+  ],
+  "require": {
+    "php": ">= 7.0",
+    "blobfolio\/bob": "dev-master"
+  },
+  "config": {
+    "vendor-dir": "lib\/vendor",
+    "preferred-install": "dist"
+  },
+  "scripts": {
+    "post-update-cmd": "blobfolio\\bob\\himself::install",
+    "post-install-cmd": "blobfolio\\bob\\himself::install"
+  },
+  "minimum-stability": "dev",
+  "autoload": {
+    "psr-4": {
+      "blobfolio\\dev\\":"builders"
+    },
+  "files": []
+  }
+}

@@ -39,9 +39,10 @@
             {$MODLANG.trustoceanssl.enroll.setup3.dcvhttps2}</p>
     </div>
     <div class="section-body">
+        <form action="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=ajaxTrySubmittoca" method="post">
         <div class="panel panel-default" data-inputs-container="">
             <div class="panel-body">
-                <div class="table-container loading clearfix" style="border:none;max-height: none;">
+                <div class="table-container clearfix" style="border:none;max-height: none;">
                     <table id="tableDCVDomainList" class="table table-list">
                         <thead>
                             <tr>
@@ -68,14 +69,14 @@
                                 <td style="display: flex;">
                                 {*<form style="display: flex;" action="{$smarty.server.PHP_SELF}?action=productdetails&id={$vars.serviceid}&modop=custom&a=setdcvforall" method="post">*}
                                  <select name="domaindcvmathod" {if $domain === $vars.domains.0}data-maindcv="true"{else}data-sandcv="true"{/if} dcv-cert-id={$serviceid} dcv-domain-name={$domain} dcv-domain={$domain|md5} class="form-control input-sm" style="width: 120px; text-align: center;" {if $info.method neq 'email'}{if $info.status eq 'verified'}disabled{/if}{/if}>
-                                     <option data-method="dns" value="dns" {if $info.method eq 'dns'}selected="selected"{/if} {if $info.isip eq 'true'}disabled{/if} {if $info.isip eq 'true'}style="display:none;"{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.dns}</option>
-                                     <option data-method="http" value="http" {if $info.method eq 'http'}selected="selected"{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.http}</option>
-                                     <option data-method="https" value="https" {if $info.method eq 'https'}selected="selected"{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.https}</option>
+                                     <option data-method="dns" value="dns" {if $info.method eq 'dns'}selected{/if} {if $info.isip eq 'true'}disabled{/if} {if $info.isip eq 'true'}style="display:none;"{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.dns}</option>
+                                     <option data-method="http" value="http" {if $info.method eq 'http'}selected{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.http}</option>
+                                     <option data-method="https" value="https" {if $info.method eq 'https'}selected{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.https}</option>
                                     {if $info.isip eq 'false'}
                                         <option disabled> {$MODLANG.trustoceanssl.enroll.setup3.table.dcv.emaildesc}</option>
                                         {foreach from=$info.dcvemails key=emailkey item=email}
                                             {assign var=emailVar value="@"|explode:$email}
-                                            <option value="{$email}" data-method="email" data-mailname="{$emailVar.0}" data-emailkey="{$emailkey}" data-maildomain="{$emailVar.1}" {if $info.email}{if $info.email eq $email}selected="selected"{/if}{/if}>{$email}</option>
+                                            <option value="{$email}" data-method="email" data-mailname="{$emailVar.0}" data-emailkey="{$emailkey}" data-maildomain="{$emailVar.1}" {if $info.email}{if $info.email eq $email}selected{/if}{/if}>{$email}</option>
                                         {/foreach}
                                     {/if}
                                  </select>
@@ -128,8 +129,56 @@
                         {/foreach}
                         {literal}
                         <script>
-                            function selectAllDcvMethod(){var b=$("select[data-maindcv] option:selected").attr("data-method");if("email"===b){var c=$("select[data-maindcv] option:selected");$("select[data-sandcv]").each(function(){var a=$(this).children("option[data-emailkey="+c.attr("data-emailkey")+"]");$(a).each(function(){$(this).attr("selected",!0).trigger("change")})})}"dns"===b&&(c=$("select[data-maindcv] option:selected"),$("select[data-sandcv]").each(function(){var a=$(this).children("option[data-method=dns]");$(a).each(function(){$(this).attr("selected",
-!0).trigger("change")})}));"http"===b&&(c=$("select[data-maindcv] option:selected"),$("select[data-sandcv]").each(function(){var a=$(this).children("option[data-method=http]");$(a).each(function(){$(this).attr("selected",!0).trigger("change")})}));"https"===b&&(c=$("select[data-maindcv] option:selected"),$("select[data-sandcv]").each(function(){var a=$(this).children("option[data-method=https]");$(a).each(function(){$(this).attr("selected",!0).trigger("change")})}))};
+                            function selectAllDcvMethod() {
+                                var b = $("select[data-maindcv] option:selected").attr("data-method");
+                                console.log(b);
+                                if ("email" === b) {
+                                    var c = $("select[data-maindcv] option:selected");
+                                    $("select[data-sandcv]").each(function() {
+                                        var a = $(this).children("option");
+                                        $(a).each(function() {
+                                            if($(this).attr("data-emailkey") === c.attr("data-emailkey")){
+                                                $(this).attr("selected", !0).trigger("change")
+                                            }else{
+                                                $(this).removeAttr("selected").trigger("change")
+                                            }
+                                        })
+                                    })
+                                }
+                                if("dns" === b){
+                                    $("select[data-sandcv]").each(function() {
+                                    var a = $(this).children("option");
+                                    $(a).each(function() {
+                                        if($(this).attr("data-method") === "dns"){
+                                            $(this).attr("selected", !0).trigger("change")
+                                        }else{
+                                            $(this).removeAttr("selected").trigger("change")
+                                        }
+                                    })
+                                })}
+                                if("http" === b){
+                                    $("select[data-sandcv]").each(function() {
+                                    var a = $(this).children("option");
+                                    $(a).each(function() {
+                                        if($(this).attr("data-method") === "http"){
+                                            $(this).attr("selected", !0).trigger("change")
+                                        }else{
+                                            $(this).removeAttr("selected").trigger("change")
+                                        }
+                                    })
+                                })}
+                                if("https" === b){
+                                    $("select[data-sandcv]").each(function() {
+                                    var a = $(this).children("option");
+                                    $(a).each(function() {
+                                        if($(this).attr("data-method") === "https"){
+                                            $(this).attr("selected", !0).trigger("change")
+                                        }else{
+                                            $(this).removeAttr("selected").trigger("change")
+                                        }
+                                    })
+                                })}
+                            }
                         </script>
                         {/literal}
                         </tbody>
@@ -140,7 +189,8 @@
         <p style="color: #909090;">
             {$MODLANG.trustoceanssl.enroll.setup3.table.dcv.submit.desc}</p>
         <div class="form-actions">
-            <a class="btn btn-primary" onclick="trySubmitToCA(this)" data-serviceid="{$serviceid}" data-loading-text="请稍等..." style="margin-right: 30px;"/>{$MODLANG.trustoceanssl.enroll.setup3.table.dcv.submit.btn}</a>
+            <button type="submit" class="btn btn-primary"  data-serviceid="{$serviceid}" data-loading-text="请稍等..." style="margin-right: 30px;"/>{$MODLANG.trustoceanssl.enroll.setup3.table.dcv.submit.btn}</a>
         </div>
+        </form>
     </div>
 </div>

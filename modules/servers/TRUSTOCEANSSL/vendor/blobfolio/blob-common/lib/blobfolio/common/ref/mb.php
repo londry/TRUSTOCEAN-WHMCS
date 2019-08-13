@@ -10,8 +10,8 @@
 
 namespace blobfolio\common\ref;
 
-use \blobfolio\common\constants;
-use \blobfolio\common\mb as v_mb;
+use blobfolio\common\constants;
+use blobfolio\common\mb as v_mb;
 
 class mb {
 
@@ -22,32 +22,31 @@ class mb {
 	 * @param int $pad_length Pad length.
 	 * @param string $pad_string Pad string.
 	 * @param int $pad_type Pad type.
-	 * @param bool $constringent Light cast.
-	 * @return bool True/false.
+	 * @return void Nothing.
 	 */
-	public static function str_pad(&$str='', int $pad_length, $pad_string=' ', int $pad_type=STR_PAD_RIGHT, bool $constringent=false) {
-		cast::constringent($str, $constringent);
+	public static function str_pad(&$str, int $pad_length, $pad_string=' ', int $pad_type=\STR_PAD_RIGHT) {
+		cast::string($str, true);
 		cast::string($pad_string, true);
 
-		$current_length = v_mb::strlen($str, true);
-		$pad_string_length = v_mb::strlen($pad_string, true);
+		$current_length = v_mb::strlen($str);
+		$pad_string_length = v_mb::strlen($pad_string);
 
-		if ($pad_length <= $current_length || !$pad_string_length) {
-			return true;
+		if ($pad_length <= $current_length || ! $pad_string_length) {
+			return;
 		}
 
 		// Pad left.
-		if (STR_PAD_LEFT === $pad_type) {
-			$str = str_repeat($pad_string, ceil(($pad_length - $current_length) / $pad_string_length)) . $str;
-			$new_length = v_mb::strlen($str, true);
+		if (\STR_PAD_LEFT === $pad_type) {
+			$str = \str_repeat($pad_string, \ceil(($pad_length - $current_length) / $pad_string_length)) . $str;
+			$new_length = v_mb::strlen($str);
 			if ($new_length > $pad_length) {
-				$str = v_mb::substr($str, $new_length - $pad_length, null, true);
+				$str = v_mb::substr($str, $new_length - $pad_length, null);
 			}
 		}
 		// Pad both.
-		elseif (STR_PAD_BOTH === $pad_type) {
+		elseif (\STR_PAD_BOTH === $pad_type) {
 			$leftright = 'right';
-			while (v_mb::strlen($str, true) < $pad_length) {
+			while (v_mb::strlen($str) < $pad_length) {
 				$leftright = 'left' === $leftright ? 'right' : 'left';
 				if ('left' === $leftright) {
 					$str = "{$pad_string}{$str}";
@@ -57,26 +56,24 @@ class mb {
 				}
 			}
 
-			$new_length = v_mb::strlen($str, true);
+			$new_length = v_mb::strlen($str);
 			if ($new_length > $pad_length) {
 				if ('left' === $leftright) {
-					$str = v_mb::substr($str, $new_length - $pad_length, null, true);
+					$str = v_mb::substr($str, $new_length - $pad_length, null);
 				}
 				else {
-					$str = v_mb::substr($str, 0, $pad_length, true);
+					$str = v_mb::substr($str, 0, $pad_length);
 				}
 			}
 		}
 		// Pad right.
 		else {
-			$str .= str_repeat($pad_string, ceil(($pad_length - $current_length) / $pad_string_length));
-			$new_length = v_mb::strlen($str, true);
+			$str .= \str_repeat($pad_string, \ceil(($pad_length - $current_length) / $pad_string_length));
+			$new_length = v_mb::strlen($str);
 			if ($new_length > $pad_length) {
-				$str = v_mb::substr($str, 0, $pad_length, true);
+				$str = v_mb::substr($str, 0, $pad_length);
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -84,25 +81,24 @@ class mb {
 	 *
 	 * @param string $str String.
 	 * @param int $split_length Split length.
-	 * @param bool $constringent Light cast.
 	 * @return bool True/false.
 	 */
-	public static function str_split(&$str, int $split_length=1, bool $constringent=false) {
+	public static function str_split(&$str, int $split_length=1) {
 		if ($split_length < 1) {
 			$str = false;
 			return false;
 		}
 
-		cast::constringent($str, $constringent);
+		cast::string($str, true);
 
-		$str_length = v_mb::strlen($str, true);
-		$out = array();
-
-		for ($i = 0; $i < $str_length; $i += $split_length) {
-			$out[] = v_mb::substr($str, $i, $split_length, true);
+		if (1 === $split_length) {
+			\preg_match_all('/./us', $str, $matches);
+		}
+		else {
+			\preg_match_all("/.{1,$split_length}/us", $str, $matches);
 		}
 
-		$str = $out;
+		$str = ! empty($matches[0]) ? $matches[0] : array();
 		return true;
 	}
 
@@ -110,18 +106,17 @@ class mb {
 	 * Wrapper For strrev()
 	 *
 	 * @param string $str String.
-	 * @param bool $constringent Light cast.
 	 * @return bool True/false.
 	 */
-	public static function strrev(&$str, bool $constringent=false) {
-		cast::constringent($str, $constringent);
+	public static function strrev(&$str) {
+		cast::string($str, true);
 
-		if (!$str) {
+		if (! $str) {
 			return false;
 		}
 
-		preg_match_all('/./us', $str, $arr);
-		$str = implode('', array_reverse($arr[0]));
+		\preg_match_all('/./us', $str, $arr);
+		$str = \implode('', \array_reverse($arr[0]));
 
 		return true;
 	}
@@ -134,40 +129,37 @@ class mb {
 	 *
 	 * @param string $str String.
 	 * @param bool $strict Strict.
-	 * @param bool $constringent Light cast.
-	 * @return string String.
+	 * @return void Nothing.
 	 */
-	public static function strtolower(&$str='', bool $strict=false, bool $constringent=false) {
-		if (is_array($str)) {
+	public static function strtolower(&$str, bool $strict=false) {
+		if (\is_array($str)) {
 			foreach ($str as $k=>$v) {
 				static::strtolower($str[$k], $strict);
 			}
 		}
-		elseif (!$strict || is_string($str)) {
-			cast::constringent($str, $constringent);
+		elseif (! $strict || \is_string($str)) {
+			cast::string($str, true);
 
 			if ($str) {
 				if (
-					function_exists('mb_strtolower') &&
+					\function_exists('mb_strtolower') &&
 					(
-						!function_exists('mb_check_encoding') ||
-						!mb_check_encoding($str, 'ASCII')
+						! \function_exists('mb_check_encoding') ||
+						! \mb_check_encoding($str, 'ASCII')
 					)
 				) {
-					$str = mb_strtolower($str, 'UTF-8');
+					$str = \mb_strtolower($str, 'UTF-8');
 
 					// Replace some extra characters.
-					$from = array_keys(constants::CASE_CHARS);
-					$to = array_values(constants::CASE_CHARS);
-					$str = str_replace($from, $to, $str);
+					$from = \array_keys(constants::CASE_CHARS);
+					$to = \array_values(constants::CASE_CHARS);
+					$str = \str_replace($from, $to, $str);
 				}
 				else {
-					$str = strtolower($str);
+					$str = \strtolower($str);
 				}
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -178,40 +170,37 @@ class mb {
 	 *
 	 * @param string $str String.
 	 * @param bool $strict Strict.
-	 * @param bool $constringent Light cast.
-	 * @return string String.
+	 * @return void Nothing.
 	 */
-	public static function strtoupper(&$str='', bool $strict=false, bool $constringent=false) {
-		if (is_array($str)) {
+	public static function strtoupper(&$str, bool $strict=false) {
+		if (\is_array($str)) {
 			foreach ($str as $k=>$v) {
 				static::strtoupper($str[$k], $strict);
 			}
 		}
-		elseif (!$strict || is_string($str)) {
-			cast::constringent($str, $constringent);
+		elseif (! $strict || \is_string($str)) {
+			cast::string($str, true);
 
 			if ($str) {
 				if (
-					function_exists('mb_strtoupper') &&
+					\function_exists('mb_strtoupper') &&
 					(
-						!function_exists('mb_check_encoding') ||
-						!mb_check_encoding($str, 'ASCII')
+						! \function_exists('mb_check_encoding') ||
+						! \mb_check_encoding($str, 'ASCII')
 					)
 				) {
-					$str = mb_strtoupper($str, 'UTF-8');
+					$str = \mb_strtoupper($str, 'UTF-8');
 
 					// Replace some extra characters.
-					$to = array_keys(constants::CASE_CHARS);
-					$from = array_values(constants::CASE_CHARS);
-					$str = str_replace($from, $to, $str);
+					$to = \array_keys(constants::CASE_CHARS);
+					$from = \array_values(constants::CASE_CHARS);
+					$str = \str_replace($from, $to, $str);
 				}
 				else {
-					$str = strtoupper($str);
+					$str = \strtoupper($str);
 				}
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -220,23 +209,18 @@ class mb {
 	 * Trim all whitespacey bits from both ends.
 	 *
 	 * @param string $str String.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function trim(&$str='', bool $constringent=false) {
-		if (is_array($str)) {
+	public static function trim(&$str='') {
+		if (\is_array($str)) {
 			foreach ($str as $k=>$v) {
 				static::trim($str[$k]);
 			}
 		}
 		else {
-			cast::constringent($str, $constringent);
-
-			$str = preg_replace('/^\s+/u', '', $str);
-			$str = preg_replace('/\s+$/u', '', $str);
+			cast::string($str, true);
+			$str = \preg_replace('/(^\s+|\s+$)/u', '', $str);
 		}
-
-		return true;
 	}
 
 	/**
@@ -247,37 +231,34 @@ class mb {
 	 *
 	 * @param string $str String.
 	 * @param bool $strict Strict.
-	 * @param bool $constringent Light cast.
-	 * @return string String.
+	 * @return void Nothing.
 	 */
-	public static function ucfirst(&$str='', bool $strict=false, bool $constringent=false) {
-		if (is_array($str)) {
+	public static function ucfirst(&$str, bool $strict=false) {
+		if (\is_array($str)) {
 			foreach ($str as $k=>$v) {
 				static::ucfirst($str[$k], $strict);
 			}
 		}
-		elseif (!$strict || is_string($str)) {
-			cast::constringent($str, $constringent);
+		elseif (! $strict || \is_string($str)) {
+			cast::string($str, true);
 
 			if ($str) {
 				if (
-					function_exists('mb_substr') &&
+					\function_exists('mb_substr') &&
 					(
-						!function_exists('mb_check_encoding') ||
-						!mb_check_encoding($str, 'ASCII')
+						! \function_exists('mb_check_encoding') ||
+						! \mb_check_encoding($str, 'ASCII')
 					)
 				) {
-					$first = v_mb::substr($str, 0, 1, true);
-					static::strtoupper($first, false, true);
-					$str = $first . v_mb::substr($str, 1, null, true);
+					$first = v_mb::substr($str, 0, 1);
+					static::strtoupper($first, false);
+					$str = $first . v_mb::substr($str, 1, null);
 				}
 				else {
-					$str = ucfirst($str);
+					$str = \ucfirst($str);
 				}
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -288,53 +269,31 @@ class mb {
 	 *
 	 * @param string $str String.
 	 * @param bool $strict Strict.
-	 * @param bool $constringent Light cast.
-	 * @return string String.
+	 * @return void Nothing.
 	 */
-	public static function ucwords(&$str='', bool $strict=false, bool $constringent=false) {
-		if (is_array($str)) {
+	public static function ucwords(&$str, bool $strict=false) {
+		if (\is_array($str)) {
 			foreach ($str as $k=>$v) {
 				static::ucwords($str[$k], $strict);
 			}
 		}
-		elseif (!$strict || is_string($str)) {
-			cast::constringent($str, $constringent);
+		elseif (! $strict || \is_string($str)) {
+			cast::string($str, true);
 
 			if ($str) {
-				// Don't use the built-in case functions as those
-				// kinda suck. Instead let's adjust manually.
-				$extra = array();
-
 				// The first letter.
-				preg_match_all('/^(\p{L})/u', $str, $matches);
-				if (count($matches[0])) {
-					static::strtoupper($matches[1][0], false, true);
-					if ($matches[0][0] !== $matches[1][0]) {
-						$extra[$matches[0][0]] = $matches[1][0];
-					}
-				}
+				$str = \preg_replace_callback('/^(\p{L})/u', function($matches) {
+					static::strtoupper($matches[0]);
+					return $matches[0];
+				}, $str);
 
 				// Any letter following a dash, space, or forward slash.
-				preg_match_all('/(\s|\p{Pd}|\/)(.)/u', $str, $matches);
-				if (count($matches[0])) {
-					foreach ($matches[0] as $k=>$v) {
-						static::strtoupper($matches[2][$k], false, true);
-						$new = $matches[1][$k] . $matches[2][$k];
-						if ($v !== $new) {
-							$extra[$v] = $new;
-						}
-					}
-				}
-
-				// Make replacement(s).
-				if (count($extra)) {
-					$extra = array_unique($extra);
-					$str = str_replace(array_keys($extra), array_values($extra), $str);
-				}
+				$str = \preg_replace_callback('/(\s|\p{Pd}|\/)(.)/u', function($matches) {
+					static::strtoupper($matches[2], false);
+					return $matches[1] . $matches[2];
+				}, $str);
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -348,33 +307,32 @@ class mb {
 	 * @param int $width Width.
 	 * @param string $break Break.
 	 * @param bool $cut Cut.
-	 * @param bool $constringent Light cast.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function wordwrap(&$str, int $width=75, $break="\n", bool $cut=false, bool $constringent=false) {
-		cast::constringent($str, $constringent);
+	public static function wordwrap(&$str, int $width=75, $break="\n", bool $cut=false) {
+		cast::string($str, true);
 		cast::string($break, true);
 
 		// Bad data?
-		if (!$str || $width <= 0) {
-			return true;
+		if (! $str || $width <= 0) {
+			return;
 		}
 
 		// No mbstring?
-		if (!function_exists('mb_substr')) {
-			$str = wordwrap($str, $width, $break, $cut);
-			return true;
+		if (! \function_exists('mb_substr')) {
+			$str = \wordwrap($str, $width, $break, $cut);
+			return;
 		}
 
 		// First, split on horizontal whitespace.
-		$chunks = preg_split('/([\s$]+)/uS', trim($str), -1, PREG_SPLIT_DELIM_CAPTURE);
+		$chunks = \preg_split('/([\s$]+)/uS', \trim($str), -1, \PREG_SPLIT_DELIM_CAPTURE);
 		$lines = array('');
 		$line = 0;
 
 		// Loop through chunks.
 		foreach ($chunks as $v) {
 			// Always start a new line with vertical whitespace.
-			if (preg_match('/\v/u', $v)) {
+			if (\preg_match('/\v/u', $v)) {
 				$line++;
 				$lines[$line] = $v;
 				$line++;
@@ -383,20 +341,20 @@ class mb {
 			}
 
 			// Always append horizontal whitespace.
-			if (preg_match('/\h/u', $v)) {
+			if (\preg_match('/\h/u', $v)) {
 				$lines[$line] .= $v;
 				continue;
 			}
 
 			// Start a new line?
-			$line_length = v_mb::strlen($lines[$line], true);
+			$line_length = v_mb::strlen($lines[$line]);
 			if ($line_length >= $width) {
 				$line++;
 				$lines[$line] = '';
 				$line_length = 0;
 			}
 
-			$word_length = v_mb::strlen($v, true);
+			$word_length = v_mb::strlen($v);
 
 			// We can just add it.
 			if ($word_length + $line_length <= $width) {
@@ -407,19 +365,29 @@ class mb {
 			// We should make sure each chunk fits.
 			if ($cut) {
 				static::str_split($v, $width);
-				$v = implode("\n", $v);
+				$v = \implode("\n", $v);
 			}
 
 			// Is this word hyphenated or dashed?
-			$v = preg_replace('/(\p{Pd})\n/u', '$1', $v);
-			$v = preg_replace('/(\p{Pd}+)/u', "$1\n", $v);
-			static::trim($v);
+			$v = \preg_replace(
+				array(
+					'/(\p{Pd})\n/u',
+					'/(\p{Pd}+)/u',
+					'/(^\s+|\s+$)/u',
+				),
+				array(
+					'$1',
+					"$1\n",
+					'',
+				),
+				$v
+			);
 
 			// Loop through word chunks to see what fits where.
-			$v = explode("\n", $v);
+			$v = \explode("\n", $v);
 			foreach ($v as $v2) {
-				$word_length = v_mb::strlen($v2, true);
-				$line_length = v_mb::strlen($lines[$line], true);
+				$word_length = v_mb::strlen($v2);
+				$line_length = v_mb::strlen($lines[$line]);
 
 				// New line?
 				if ($word_length + $line_length > $width) {
@@ -434,22 +402,24 @@ class mb {
 		// Okay, let's trim our lines real quick.
 		foreach ($lines as $k=>$v) {
 			// Ignore vertical space, unless it matches the breaker.
-			if (preg_match('/\v/u', $v)) {
+			if (\preg_match('/\v/u', $v)) {
 				// Don't need to double it.
 				if ($v === $break) {
 					unset($lines[$k]);
 				}
-				$lines[$k] = preg_replace('/^' . preg_quote($break, '/') . '/ui', '', $v);
+				$lines[$k] = \preg_replace(
+					'/^' . \preg_quote($break, '/') . '/ui',
+					'',
+					$v
+				);
 				continue;
 			}
 
-			static::trim($lines[$k], true);
+			static::trim($lines[$k]);
 		}
 
 		// Finally, join our lines by the delimiter.
-		$str = implode($break, $lines);
-		static::trim($str, true);
-
-		return true;
+		$str = \implode($break, $lines);
+		static::trim($str);
 	}
 }

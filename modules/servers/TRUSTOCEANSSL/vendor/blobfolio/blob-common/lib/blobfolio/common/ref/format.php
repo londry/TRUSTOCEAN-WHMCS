@@ -10,15 +10,15 @@
 
 namespace blobfolio\common\ref;
 
-use \blobfolio\common\bc;
-use \blobfolio\common\constants;
-use \blobfolio\common\data;
-use \blobfolio\common\file as v_file;
-use \blobfolio\common\format as v_format;
-use \blobfolio\common\mb as v_mb;
-use \blobfolio\common\sanitize as v_sanitize;
-use \blobfolio\domain\domain;
-use \blobfolio\phone\phone;
+use blobfolio\common\bc;
+use blobfolio\common\constants;
+use blobfolio\common\data;
+use blobfolio\common\file as v_file;
+use blobfolio\common\format as v_format;
+use blobfolio\common\mb as v_mb;
+use blobfolio\common\sanitize as v_sanitize;
+use blobfolio\domain\domain;
+use blobfolio\phone\phone;
 
 class format {
 
@@ -29,7 +29,7 @@ class format {
 	 * level.
 	 *
 	 * @param array $arr Array.
-	 * @return array Values.
+	 * @return void Nothing.
 	 */
 	public static function array_flatten(&$arr) {
 		$out = array();
@@ -37,7 +37,7 @@ class format {
 		cast::array($arr);
 		foreach ($arr as $v) {
 			// Recurse arrays.
-			if (is_array($v)) {
+			if (\is_array($v)) {
 				static::array_flatten($v);
 				foreach ($v as $v2) {
 					$out[] = $v2;
@@ -49,7 +49,6 @@ class format {
 		}
 
 		$arr = $out;
-		return true;
 	}
 
 	/**
@@ -61,11 +60,11 @@ class format {
 	 * ordering.
 	 *
 	 * @param array $arr Array.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
 	public static function array_to_indexed(&$arr) {
 		cast::array($arr);
-		if (count($arr)) {
+		if (\count($arr)) {
 			$out = array();
 			foreach ($arr as $k=>$v) {
 				$out[] = array(
@@ -75,8 +74,6 @@ class format {
 			}
 			$arr = $out;
 		}
-
-		return true;
 	}
 
 	/**
@@ -84,10 +81,10 @@ class format {
 	 *
 	 * @param float $num Number.
 	 * @param int $precision Precision.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
 	public static function ceil(&$num, int $precision=0) {
-		if (is_array($num)) {
+		if (\is_array($num)) {
 			foreach ($num as $k=>$v) {
 				static::ceil($num[$k], $precision);
 			}
@@ -97,9 +94,8 @@ class format {
 			sanitize::to_range($precision, 0);
 
 			$precision = (10 ** $precision);
-			$num = ceil($num * $precision) / $precision;
+			$num = \ceil($num * $precision) / $precision;
 		}
-		return true;
 	}
 
 	/**
@@ -108,20 +104,11 @@ class format {
 	 * Decode escape and unicode chars.
 	 *
 	 * @param string $str String.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function decode_js_entities(&$str='') {
-		// Lock UTF-8 Casting.
-		$lock = constants::$str_lock;
-		constants::$str_lock = false;
-
-		cast::string($str, true);
-
+	public static function decode_js_entities(&$str) {
 		static::decode_unicode_entities($str);
 		static::decode_escape_entities($str);
-
-		constants::$str_lock = $lock;
-		return true;
 	}
 
 	/**
@@ -130,31 +117,23 @@ class format {
 	 * Decode \b, \f, \n, \r, \t.
 	 *
 	 * @param string $str String.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function decode_escape_entities(&$str='') {
-		// Lock UTF-8 Casting.
-		$lock = constants::$str_lock;
-		constants::$str_lock = false;
-
+	public static function decode_escape_entities(&$str) {
 		cast::string($str, true);
 
 		$replacements = array(
-			'\b'=>chr(0x08),
-			'\f'=>chr(0x0C),
-			'\n'=>chr(0x0A),
-			'\r'=>chr(0x0D),
-			'\t'=>chr(0x09),
+			'\b'=>\chr(0x08),
+			'\f'=>\chr(0x0C),
+			'\n'=>\chr(0x0A),
+			'\r'=>\chr(0x0D),
+			'\t'=>\chr(0x09),
 		);
-		$str = str_replace(
-			array_keys($replacements),
-			array_values($replacements),
+		$str = \str_replace(
+			\array_keys($replacements),
+			\array_values($replacements),
 			$str
 		);
-
-		constants::$str_lock = $lock;
-
-		return true;
 	}
 
 	/**
@@ -163,31 +142,23 @@ class format {
 	 * Decode \u1234 into chars.
 	 *
 	 * @param string $str String.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function decode_unicode_entities(&$str='') {
-		// Lock UTF-8 Casting.
-		$lock = constants::$str_lock;
-		constants::$str_lock = false;
-
+	public static function decode_unicode_entities(&$str) {
 		cast::string($str, true);
 
 		$last = '';
-		$class = get_called_class();
 		while ($str !== $last) {
 			$last = $str;
 
-			$str = preg_replace_callback(
+			$str = \preg_replace_callback(
 				'/\\\u([0-9A-Fa-f]{4})/u',
-				array($class, 'decode_entities_hex'),
+				array(static::class, 'decode_entities_hex'),
 				$str
 			);
 
 			cast::string($str, true);
 		}
-
-		constants::$str_lock = $lock;
-		return true;
 	}
 
 	/**
@@ -197,28 +168,21 @@ class format {
 	 * recursively until every last one is captured.
 	 *
 	 * @param string $str String.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function decode_entities(&$str='') {
-		// Force UTF-8 Casting.
-		$lock = constants::$str_lock;
-		constants::$str_lock = false;
-
+	public static function decode_entities(&$str) {
 		cast::string($str, true);
 
 		$last = '';
 		while ($str !== $last) {
 			$last = $str;
 
-			$str = html_entity_decode($str, ENT_QUOTES, 'UTF-8');
-			$str = preg_replace_callback('/&#([0-9]+);/', array(get_called_class(), 'decode_entities_chr'), $str);
-			$str = preg_replace_callback('/&#[Xx]([0-9A-Fa-f]+);/', array(get_called_class(), 'decode_entities_hex'), $str);
+			$str = \html_entity_decode($str, \ENT_QUOTES, 'UTF-8');
+			$str = \preg_replace_callback('/&#([0-9]+);/', array(static::class, 'decode_entities_chr'), $str);
+			$str = \preg_replace_callback('/&#[Xx]([0-9A-Fa-f]+);/', array(static::class, 'decode_entities_hex'), $str);
 
 			cast::string($str, true);
 		}
-
-		constants::$str_lock = $lock;
-		return true;
 	}
 
 	/**
@@ -228,7 +192,7 @@ class format {
 	 * @return string ASCII.
 	 */
 	protected static function decode_entities_chr($matches) {
-		return chr($matches[1]);
+		return \chr($matches[1]);
 	}
 
 	/**
@@ -238,7 +202,7 @@ class format {
 	 * @return string ASCII.
 	 */
 	protected static function decode_entities_hex($matches) {
-		return chr(hexdec($matches[1]));
+		return \chr(\hexdec($matches[1]));
 	}
 
 	/**
@@ -246,10 +210,10 @@ class format {
 	 *
 	 * @param float $num Number.
 	 * @param int $precision Precision.
-	 * @return float Number.
+	 * @return void Nothing.
 	 */
 	public static function floor(&$num, int $precision=0) {
-		if (is_array($num)) {
+		if (\is_array($num)) {
 			foreach ($num as $k=>$v) {
 				static::floor($num[$k], $precision);
 			}
@@ -259,10 +223,8 @@ class format {
 			sanitize::to_range($precision, 0);
 
 			$precision = (10 ** $precision);
-			$num = floor($num * $precision) / $precision;
+			$num = \floor($num * $precision) / $precision;
 		}
-
-		return true;
 	}
 
 	/**
@@ -274,10 +236,10 @@ class format {
 	 *
 	 * @param float $num Number.
 	 * @param float $precision Precision.
-	 * @return string Fraction.
+	 * @return void Nothing.
 	 */
 	public static function fraction(&$num, float $precision=0.0001) {
-		if (is_array($num)) {
+		if (\is_array($num)) {
 			foreach ($num as $k=>$v) {
 				static::fraction($num[$k], $precision);
 			}
@@ -287,17 +249,19 @@ class format {
 
 			// We need a tolerable tolerance.
 			if ($precision <= 0 || $precision >= 1) {
-				return '';
+				$num = '';
+				return;
 			}
 
 			// We don't have to work very hard to calculate zero.
 			if (0.0 === $num) {
-				return '0';
+				$num = '0';
+				return;
 			}
 
 			// We'll have to add the negative sign on at the end.
 			$negative = $num < 0;
-			$num = abs($num);
+			$num = \abs($num);
 
 			$numerator = 1;
 			$h2 = $denominator = 0;
@@ -305,7 +269,7 @@ class format {
 			$b = 1 / $num;
 			do {
 				$b = 1 / $b;
-				$a = floor($b);
+				$a = \floor($b);
 				$aux = $numerator;
 				$numerator = $a * $numerator + $h2;
 				$h2 = $aux;
@@ -313,7 +277,7 @@ class format {
 				$denominator = $a * $denominator + $k2;
 				$k2 = $aux;
 				$b = $b - $a;
-			} while (abs($num - $numerator / $denominator) > $num * $precision);
+			} while (\abs($num - $numerator / $denominator) > $num * $precision);
 
 			// If the denominator is one, just return a whole number.
 			if (1.0 === $denominator) {
@@ -329,8 +293,6 @@ class format {
 				$num = "-{$num}";
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -341,35 +303,35 @@ class format {
 	 */
 	public static function ip_to_number(&$ip) {
 		// Don't need to fancy cast.
-		if (!is_string($ip)) {
+		if (! \is_string($ip)) {
 			$ip = false;
 			return false;
 		}
 
-		if (!filter_var($ip, FILTER_VALIDATE_IP)) {
+		if (! \filter_var($ip, \FILTER_VALIDATE_IP)) {
 			$ip = false;
 			return false;
 		}
 
 		// IPv4 is easy.
-		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
-			$ip = ip2long($ip);
+		if (\filter_var($ip, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4)) {
+			$ip = \ip2long($ip);
 			return true;
 		}
 
 		// IPv6 is a little more roundabout.
-		if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+		if (\filter_var($ip, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV6)) {
 			try {
-				$ip_n = inet_pton($ip);
+				$ip_n = \inet_pton($ip);
 
 				$bin = '';
-				$length = strlen($ip_n) - 1;
+				$length = \strlen($ip_n) - 1;
 				for ($bit = $length; $bit >= 0; $bit--) {
-					$bin = sprintf('%08b', ord($ip_n[$bit])) . $bin;
+					$bin = \sprintf('%08b', \ord($ip_n[$bit])) . $bin;
 				}
 
-				if (function_exists('gmp_init')) {
-					$ip = gmp_strval(gmp_init($bin, 2), 10);
+				if (\function_exists('gmp_init')) {
+					$ip = \gmp_strval(\gmp_init($bin, 2), 10);
 					return true;
 				}
 
@@ -397,25 +359,25 @@ class format {
 		sanitize::ip($ip, true, false);
 
 		// Not an IP.
-		if (!$ip) {
+		if (! $ip) {
 			$ip = false;
 			return false;
 		}
 		// IPv4, as always, easy.
-		elseif (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+		elseif (\filter_var($ip, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4)) {
 			// Find the minimum IP (simply last chunk to 0).
-			$bits = explode('.', $ip);
+			$bits = \explode('.', $ip);
 			$bits[3] = 0;
-			$ip = implode('.', $bits) . '/24';
+			$ip = \implode('.', $bits) . '/24';
 		}
 		// IPv6, more annoying.
 		else {
 			// Find the minimum IP (last 64 bytes to 0).
-			$bits = explode(':', $ip);
+			$bits = \explode(':', $ip);
 			for ($x = 4; $x <= 7; ++$x) {
 				$bits[$x] = 0;
 			}
-			$ip = v_sanitize::ip(implode(':', $bits), true) . '/64';
+			$ip = v_sanitize::ip(\implode(':', $bits), true) . '/64';
 		}
 
 		return true;
@@ -428,10 +390,10 @@ class format {
 	 *
 	 * @param string $str String.
 	 * @param bool $pretty Pretty.
-	 * @return bool True.
+	 * @return bool True/false.
 	 */
-	public static function json(&$str='', $pretty=true) {
-		if (!is_string($str)) {
+	public static function json(&$str, $pretty=true) {
+		if (! \is_string($str)) {
 			static::json_encode($str);
 		}
 
@@ -441,10 +403,10 @@ class format {
 		}
 
 		if ($pretty) {
-			$str = json_encode($decode, JSON_PRETTY_PRINT);
+			$str = \json_encode($decode, \JSON_PRETTY_PRINT);
 		}
 		else {
-			$str = json_encode($decode);
+			$str = \json_encode($decode);
 		}
 		return true;
 	}
@@ -457,13 +419,13 @@ class format {
 	 * associative arrays.
 	 *
 	 * @param string $str String.
-	 * @return bool True.
+	 * @return bool True/false.
 	 */
-	public static function json_decode(&$str='') {
+	public static function json_decode(&$str) {
 		cast::string($str, true);
 
 		// Remove comments.
-		$str = preg_replace(
+		$str = \preg_replace(
 			array(
 				// Single line //.
 				'#^\s*//(.+)$#m',
@@ -476,25 +438,25 @@ class format {
 		);
 
 		// Trim it.
-		mb::trim($str, true);
+		mb::trim($str);
 
 		// Is it empty?
-		if (!$str || ("''" === $str) || ('""' === $str)) {
+		if (! $str || ("''" === $str) || ('""' === $str)) {
 			$str = '';
 			return true;
 		}
 
 		// Maybe it just works?
-		$tmp = json_decode($str, true);
-		if (!is_null($tmp)) {
+		$tmp = \json_decode($str, true);
+		if (null !== $tmp) {
 			$str = $tmp;
 			return true;
 		}
 
-		$lower = v_mb::strtolower($str, false, true);
+		$lower = v_mb::strtolower($str, false);
 		// Bool.
 		if ('true' === $lower || 'false' === $lower) {
-			cast::bool($str);
+			cast::bool($str, true);
 			return true;
 		}
 		// Null.
@@ -503,8 +465,8 @@ class format {
 			return true;
 		}
 		// Number.
-		elseif (is_numeric($lower)) {
-			if (false !== strpos($lower, '.')) {
+		elseif (\is_numeric($lower)) {
+			if (false !== \strpos($lower, '.')) {
 				$str = (float) $lower;
 			}
 			else {
@@ -513,13 +475,13 @@ class format {
 			return true;
 		}
 		// String.
-		elseif (preg_match('/^("|\')(.+)(\1)$/s', $str, $match) && ($match[1] === $match[3])) {
+		elseif (\preg_match('/^("|\')(.+)(\1)$/s', $str, $match) && ($match[1] === $match[3])) {
 			$str = $match[2];
 			static::decode_js_entities($str);
 			return true;
 		}
 		// Bail if we don't have an object at this point.
-		elseif (!preg_match('/^\[.*\]$/s', $str) && !preg_match('/^\{.*\}$/s', $str)) {
+		elseif (! \preg_match('/^\[.*\]$/s', $str) && ! \preg_match('/^\{.*\}$/s', $str)) {
 			$str = null;
 			return false;
 		}
@@ -533,24 +495,24 @@ class format {
 			),
 		);
 		$out = array();
-		if (0 === strpos($str, '[')) {
+		if (0 === \strpos($str, '[')) {
 			$type = 'array';
 		}
 		else {
 			$type = 'object';
 		}
-		$chunk = v_mb::substr($str, 1, -1, true);
-		$length = v_mb::strlen($chunk, true);
+		$chunk = v_mb::substr($str, 1, -1);
+		$length = v_mb::strlen($chunk);
 		for ($x = 0; $x <= $length; ++$x) {
-			$last = end($slices);
-			$subchunk = v_mb::substr($chunk, $x, 2, true);
+			$last = \end($slices);
+			$subchunk = v_mb::substr($chunk, $x, 2);
 
 			// A comma or the end.
 			if (
 				($x === $length) ||
 				((',' === $chunk{$x}) && 'slice' === $last['type'])
 			) {
-				$slice = v_mb::substr($chunk, $last['from'], ($x - $last['from']), true);
+				$slice = v_mb::substr($chunk, $last['from'], ($x - $last['from']));
 				$slices[] = array(
 					'type'=>'slice',
 					'from'=>$x + 1,
@@ -564,13 +526,13 @@ class format {
 				// Objects need key/value separation.
 				else {
 					// Key is quoted.
-					if (preg_match('/^\s*(["\'].*[^\\\]["\'])\s*:\s*(\S.*),?$/Uis', $slice, $parts)) {
+					if (\preg_match('/^\s*(["\'].*[^\\\]["\'])\s*:\s*(\S.*),?$/Uis', $slice, $parts)) {
 						$key = v_format::json_decode($parts[1]);
 						$val = v_format::json_decode($parts[2]);
 						$out[$key] = $val;
 					}
 					// Key is unquoted.
-					elseif (preg_match('/^\s*(\w+)\s*:\s*(\S.*),?$/Uis', $slice, $parts)) {
+					elseif (\preg_match('/^\s*(\w+)\s*:\s*(\S.*),?$/Uis', $slice, $parts)) {
 						$key = $parts[1];
 						static::decode_js_entities($key);
 						$val = v_format::json_decode($parts[2]);
@@ -595,15 +557,15 @@ class format {
 				('string' === $last['type']) &&
 				(
 					('\\' !== $chunk{$x - 1}) ||
-					(('\\' === $chrs{$c - 1}) && ('\\' === $chunk{$x - 2}))
+					(('\\' === $chunk{$x - 1}) && ('\\' === $chunk{$x - 2}))
 				)
 			) {
-				array_pop($slices);
+				\array_pop($slices);
 			}
 			// Opening bracket (and we're in a slice/objectish thing.
 			elseif (
 				('[' === $chunk{$x}) &&
-				in_array($last['type'], array('slice', 'array', 'object'), true)
+				\in_array($last['type'], array('slice', 'array', 'object'), true)
 			) {
 				$slices[] = array(
 					'type'=>'array',
@@ -616,12 +578,12 @@ class format {
 				(']' === $chunk{$x}) &&
 				('array' === $last['type'])
 			) {
-				array_pop($slices);
+				\array_pop($slices);
 			}
 			// Opening brace (and we're in a slice/objectish thing.
 			elseif (
 				('{' === $chunk{$x}) &&
-				in_array($last['type'], array('slice', 'array', 'object'), true)
+				\in_array($last['type'], array('slice', 'array', 'object'), true)
 			) {
 				$slices[] = array(
 					'type'=>'object',
@@ -634,12 +596,12 @@ class format {
 				('}' === $chunk{$x}) &&
 				('object' === $last['type'])
 			) {
-				array_pop($slices);
+				\array_pop($slices);
 			}
 			// Opening comment.
 			elseif (
 				('/*' === $subchunk) &&
-				in_array($last['type'], array('slice', 'array', 'object'), true)
+				\in_array($last['type'], array('slice', 'array', 'object'), true)
 			) {
 				$slices[] = array(
 					'type'=>'comment',
@@ -650,10 +612,10 @@ class format {
 			}
 			// Closing comment.
 			elseif (
-				('/*' === $subchunk) &&
+				('*/' === $subchunk) &&
 				('comment' === $last['type'])
 			) {
-				array_pop($slices);
+				\array_pop($slices);
 				++$x;
 				for ($y = $last['from']; $y <= $x; ++$y) {
 					$chunk{$y} = ' ';
@@ -674,25 +636,23 @@ class format {
 	 * @param mixed $value Value.
 	 * @param int $options Options.
 	 * @param int $depth Depth.
-	 * @return bool True/false.
+	 * @return void Nothing.
 	 */
 	public static function json_encode(&$value, $options=0, $depth=512) {
 		// Simple values don't require a lot of thought.
-		if (!$value || is_numeric($value) || is_bool($value)) {
-			$value = json_encode($value, $options, $depth);
-			return true;
+		if (! $value || \is_numeric($value) || \is_bool($value)) {
+			$value = \json_encode($value, $options, $depth);
+			return;
 		}
 
 		$original = $value;
-		$value = json_encode($value, $options, $depth);
+		$value = \json_encode($value, $options, $depth);
 
 		// Try again with UTF-8 sanitizing if this failed.
-		if (is_null($value)) {
+		if (null === $value) {
 			sanitize::utf8($original);
-			$value = json_encode($original, $options, $depth);
+			$value = \json_encode($original, $options, $depth);
 		}
-
-		return true;
 	}
 
 	/**
@@ -703,16 +663,15 @@ class format {
 	 * @param string $str String.
 	 * @param array $args Arguments.
 	 * @param int $pass Pass (1=URL, 2=EMAIL).
-	 * @param bool $constringent Light cast.
 	 *
 	 * @arg array $class Class(es).
 	 * @arg string $rel Rel.
 	 * @arg string $target Target.
 	 *
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function links(&$str, $args=null, int $pass=1, bool $constringent=false) {
-		cast::constringent($str, $constringent);
+	public static function links(&$str, $args=null, int $pass=1) {
+		cast::string($str, true);
 
 		// Build link attributes from our arguments, if any.
 		$defaults = array(
@@ -721,18 +680,18 @@ class format {
 			'target'=>'',
 		);
 		$data = data::parse_args($args, $defaults);
-		$data['class'] = implode(' ', $data['class']);
-		sanitize::html($data, true);
-		$data = array_filter($data, 'strlen');
+		$data['class'] = \implode(' ', $data['class']);
+		sanitize::html($data);
+		$data = \array_filter($data, 'strlen');
 		$atts = array();
 		foreach ($data as $k=>$v) {
 			$atts[] = "$k=\"$v\"";
 		}
-		$atts = implode(' ', $atts);
+		$atts = \implode(' ', $atts);
 
 		// Now look at the string.
-		$str = preg_split('/(<.+?>)/is', $str, 0, PREG_SPLIT_DELIM_CAPTURE);
-		$blacklist = implode('|', constants::LINKS_BLACKLIST);
+		$str = \preg_split('/(<.+?>)/is', $str, 0, \PREG_SPLIT_DELIM_CAPTURE);
+		$blacklist = \implode('|', constants::LINKS_BLACKLIST);
 		$ignoring = false;
 		foreach ($str as $k=>$v) {
 			// Even keys exist between tags.
@@ -743,113 +702,116 @@ class format {
 				}
 
 				// URL bits.
-				if (1 === $pass) {
-					// We can afford to be sloppy here, thanks to FDQN validation later.
-					$str[$k] = preg_replace_callback(
-						'/((ht|f)tps?:\/\/[^\s\'"\[\]\(\){}]+|[^\s\'"\[\]\(\){}]*xn--[^\s\'"\[\]\(\){}]+|[@]?[\w\.]+\.[\w\.]{2,}[^\s]*)/ui',
-						function($matches) use($atts) {
-							$raw = $matches[1];
+				switch ($pass) {
+					// URL bits.
+					case 1:
+						// We can afford to be sloppy here, thanks to FDQN validation later.
+						$str[$k] = \preg_replace_callback(
+							'/((ht|f)tps?:\/\/[^\s\'"\[\]\(\){}]+|[^\s\'"\[\]\(\){}]*xn--[^\s\'"\[\]\(\){}]+|[@]?[\w\.]+\.[\w\.]{2,}[^\s]*)/ui',
+							function($matches) use($atts) {
+								$raw = $matches[1];
 
-							// Don't do email bits.
-							if (0 === strpos($raw, '@')) {
-								return $matches[1];
-							}
+								// Don't do email bits.
+								if (0 === \strpos($raw, '@')) {
+									return $matches[1];
+								}
 
-							// We don't want trailing punctuation added to the link.
-							if (preg_match('/([^\w\/]+)$/ui', $raw, $suffix)) {
-								$suffix = $suffix[1];
-								$raw = preg_replace('/([^\w\/]+)$/ui', '', $raw);
-							}
-							else {
-								$suffix = '';
-							}
+								// We don't want trailing punctuation added to the link.
+								if (\preg_match('/([^\w\/]+)$/ui', $raw, $suffix)) {
+									$suffix = $suffix[1];
+									$raw = \preg_replace('/([^\w\/]+)$/ui', '', $raw);
+								}
+								else {
+									$suffix = '';
+								}
 
-							$link = v_mb::parse_url($raw);
-							if (!is_array($link) || !isset($link['host'])) {
-								return $matches[1];
-							}
+								$link = v_mb::parse_url($raw);
+								if (! \is_array($link) || ! isset($link['host'])) {
+									return $matches[1];
+								}
 
-							// Only linkify FQDNs.
-							$domain = new domain($link['host']);
-							if (!$domain->is_valid() || !$domain->is_fqdn()) {
-								return $matches[1];
-							}
+								// Only linkify FQDNs.
+								$domain = new domain($link['host']);
+								if (! $domain->is_valid() || ! $domain->is_fqdn()) {
+									return $matches[1];
+								}
 
-							// Supply a scheme, if missing.
-							if (!isset($link['scheme'])) {
-								$link['scheme'] = 'http';
-							}
+								// Supply a scheme, if missing.
+								if (! isset($link['scheme'])) {
+									$link['scheme'] = 'http';
+								}
 
-							$link = v_file::unparse_url($link);
-							if (filter_var($link, FILTER_SANITIZE_URL) !== $link) {
-								return $matches[1];
-							}
+								$link = v_file::unparse_url($link);
+								if (\filter_var($link, \FILTER_SANITIZE_URL) !== $link) {
+									return $matches[1];
+								}
 
-							// Finally, make a link!
-							sanitize::html($link, true);
-							return '<a href="' . $link . '"' . ($atts ? " $atts" : '') . '>' . $raw . '</a>' . $suffix;
-						},
-						$str[$k]
-					);
-				}
-				// Email address bits.
-				elseif (2 === $pass) {
-					// Again, we can be pretty careless here thanks to later checks.
-					$str[$k] = preg_replace_callback(
-						'/([\w\.\!#\$%&\*\+\=\?_~]+@[^\s\'"\[\]\(\){}@]{2,})/ui',
-						function($matches) use($atts) {
-							$raw = $matches[1];
+								// Finally, make a link!
+								sanitize::html($link);
+								return '<a href="' . $link . '"' . ($atts ? " $atts" : '') . '>' . $raw . '</a>' . $suffix;
+							},
+							$str[$k]
+						);
+						break;
+					// Email address bits.
+					case 2:
+						// Again, we can be pretty careless here thanks to later checks.
+						$str[$k] = \preg_replace_callback(
+							'/([\w\.\!#\$%&\*\+\=\?_~]+@[^\s\'"\[\]\(\){}@]{2,})/ui',
+							function($matches) use($atts) {
+								$raw = $matches[1];
 
-							// We don't want trailing punctuation added to the link.
-							if (preg_match('/([^\w]+)$/ui', $raw, $suffix)) {
-								$suffix = $suffix[1];
-								$raw = preg_replace('/([^\w]+)$/ui', '', $raw);
-							}
-							else {
-								$suffix = '';
-							}
+								// We don't want trailing punctuation added to the link.
+								if (\preg_match('/([^\w]+)$/ui', $raw, $suffix)) {
+									$suffix = $suffix[1];
+									$raw = \preg_replace('/([^\w]+)$/ui', '', $raw);
+								}
+								else {
+									$suffix = '';
+								}
 
-							$link = v_sanitize::email($raw, true);
-							if (!$link) {
-								return $matches[1];
-							}
+								$link = v_sanitize::email($raw);
+								if (! $link) {
+									return $matches[1];
+								}
 
-							// Finally, make a link!
-							sanitize::html($link, true);
+								// Finally, make a link!
+								sanitize::html($link);
 
-							return '<a href="mailto:' . $link . '"' . ($atts ? " $atts" : '') . '>' . $raw . '</a>' . $suffix;
-						},
-						$str[$k]
-					);
-				}
-				// Phone numbers.
-				elseif (3 === $pass) {
-					// Again, we can be pretty careless here thanks to later checks.
-					$str[$k] = preg_replace_callback(
-						'/(\s)?(\+\d[\d\-\s]{5,}+|\(\d{3}\)\s[\d]{3}[\-\.\s]\d{4}|\d{3}[\-\.\s]\d{3}[\-\.\s]\d{4}|\+\d{7,})/ui',
-						function($matches) use($atts) {
-							$prefix = $matches[1];
-							$raw = $matches[2];
+								return '<a href="mailto:' . $link . '"' . ($atts ? " $atts" : '') . '>' . $raw . '</a>' . $suffix;
+							},
+							$str[$k]
+						);
+						break;
+					// Phone numbers.
+					case 3:
+						// Again, we can be pretty careless here thanks to later checks.
+						$str[$k] = \preg_replace_callback(
+							'/(\s)?(\+\d[\d\-\s]{5,}+|\(\d{3}\)\s[\d]{3}[\-\.\s]\d{4}|\d{3}[\-\.\s]\d{3}[\-\.\s]\d{4}|\+\d{7,})/ui',
+							function($matches) use($atts) {
+								$prefix = $matches[1];
+								$raw = $matches[2];
 
-							// We don't want trailing punctuation added to the link.
-							if (preg_match('/([^\d]+)$/ui', $raw, $suffix)) {
-								$suffix = $suffix[1];
-								$raw = preg_replace('/([^\d]+)$/ui', '', $raw);
-							}
-							else {
-								$suffix = '';
-							}
+								// We don't want trailing punctuation added to the link.
+								if (\preg_match('/([^\d]+)$/ui', $raw, $suffix)) {
+									$suffix = $suffix[1];
+									$raw = \preg_replace('/([^\d]+)$/ui', '', $raw);
+								}
+								else {
+									$suffix = '';
+								}
 
-							$link = v_format::phone($raw);
-							$link = preg_replace('/[^\d]/', '', $link);
-							if (!$link) {
-								return $matches[1] . $matches[2];
-							}
+								$link = v_format::phone($raw);
+								$link = \preg_replace('/[^\d]/', '', $link);
+								if (! $link) {
+									return $matches[1] . $matches[2];
+								}
 
-							return $prefix . '<a href="tel:+' . $link . '"' . ($atts ? " $atts" : '') . '>' . $raw . '</a>' . $suffix;
-						},
-						$str[$k]
-					);
+								return $prefix . '<a href="tel:+' . $link . '"' . ($atts ? " $atts" : '') . '>' . $raw . '</a>' . $suffix;
+							},
+							$str[$k]
+						);
+						break;
 				}
 			}
 			// Odd keys indicate a tag, opening or closing.
@@ -857,29 +819,27 @@ class format {
 				// If we aren't already waiting on a closing tag...
 				if (false === $ignoring) {
 					// Start ignoring if this tag is blacklisted and not self-closing.
-					if (preg_match("/<($blacklist).*(?<!\/)>$/is", $str[$k], $matches)) {
-						$ignoring = preg_quote($matches[1], '/');
+					if (\preg_match("/<($blacklist).*(?<!\/)>$/is", $str[$k], $matches)) {
+						$ignoring = \preg_quote($matches[1], '/');
 					}
 				}
 				// Otherwise wait until we find a corresponding closing tag.
-				elseif (preg_match("/<\/\s*$ignoring>/i", $str[$k], $matches)) {
+				elseif (\preg_match("/<\/\s*$ignoring>/i", $str[$k], $matches)) {
 					$ignoring = false;
 				}
 			}
 		}
-		$str = implode($str);
+		$str = \implode($str);
 
 		// Linkification is run in stages to prevent overlap issues.
 		// Pass #1 is for URL-like bits, pass #2 for email addresses,
 		// pass #3 for phone numbers.
 		if (1 === $pass) {
-			static::links($str, $args, 2, true);
+			static::links($str, $args, 2);
 		}
 		elseif (2 === $pass) {
-			static::links($str, $args, 3, true);
+			static::links($str, $args, 3);
 		}
-
-		return true;
 	}
 
 	/**
@@ -889,7 +849,6 @@ class format {
 	 *
 	 * @param mixed $list List.
 	 * @param mixed $args Arguments or delimiter.
-	 * @param bool $constringent Light cast.
 	 *
 	 * @args string $delimiter Delimiter.
 	 * @args bool $trim Trim.
@@ -899,57 +858,61 @@ class format {
 	 * @args mixed $min Minimum value.
 	 * @args mixed $max Maximum value.
 	 *
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function list_to_array(&$list, $args=null, bool $constringent=false) {
+	public static function list_to_array(&$list, $args=null) {
 		$out = array();
 
 		// If the arguments are a string, we'll assume the delimiter was
 		// passed.
-		if (is_string($args)) {
+		if (\is_string($args)) {
 			$args = array('delimiter'=>$args);
 		}
 
 		$args = data::parse_args($args, constants::LIST_TO_ARRAY);
 
 		// Sanitize cast type.
-		$args['cast'] = strtolower($args['cast']);
+		$args['cast'] = \strtolower($args['cast']);
 		if (
 			('array' === $args['cast']) ||
-			!isset(constants::CAST_TYPES[$args['cast']])
+			! isset(constants::CAST_TYPES[$args['cast']])
 		) {
 			$args['cast'] = 'string';
 		}
 
 		// Sanitize min/max.
-		if (!is_null($args['min']) && !is_null($args['max']) && $args['min'] > $args['max']) {
+		if (
+			(null !== $args['min']) &&
+			(null !== $args['max']) &&
+			$args['min'] > $args['max']
+		) {
 			data::switcheroo($args['min'], $args['max']);
 		}
 
 		cast::array($list);
 		foreach ($list as $k=>$v) {
 			// Recurse if the value is an array.
-			if (is_array($list[$k])) {
+			if (\is_array($list[$k])) {
 				static::list_to_array($list[$k], $args);
 			}
 			// Otherwise de-list the line.
 			else {
-				cast::constringent($list[$k], $constringent);
+				cast::string($list[$k], true);
 
 				if ($args['delimiter']) {
-					$list[$k] = explode($args['delimiter'], $list[$k]);
+					$list[$k] = \explode($args['delimiter'], $list[$k]);
 				}
 				else {
-					$list[$k] = mb::str_split($list[$k], 1, true);
+					$list[$k] = mb::str_split($list[$k], 1);
 				}
 
 				// Trimming?
 				if ($args['trim']) {
-					mb::trim($list[$k], true);
+					mb::trim($list[$k]);
 				}
 
 				// Get rid of empties.
-				$list[$k] = array_filter($list[$k], 'strlen');
+				$list[$k] = \array_filter($list[$k], 'strlen');
 
 				// Casting?
 				if ('string' !== $args['cast']) {
@@ -960,8 +923,8 @@ class format {
 			// Add whatever we've got to the running total.
 			foreach ($list[$k] as $v2) {
 				if (
-					(is_null($args['min']) || $v2 >= $args['min']) &&
-					(is_null($args['max']) || $v2 <= $args['max'])
+					((null === $args['min']) || $v2 >= $args['min']) &&
+					((null === $args['max']) || $v2 <= $args['max'])
 				) {
 					$out[] = $v2;
 				}
@@ -969,17 +932,16 @@ class format {
 		}
 
 		// Unique?
-		if ($args['unique'] && count($out)) {
-			$out = array_values(array_unique($out));
+		if ($args['unique'] && \count($out)) {
+			$out = \array_values(\array_unique($out));
 		}
 
 		// Sort?
-		if ($args['sort'] && count($out)) {
-			sort($out);
+		if ($args['sort'] && \count($out)) {
+			\sort($out);
 		}
 
 		$list = $out;
-		return true;
 	}
 
 	/**
@@ -989,10 +951,10 @@ class format {
 	 * @param bool $cents Return sub-$1 values with ¢.
 	 * @param string $separator Separator.
 	 * @param bool $no00 Remove trailing cents if none.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
 	public static function money(&$value=0, bool $cents=false, string $separator='', bool $no00=false) {
-		if (is_array($value)) {
+		if (\is_array($value)) {
 			foreach ($value as $k=>$v) {
 				static::money($value[$k], $cents, $separator, $no00);
 			}
@@ -1000,24 +962,22 @@ class format {
 		else {
 			cast::float($value, true);
 
-			$value = round($value, 2);
+			$value = \round($value, 2);
 			$negative = $value < 0;
 			if ($negative) {
-				$value = abs($value);
+				$value = \abs($value);
 			}
 
 			if ($value >= 1 || false === $cents) {
-				$value = ($negative ? '-' : '') . '$' . number_format($value, 2, '.', $separator);
+				$value = ($negative ? '-' : '') . '$' . \number_format($value, 2, '.', $separator);
 				if ($no00) {
-					$value = preg_replace('/\.00$/', '', $value);
+					$value = \preg_replace('/\.00$/', '', $value);
 				}
 			}
 			else {
 				$value = ($negative ? '-' : '') . (100 * $value) . '¢';
 			}
 		}
-
-		return true;
 	}
 
 	/**
@@ -1027,8 +987,16 @@ class format {
 	 * @return bool True/false.
 	 */
 	public static function number_to_ip(&$ip) {
-		if (!is_string($ip)) {
-			if (is_numeric($ip)) {
+		// If we have a proper integer, we can assume PHP's native
+		// function can handle it.
+		if (\is_int($ip)) {
+			$ip = \long2ip($ip);
+			sanitize::ip($ip, true);
+			return;
+		}
+
+		if (! \is_string($ip)) {
+			if (\is_numeric($ip)) {
 				$ip = (string) $ip;
 			}
 			else {
@@ -1037,14 +1005,14 @@ class format {
 			}
 		}
 
-		if (!$ip || ('0' === $ip)) {
+		if (! $ip || ('0' === $ip)) {
 			$ip = false;
 			return false;
 		}
 
-		if (function_exists('gmp_init')) {
-			$bin = gmp_strval(gmp_init($ip, 10), 2);
-			$bin = sprintf('%0128s', $bin);
+		if (\function_exists('gmp_init')) {
+			$bin = \gmp_strval(\gmp_init($ip, 10), 2);
+			$bin = \sprintf('%0128s', $bin);
 		}
 		else {
 			$bin = bc::decbin($ip, 128);
@@ -1052,19 +1020,18 @@ class format {
 
 		$chunk = array();
 		for ($bit = 0; $bit <= 7; ++$bit) {
-			$bin_part = substr($bin, $bit * 16, 16);
-			$chunk[] = dechex(bindec($bin_part));
+			$bin_part = \substr($bin, $bit * 16, 16);
+			$chunk[] = \dechex(\bindec($bin_part));
 		}
-		$ip = implode(':', $chunk);
-		$ip = inet_ntop(inet_pton($ip));
+		$ip = \implode(':', $chunk);
+		$ip = \inet_ntop(\inet_pton($ip));
 
 		// Make sure IPv4 is normal.
-		if (!$ip || '::' === $ip) {
+		if (! $ip || '::' === $ip) {
 			$ip = '0.0.0.0';
 		}
 
 		sanitize::ip($ip, true);
-
 		return true;
 	}
 
@@ -1076,15 +1043,15 @@ class format {
 	 * @param array $types Types, e.g. Mobile.
 	 * @return bool True.
 	 */
-	public static function phone(&$str='', $country='', $types=array()) {
-		if (is_array($str)) {
+	public static function phone(&$str, $country='', $types=array()) {
+		if (\is_array($str)) {
 			foreach ($str as $k=>$v) {
 				static::phone($str[$k], $country, $types);
 			}
 		}
 		else {
-			if (!is_string($str)) {
-				if (is_numeric($str)) {
+			if (! \is_string($str)) {
+				if (\is_numeric($str)) {
 					$str = (string) $str;
 				}
 				else {
@@ -1092,28 +1059,28 @@ class format {
 					return false;
 				}
 			}
-			sanitize::whitespace($str, 0, true);
+			sanitize::whitespace($str, 0);
 
-			if (!$str) {
+			if (! $str) {
 				$str = '';
 				return false;
 			}
 
-			if (!is_string($country)) {
+			if (! \is_string($country)) {
 				$country = '';
 			}
 			cast::array($types);
 
 			// We can only go further if blob-phone is installed.
-			if (class_exists('\\blobfolio\\phone\\phone')) {
+			if (\class_exists('blobfolio\\phone\\phone')) {
 				$str = new phone($str, $country);
-				if (!$str->is_phone($types)) {
+				if (! $str->is_phone($types)) {
 					$str = '';
 					return false;
 				}
 			}
 			else {
-				$str = preg_replace('/[^\d]/', '', $str);
+				$str = \preg_replace('/[^\d]/', '', $str);
 			}
 
 			$str = (string) $str;
@@ -1128,10 +1095,10 @@ class format {
 	 * @param float $num Number.
 	 * @param int $precision Precision.
 	 * @param int $mode Mode.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
-	public static function round(&$num, int $precision=0, int $mode=PHP_ROUND_HALF_UP) {
-		if (is_array($num)) {
+	public static function round(&$num, int $precision=0, int $mode=\PHP_ROUND_HALF_UP) {
+		if (\is_array($num)) {
 			foreach ($num as $k=>$v) {
 				static::round($num[$k], $precision, $mode);
 			}
@@ -1140,10 +1107,8 @@ class format {
 			cast::float($num, true);
 			sanitize::to_range($precision, 0);
 
-			$num = round($num, $precision, $mode);
+			$num = \round($num, $precision, $mode);
 		}
-
-		return true;
 	}
 
 	/**
@@ -1152,7 +1117,7 @@ class format {
 	 * @param string $date Date.
 	 * @param string $from Original Timezone.
 	 * @param string $to New Timezone.
-	 * @return bool True.
+	 * @return void Nothing.
 	 */
 	public static function to_timezone(string &$date, $from='UTC', $to='UTC') {
 		sanitize::datetime($date);
@@ -1164,7 +1129,7 @@ class format {
 		}
 
 		if (('0000-00-00 00:00:00' === $date) || ($from === $to)) {
-			return true;
+			return;
 		}
 
 		$original = $date;
@@ -1175,7 +1140,5 @@ class format {
 		} catch (\Throwable $e) {
 			$date = $original;
 		}
-
-		return true;
 	}
 }

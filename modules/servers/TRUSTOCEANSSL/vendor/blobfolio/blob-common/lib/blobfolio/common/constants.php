@@ -272,13 +272,6 @@ class constants {
 
 
 	// -------------------------------------------------
-	// MIME Types.
-
-	const MIME_DEFAULT = 'application/octet-stream';
-
-
-
-	// -------------------------------------------------
 	// Geography.
 
 	const COUNTRIES = array(
@@ -286,1206 +279,3542 @@ class constants {
 			'name'=>'USA',
 			'region'=>'North America',
 			'currency'=>'USD',
+			'lat'=>37.09024,
+			'lon'=>-95.712891,
+			'borders'=>array(
+				'CA',
+				'MX',
+			),
+			'tld'=>array(
+				'us',
+			),
 		),
 		'CA'=>array(
 			'name'=>'Canada',
 			'region'=>'North America',
 			'currency'=>'CAD',
+			'lat'=>56.130366,
+			'lon'=>-106.346771,
+			'borders'=>array(
+				'US',
+			),
+			'tld'=>array(
+				'ca',
+			),
 		),
 		'GB'=>array(
 			'name'=>'United Kingdom',
 			'region'=>'Europe',
 			'currency'=>'GBP',
+			'lat'=>55.378051,
+			'lon'=>-3.435973,
+			'borders'=>array(
+				'IE',
+			),
+			'tld'=>array(
+				'uk',
+			),
 		),
 		'AF'=>array(
 			'name'=>'Afghanistan',
 			'region'=>'Asia',
 			'currency'=>'AFN',
+			'lat'=>33.93911,
+			'lon'=>67.709953,
+			'borders'=>array(
+				'CN',
+				'IR',
+				'PK',
+				'TJ',
+				'TM',
+				'UZ',
+			),
+			'tld'=>array(
+				'af',
+			),
 		),
 		'AX'=>array(
 			'name'=>'Åland Islands',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>0,
+			'lon'=>0,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ax',
+			),
 		),
 		'AL'=>array(
 			'name'=>'Albania',
 			'region'=>'Europe',
 			'currency'=>'ALL',
+			'lat'=>41.153332,
+			'lon'=>20.168331,
+			'borders'=>array(
+				'GR',
+				'ME',
+				'MK',
+				'XK',
+			),
+			'tld'=>array(
+				'al',
+			),
 		),
 		'DZ'=>array(
 			'name'=>'Algeria',
 			'region'=>'Africa',
 			'currency'=>'DZD',
+			'lat'=>28.033886,
+			'lon'=>1.659626,
+			'borders'=>array(
+				'EH',
+				'LY',
+				'MA',
+				'ML',
+				'MR',
+				'NE',
+				'TN',
+			),
+			'tld'=>array(
+				'dz',
+			),
 		),
 		'AS'=>array(
 			'name'=>'American Samoa',
 			'region'=>'Australia',
 			'currency'=>'USD',
+			'lat'=>-14.270972,
+			'lon'=>-170.132217,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'as',
+			),
 		),
 		'AD'=>array(
 			'name'=>'Andorra',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>42.546245,
+			'lon'=>1.601554,
+			'borders'=>array(
+				'ES',
+				'FR',
+			),
+			'tld'=>array(
+				'ad',
+			),
 		),
 		'AO'=>array(
 			'name'=>'Angola',
 			'region'=>'Africa',
 			'currency'=>'AOA',
+			'lat'=>-11.202692,
+			'lon'=>17.873887,
+			'borders'=>array(
+				'CD',
+				'CG',
+				'NA',
+				'ZM',
+			),
+			'tld'=>array(
+				'ao',
+			),
 		),
 		'AI'=>array(
 			'name'=>'Anguilla',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>18.220554,
+			'lon'=>-63.068615,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ai',
+			),
 		),
 		'AG'=>array(
 			'name'=>'Antigua and Barbuda',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>17.060816,
+			'lon'=>-61.796428,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ag',
+			),
 		),
 		'AR'=>array(
 			'name'=>'Argentina',
 			'region'=>'South America',
 			'currency'=>'ARS',
+			'lat'=>-38.416097,
+			'lon'=>-63.616672,
+			'borders'=>array(
+				'BO',
+				'BR',
+				'CL',
+				'PY',
+				'UY',
+			),
+			'tld'=>array(
+				'ar',
+			),
 		),
 		'AM'=>array(
 			'name'=>'Armenia',
 			'region'=>'Europe',
 			'currency'=>'AMD',
+			'lat'=>40.069099,
+			'lon'=>45.038189,
+			'borders'=>array(
+				'AZ',
+				'GE',
+				'IR',
+				'TR',
+			),
+			'tld'=>array(
+				'am',
+			),
 		),
 		'AW'=>array(
 			'name'=>'Aruba',
 			'region'=>'South America',
 			'currency'=>'AWG',
+			'lat'=>12.52111,
+			'lon'=>-69.968338,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'aw',
+			),
 		),
 		'AU'=>array(
 			'name'=>'Australia',
 			'region'=>'Australia',
 			'currency'=>'AUD',
+			'lat'=>-25.274398,
+			'lon'=>133.775136,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'au',
+			),
 		),
 		'AT'=>array(
 			'name'=>'Austria',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>47.516231,
+			'lon'=>14.550072,
+			'borders'=>array(
+				'CH',
+				'CZ',
+				'DE',
+				'HU',
+				'IT',
+				'LI',
+				'SI',
+				'SK',
+			),
+			'tld'=>array(
+				'at',
+			),
 		),
 		'AZ'=>array(
 			'name'=>'Azerbaijan',
 			'region'=>'Asia',
 			'currency'=>'AZN',
+			'lat'=>40.143105,
+			'lon'=>47.576927,
+			'borders'=>array(
+				'AM',
+				'GE',
+				'IR',
+				'RU',
+				'TR',
+			),
+			'tld'=>array(
+				'az',
+			),
 		),
 		'BS'=>array(
 			'name'=>'The Bahamas',
 			'region'=>'North America',
 			'currency'=>'BSD',
+			'lat'=>25.03428,
+			'lon'=>-77.39628,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'bs',
+			),
 		),
 		'BH'=>array(
 			'name'=>'Bahrain',
 			'region'=>'Asia',
 			'currency'=>'BHD',
+			'lat'=>25.930414,
+			'lon'=>50.637772,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'bh',
+			),
 		),
 		'BD'=>array(
 			'name'=>'Bangladesh',
 			'region'=>'Asia',
 			'currency'=>'BDT',
+			'lat'=>23.684994,
+			'lon'=>90.356331,
+			'borders'=>array(
+				'IN',
+				'MM',
+			),
+			'tld'=>array(
+				'bd',
+			),
 		),
 		'BB'=>array(
 			'name'=>'Barbados',
 			'region'=>'North America',
 			'currency'=>'BBD',
+			'lat'=>13.193887,
+			'lon'=>-59.543198,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'bb',
+			),
 		),
 		'BY'=>array(
 			'name'=>'Belarus',
 			'region'=>'Europe',
 			'currency'=>'BYN',
+			'lat'=>53.709807,
+			'lon'=>27.953389,
+			'borders'=>array(
+				'LT',
+				'LV',
+				'PL',
+				'RU',
+				'UA',
+			),
+			'tld'=>array(
+				'by',
+			),
 		),
 		'BE'=>array(
 			'name'=>'Belgium',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>50.503887,
+			'lon'=>4.469936,
+			'borders'=>array(
+				'DE',
+				'FR',
+				'LU',
+				'NL',
+			),
+			'tld'=>array(
+				'be',
+			),
 		),
 		'BZ'=>array(
 			'name'=>'Belize',
 			'region'=>'North America',
 			'currency'=>'BZD',
+			'lat'=>17.189877,
+			'lon'=>-88.49765,
+			'borders'=>array(
+				'GT',
+				'MX',
+			),
+			'tld'=>array(
+				'bz',
+			),
 		),
 		'BJ'=>array(
 			'name'=>'Benin',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>9.30769,
+			'lon'=>2.315834,
+			'borders'=>array(
+				'BF',
+				'NE',
+				'NG',
+				'TG',
+			),
+			'tld'=>array(
+				'bj',
+			),
 		),
 		'BM'=>array(
 			'name'=>'Bermuda',
 			'region'=>'North America',
 			'currency'=>'BMD',
+			'lat'=>32.321384,
+			'lon'=>-64.75737,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'bm',
+			),
 		),
 		'BT'=>array(
 			'name'=>'Bhutan',
 			'region'=>'Asia',
 			'currency'=>'BTN',
+			'lat'=>27.514162,
+			'lon'=>90.433601,
+			'borders'=>array(
+				'CN',
+				'IN',
+			),
+			'tld'=>array(
+				'bt',
+			),
 		),
 		'BO'=>array(
 			'name'=>'Bolivia',
 			'region'=>'South America',
 			'currency'=>'BOB',
+			'lat'=>-16.290154,
+			'lon'=>-63.588653,
+			'borders'=>array(
+				'AR',
+				'BR',
+				'CL',
+				'PE',
+				'PY',
+			),
+			'tld'=>array(
+				'bo',
+			),
 		),
 		'BQ'=>array(
 			'name'=>'Bonaire, Sint Eustatius and Saba',
 			'region'=>'South America',
 			'currency'=>'USD',
+			'lat'=>0,
+			'lon'=>0,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'bq',
+				'nl',
+			),
 		),
 		'BA'=>array(
 			'name'=>'Bosnia and Herzegovina',
 			'region'=>'Europe',
 			'currency'=>'BAM',
+			'lat'=>43.915886,
+			'lon'=>17.679076,
+			'borders'=>array(
+				'HR',
+				'ME',
+				'RS',
+			),
+			'tld'=>array(
+				'ba',
+			),
 		),
 		'BW'=>array(
 			'name'=>'Botswana',
 			'region'=>'Africa',
 			'currency'=>'BWP',
+			'lat'=>-22.328474,
+			'lon'=>24.684866,
+			'borders'=>array(
+				'NA',
+				'ZA',
+				'ZM',
+				'ZW',
+			),
+			'tld'=>array(
+				'bw',
+			),
 		),
 		'BR'=>array(
 			'name'=>'Brazil',
 			'region'=>'South America',
 			'currency'=>'BRL',
+			'lat'=>-14.235004,
+			'lon'=>-51.92528,
+			'borders'=>array(
+				'AR',
+				'BO',
+				'CO',
+				'GF',
+				'GY',
+				'PE',
+				'PY',
+				'SR',
+				'UY',
+				'VE',
+			),
+			'tld'=>array(
+				'br',
+			),
 		),
 		'IO'=>array(
 			'name'=>'British Indian Ocean Territory',
 			'region'=>'Africa',
 			'currency'=>'USD',
+			'lat'=>-6.343194,
+			'lon'=>71.876519,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'io',
+			),
 		),
 		'VG'=>array(
 			'name'=>'British Virgin Islands',
 			'region'=>'North America',
 			'currency'=>'USD',
+			'lat'=>18.420695,
+			'lon'=>-64.639968,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'vg',
+			),
 		),
 		'BN'=>array(
 			'name'=>'Brunei',
 			'region'=>'Asia',
 			'currency'=>'BND',
+			'lat'=>4.535277,
+			'lon'=>114.727669,
+			'borders'=>array(
+				'MY',
+			),
+			'tld'=>array(
+				'bn',
+			),
 		),
 		'BG'=>array(
 			'name'=>'Bulgaria',
 			'region'=>'Europe',
 			'currency'=>'BGN',
+			'lat'=>42.733883,
+			'lon'=>25.48583,
+			'borders'=>array(
+				'GR',
+				'MK',
+				'RO',
+				'RS',
+				'TR',
+			),
+			'tld'=>array(
+				'bg',
+			),
 		),
 		'BF'=>array(
 			'name'=>'Burkina Faso',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>12.238333,
+			'lon'=>-1.561593,
+			'borders'=>array(
+				'BJ',
+				'CI',
+				'GH',
+				'ML',
+				'NE',
+				'TG',
+			),
+			'tld'=>array(
+				'bf',
+			),
 		),
 		'BI'=>array(
 			'name'=>'Burundi',
 			'region'=>'Africa',
 			'currency'=>'BIF',
+			'lat'=>-3.373056,
+			'lon'=>29.918886,
+			'borders'=>array(
+				'CD',
+				'RW',
+				'TZ',
+			),
+			'tld'=>array(
+				'bi',
+			),
 		),
 		'KH'=>array(
 			'name'=>'Cambodia',
 			'region'=>'Asia',
 			'currency'=>'KHR',
+			'lat'=>12.565679,
+			'lon'=>104.990963,
+			'borders'=>array(
+				'LA',
+				'TH',
+				'VN',
+			),
+			'tld'=>array(
+				'kh',
+			),
 		),
 		'CM'=>array(
 			'name'=>'Cameroon',
 			'region'=>'Africa',
 			'currency'=>'XAF',
+			'lat'=>7.369722,
+			'lon'=>12.354722,
+			'borders'=>array(
+				'CF',
+				'CG',
+				'GA',
+				'GQ',
+				'NG',
+				'TD',
+			),
+			'tld'=>array(
+				'cm',
+			),
 		),
 		'CV'=>array(
 			'name'=>'Cape Verde',
 			'region'=>'Africa',
 			'currency'=>'CVE',
+			'lat'=>16.002082,
+			'lon'=>-24.013197,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'cv',
+			),
 		),
 		'KY'=>array(
 			'name'=>'Cayman Islands',
 			'region'=>'North America',
 			'currency'=>'KYD',
+			'lat'=>19.513469,
+			'lon'=>-80.566956,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ky',
+			),
 		),
 		'CF'=>array(
 			'name'=>'Central African Republic',
 			'region'=>'Africa',
 			'currency'=>'XAF',
+			'lat'=>6.611111,
+			'lon'=>20.939444,
+			'borders'=>array(
+				'CD',
+				'CG',
+				'CM',
+				'SD',
+				'SS',
+				'TD',
+			),
+			'tld'=>array(
+				'cf',
+			),
 		),
 		'TD'=>array(
 			'name'=>'Chad',
 			'region'=>'Africa',
 			'currency'=>'XAF',
+			'lat'=>15.454166,
+			'lon'=>18.732207,
+			'borders'=>array(
+				'CF',
+				'CM',
+				'LY',
+				'NE',
+				'NG',
+				'SD',
+			),
+			'tld'=>array(
+				'td',
+			),
 		),
 		'CL'=>array(
 			'name'=>'Chile',
 			'region'=>'South America',
 			'currency'=>'CLP',
+			'lat'=>-35.675147,
+			'lon'=>-71.542969,
+			'borders'=>array(
+				'AR',
+				'BO',
+				'PE',
+			),
+			'tld'=>array(
+				'cl',
+			),
 		),
 		'CN'=>array(
 			'name'=>'China',
 			'region'=>'Asia',
 			'currency'=>'CNY',
+			'lat'=>35.86166,
+			'lon'=>104.195397,
+			'borders'=>array(
+				'AF',
+				'BT',
+				'HK',
+				'IN',
+				'KG',
+				'KP',
+				'KZ',
+				'LA',
+				'MM',
+				'MN',
+				'MO',
+				'NP',
+				'PK',
+				'RU',
+				'TJ',
+				'VN',
+			),
+			'tld'=>array(
+				'cn',
+			),
 		),
 		'CX'=>array(
 			'name'=>'Christmas Island',
 			'region'=>'Australia',
 			'currency'=>'AUD',
+			'lat'=>-10.447525,
+			'lon'=>105.690449,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'cx',
+			),
 		),
 		'CC'=>array(
 			'name'=>'Cocos (Keeling) Islands',
 			'region'=>'Australia',
 			'currency'=>'AUD',
+			'lat'=>-12.164165,
+			'lon'=>96.870956,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'cc',
+			),
 		),
 		'CO'=>array(
 			'name'=>'Colombia',
 			'region'=>'South America',
 			'currency'=>'COU',
+			'lat'=>4.570868,
+			'lon'=>-74.297333,
+			'borders'=>array(
+				'BR',
+				'EC',
+				'PA',
+				'PE',
+				'VE',
+			),
+			'tld'=>array(
+				'co',
+			),
 		),
 		'KM'=>array(
 			'name'=>'Comoros',
 			'region'=>'Africa',
 			'currency'=>'KMF',
+			'lat'=>-11.875001,
+			'lon'=>43.872219,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'km',
+			),
 		),
 		'CG'=>array(
 			'name'=>'Congo',
 			'region'=>'Africa',
 			'currency'=>'XAF',
+			'lat'=>-0.228021,
+			'lon'=>15.827659,
+			'borders'=>array(
+				'AO',
+				'CD',
+				'CF',
+				'CM',
+				'GA',
+			),
+			'tld'=>array(
+				'cg',
+			),
 		),
 		'CK'=>array(
 			'name'=>'Cook Islands',
 			'region'=>'Australia',
 			'currency'=>'NZD',
+			'lat'=>-21.236736,
+			'lon'=>-159.777671,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ck',
+			),
 		),
 		'CR'=>array(
 			'name'=>'Costa Rica',
 			'region'=>'South America',
 			'currency'=>'CRC',
+			'lat'=>9.748917,
+			'lon'=>-83.753428,
+			'borders'=>array(
+				'NI',
+				'PA',
+			),
+			'tld'=>array(
+				'cr',
+			),
 		),
 		'CI'=>array(
-			'name'=>"Côte d'Ivoire",
+			'name'=>'Côte d\'Ivoire',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>7.539989,
+			'lon'=>-5.54708,
+			'borders'=>array(
+				'BF',
+				'GH',
+				'GN',
+				'LR',
+				'ML',
+			),
+			'tld'=>array(
+				'ci',
+			),
 		),
 		'HR'=>array(
 			'name'=>'Croatia',
 			'region'=>'Europe',
 			'currency'=>'HRK',
+			'lat'=>45.1,
+			'lon'=>15.2,
+			'borders'=>array(
+				'BA',
+				'HU',
+				'ME',
+				'RS',
+				'SI',
+			),
+			'tld'=>array(
+				'hr',
+			),
 		),
 		'CU'=>array(
 			'name'=>'Cuba',
 			'region'=>'North America',
 			'currency'=>'CUP',
+			'lat'=>21.521757,
+			'lon'=>-77.781167,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'cu',
+			),
 		),
 		'CW'=>array(
 			'name'=>'Curaçao',
 			'region'=>'South America',
 			'currency'=>'ANG',
+			'lat'=>0,
+			'lon'=>0,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'cw',
+			),
 		),
 		'CY'=>array(
 			'name'=>'Cyprus',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>35.126413,
+			'lon'=>33.429859,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'cy',
+			),
 		),
 		'CZ'=>array(
 			'name'=>'Czech Republic',
 			'region'=>'Europe',
 			'currency'=>'CZK',
+			'lat'=>49.817492,
+			'lon'=>15.472962,
+			'borders'=>array(
+				'AT',
+				'DE',
+				'PL',
+				'SK',
+			),
+			'tld'=>array(
+				'cz',
+			),
 		),
 		'CD'=>array(
 			'name'=>'Democratic Republic of the Congo',
 			'region'=>'Africa',
 			'currency'=>'CDF',
+			'lat'=>-4.038333,
+			'lon'=>21.758664,
+			'borders'=>array(
+				'AO',
+				'BI',
+				'CF',
+				'CG',
+				'RW',
+				'SS',
+				'TZ',
+				'UG',
+				'ZM',
+			),
+			'tld'=>array(
+				'cd',
+			),
 		),
 		'DK'=>array(
 			'name'=>'Denmark',
 			'region'=>'Europe',
 			'currency'=>'DKK',
+			'lat'=>56.26392,
+			'lon'=>9.501785,
+			'borders'=>array(
+				'DE',
+			),
+			'tld'=>array(
+				'dk',
+			),
 		),
 		'DJ'=>array(
 			'name'=>'Djibouti',
 			'region'=>'Africa',
 			'currency'=>'DJF',
+			'lat'=>11.825138,
+			'lon'=>42.590275,
+			'borders'=>array(
+				'ER',
+				'ET',
+				'SO',
+			),
+			'tld'=>array(
+				'dj',
+			),
 		),
 		'DM'=>array(
 			'name'=>'Dominica',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>15.414999,
+			'lon'=>-61.370976,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'dm',
+			),
 		),
 		'DO'=>array(
 			'name'=>'Dominican Republic',
 			'region'=>'North America',
 			'currency'=>'DOP',
+			'lat'=>18.735693,
+			'lon'=>-70.162651,
+			'borders'=>array(
+				'HT',
+			),
+			'tld'=>array(
+				'do',
+			),
 		),
 		'TL'=>array(
 			'name'=>'East Timor',
 			'region'=>'Asia',
 			'currency'=>'USD',
+			'lat'=>-8.874217,
+			'lon'=>125.727539,
+			'borders'=>array(
+				'ID',
+			),
+			'tld'=>array(
+				'tl',
+			),
 		),
 		'EC'=>array(
 			'name'=>'Ecuador',
 			'region'=>'South America',
 			'currency'=>'USD',
+			'lat'=>-1.831239,
+			'lon'=>-78.183406,
+			'borders'=>array(
+				'CO',
+				'PE',
+			),
+			'tld'=>array(
+				'ec',
+			),
 		),
 		'EG'=>array(
 			'name'=>'Egypt',
 			'region'=>'Africa',
 			'currency'=>'EGP',
+			'lat'=>26.820553,
+			'lon'=>30.802498,
+			'borders'=>array(
+				'IL',
+				'LY',
+				'PS',
+				'SD',
+			),
+			'tld'=>array(
+				'eg',
+			),
 		),
 		'SV'=>array(
 			'name'=>'El Salvador',
 			'region'=>'North America',
 			'currency'=>'SVC',
+			'lat'=>13.794185,
+			'lon'=>-88.89653,
+			'borders'=>array(
+				'GT',
+				'HN',
+			),
+			'tld'=>array(
+				'sv',
+			),
 		),
 		'GQ'=>array(
 			'name'=>'Equatorial Guinea',
 			'region'=>'Africa',
 			'currency'=>'XAF',
+			'lat'=>1.650801,
+			'lon'=>10.267895,
+			'borders'=>array(
+				'CM',
+				'GA',
+			),
+			'tld'=>array(
+				'gq',
+			),
 		),
 		'ER'=>array(
 			'name'=>'Eritrea',
 			'region'=>'Africa',
 			'currency'=>'ERN',
+			'lat'=>15.179384,
+			'lon'=>39.782334,
+			'borders'=>array(
+				'DJ',
+				'ET',
+				'SD',
+			),
+			'tld'=>array(
+				'er',
+			),
 		),
 		'EE'=>array(
 			'name'=>'Estonia',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>58.595272,
+			'lon'=>25.013607,
+			'borders'=>array(
+				'LV',
+				'RU',
+			),
+			'tld'=>array(
+				'ee',
+			),
 		),
 		'ET'=>array(
 			'name'=>'Ethiopia',
 			'region'=>'Africa',
 			'currency'=>'ETB',
+			'lat'=>9.145,
+			'lon'=>40.489673,
+			'borders'=>array(
+				'DJ',
+				'ER',
+				'KE',
+				'SD',
+				'SO',
+				'SS',
+			),
+			'tld'=>array(
+				'et',
+			),
 		),
 		'FK'=>array(
 			'name'=>'Falkland Islands',
 			'region'=>'South America',
 			'currency'=>'FKP',
+			'lat'=>-51.796253,
+			'lon'=>-59.523613,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'fk',
+			),
 		),
 		'FO'=>array(
 			'name'=>'Faroe Islands',
 			'region'=>'Europe',
 			'currency'=>'DKK',
+			'lat'=>61.892635,
+			'lon'=>-6.911806,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'fo',
+			),
 		),
 		'FM'=>array(
 			'name'=>'Federated States of Micronesia',
 			'region'=>'Australia',
 			'currency'=>'USD',
+			'lat'=>7.425554,
+			'lon'=>150.550812,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'fm',
+			),
 		),
 		'FJ'=>array(
 			'name'=>'Fiji',
 			'region'=>'Australia',
 			'currency'=>'FJD',
+			'lat'=>-16.578193,
+			'lon'=>179.414413,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'fj',
+			),
 		),
 		'FI'=>array(
 			'name'=>'Finland',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>61.92411,
+			'lon'=>25.748151,
+			'borders'=>array(
+				'NO',
+				'RU',
+				'SE',
+			),
+			'tld'=>array(
+				'fi',
+			),
 		),
 		'FR'=>array(
 			'name'=>'France',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>46.227638,
+			'lon'=>2.213749,
+			'borders'=>array(
+				'AD',
+				'BE',
+				'CH',
+				'DE',
+				'ES',
+				'IT',
+				'LU',
+				'MC',
+			),
+			'tld'=>array(
+				'fr',
+			),
 		),
 		'GF'=>array(
 			'name'=>'French Guiana',
 			'region'=>'South America',
 			'currency'=>'EUR',
+			'lat'=>3.933889,
+			'lon'=>-53.125782,
+			'borders'=>array(
+				'BR',
+				'SR',
+			),
+			'tld'=>array(
+				'gf',
+			),
 		),
 		'PF'=>array(
 			'name'=>'French Polynesia',
 			'region'=>'Australia',
 			'currency'=>'XPF',
+			'lat'=>-17.679742,
+			'lon'=>-149.406843,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'pf',
+			),
 		),
 		'GA'=>array(
 			'name'=>'Gabon',
 			'region'=>'Africa',
 			'currency'=>'XAF',
+			'lat'=>-0.803689,
+			'lon'=>11.609444,
+			'borders'=>array(
+				'CG',
+				'CM',
+				'GQ',
+			),
+			'tld'=>array(
+				'ga',
+			),
 		),
 		'GM'=>array(
 			'name'=>'Gambia',
 			'region'=>'Africa',
 			'currency'=>'GMD',
+			'lat'=>13.443182,
+			'lon'=>-15.310139,
+			'borders'=>array(
+				'SN',
+			),
+			'tld'=>array(
+				'gm',
+			),
 		),
 		'GE'=>array(
 			'name'=>'Georgia',
 			'region'=>'Asia',
 			'currency'=>'GEL',
+			'lat'=>42.315407,
+			'lon'=>43.356892,
+			'borders'=>array(
+				'AM',
+				'AZ',
+				'RU',
+				'TR',
+			),
+			'tld'=>array(
+				'ge',
+			),
 		),
 		'DE'=>array(
 			'name'=>'Germany',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>51.165691,
+			'lon'=>10.451526,
+			'borders'=>array(
+				'AT',
+				'BE',
+				'CH',
+				'CZ',
+				'DK',
+				'FR',
+				'LU',
+				'NL',
+				'PL',
+			),
+			'tld'=>array(
+				'de',
+			),
 		),
 		'GH'=>array(
 			'name'=>'Ghana',
 			'region'=>'Africa',
 			'currency'=>'GHS',
+			'lat'=>7.946527,
+			'lon'=>-1.023194,
+			'borders'=>array(
+				'BF',
+				'CI',
+				'TG',
+			),
+			'tld'=>array(
+				'gh',
+			),
 		),
 		'GI'=>array(
 			'name'=>'Gibraltar',
 			'region'=>'Europe',
 			'currency'=>'GIP',
+			'lat'=>36.137741,
+			'lon'=>-5.345374,
+			'borders'=>array(
+				'ES',
+			),
+			'tld'=>array(
+				'gi',
+			),
 		),
 		'GR'=>array(
 			'name'=>'Greece',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>39.074208,
+			'lon'=>21.824312,
+			'borders'=>array(
+				'AL',
+				'BG',
+				'MK',
+				'TR',
+			),
+			'tld'=>array(
+				'gr',
+			),
 		),
 		'GL'=>array(
 			'name'=>'Greenland',
 			'region'=>'North America',
 			'currency'=>'DKK',
+			'lat'=>71.706936,
+			'lon'=>-42.604303,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'gl',
+			),
 		),
 		'GD'=>array(
 			'name'=>'Grenada',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>12.262776,
+			'lon'=>-61.604171,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'gd',
+			),
 		),
 		'GP'=>array(
 			'name'=>'Guadeloupe',
 			'region'=>'North America',
 			'currency'=>'EUR',
+			'lat'=>16.995971,
+			'lon'=>-62.067641,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'gp',
+			),
 		),
 		'GU'=>array(
 			'name'=>'Guam',
 			'region'=>'Australia',
 			'currency'=>'USD',
+			'lat'=>13.444304,
+			'lon'=>144.793731,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'gu',
+			),
 		),
 		'GT'=>array(
 			'name'=>'Guatemala',
 			'region'=>'North America',
 			'currency'=>'GTQ',
+			'lat'=>15.783471,
+			'lon'=>-90.230759,
+			'borders'=>array(
+				'BZ',
+				'HN',
+				'MX',
+				'SV',
+			),
+			'tld'=>array(
+				'gt',
+			),
 		),
 		'GG'=>array(
 			'name'=>'Guernsey',
 			'region'=>'Europe',
 			'currency'=>'GBP',
+			'lat'=>49.465691,
+			'lon'=>-2.585278,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'gg',
+			),
 		),
 		'GN'=>array(
 			'name'=>'Guinea',
 			'region'=>'Africa',
 			'currency'=>'GNF',
+			'lat'=>9.945587,
+			'lon'=>-9.696645,
+			'borders'=>array(
+				'CI',
+				'GW',
+				'LR',
+				'ML',
+				'SL',
+				'SN',
+			),
+			'tld'=>array(
+				'gn',
+			),
 		),
 		'GW'=>array(
 			'name'=>'Guinea-Bissau',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>11.803749,
+			'lon'=>-15.180413,
+			'borders'=>array(
+				'GN',
+				'SN',
+			),
+			'tld'=>array(
+				'gw',
+			),
 		),
 		'GY'=>array(
 			'name'=>'Guyana',
 			'region'=>'South America',
 			'currency'=>'GYD',
+			'lat'=>4.860416,
+			'lon'=>-58.93018,
+			'borders'=>array(
+				'BR',
+				'SR',
+				'VE',
+			),
+			'tld'=>array(
+				'gy',
+			),
 		),
 		'HT'=>array(
 			'name'=>'Haiti',
 			'region'=>'North America',
 			'currency'=>'USD',
+			'lat'=>18.971187,
+			'lon'=>-72.285215,
+			'borders'=>array(
+				'DO',
+			),
+			'tld'=>array(
+				'ht',
+			),
 		),
 		'HN'=>array(
 			'name'=>'Honduras',
 			'region'=>'North America',
 			'currency'=>'HNL',
+			'lat'=>15.199999,
+			'lon'=>-86.241905,
+			'borders'=>array(
+				'GT',
+				'NI',
+				'SV',
+			),
+			'tld'=>array(
+				'hn',
+			),
 		),
 		'HK'=>array(
 			'name'=>'Hong Kong',
 			'region'=>'Asia',
 			'currency'=>'HKD',
+			'lat'=>22.396428,
+			'lon'=>114.109497,
+			'borders'=>array(
+				'CN',
+			),
+			'tld'=>array(
+				'hk',
+			),
 		),
 		'HU'=>array(
 			'name'=>'Hungary',
 			'region'=>'Europe',
 			'currency'=>'HUF',
+			'lat'=>47.162494,
+			'lon'=>19.503304,
+			'borders'=>array(
+				'AT',
+				'HR',
+				'RO',
+				'RS',
+				'SI',
+				'SK',
+				'UA',
+			),
+			'tld'=>array(
+				'hu',
+			),
 		),
 		'IS'=>array(
 			'name'=>'Iceland',
 			'region'=>'Europe',
 			'currency'=>'ISK',
+			'lat'=>64.963051,
+			'lon'=>-19.020835,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'is',
+			),
 		),
 		'IN'=>array(
 			'name'=>'India',
 			'region'=>'Asia',
 			'currency'=>'INR',
+			'lat'=>20.593684,
+			'lon'=>78.96288,
+			'borders'=>array(
+				'BD',
+				'BT',
+				'CN',
+				'MM',
+				'NP',
+				'PK',
+			),
+			'tld'=>array(
+				'in',
+			),
 		),
 		'ID'=>array(
 			'name'=>'Indonesia',
 			'region'=>'Asia',
 			'currency'=>'IDR',
+			'lat'=>-0.789275,
+			'lon'=>113.921327,
+			'borders'=>array(
+				'MY',
+				'PG',
+				'TL',
+			),
+			'tld'=>array(
+				'id',
+			),
 		),
 		'IR'=>array(
 			'name'=>'Iran',
 			'region'=>'Asia',
 			'currency'=>'IRR',
+			'lat'=>32.427908,
+			'lon'=>53.688046,
+			'borders'=>array(
+				'AF',
+				'AM',
+				'AZ',
+				'IQ',
+				'PK',
+				'TM',
+				'TR',
+			),
+			'tld'=>array(
+				'ir',
+			),
 		),
 		'IQ'=>array(
 			'name'=>'Iraq',
 			'region'=>'Asia',
 			'currency'=>'IQD',
+			'lat'=>33.223191,
+			'lon'=>43.679291,
+			'borders'=>array(
+				'IR',
+				'JO',
+				'KW',
+				'SA',
+				'SY',
+				'TR',
+			),
+			'tld'=>array(
+				'iq',
+			),
 		),
 		'IE'=>array(
 			'name'=>'Ireland',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>53.41291,
+			'lon'=>-8.24389,
+			'borders'=>array(
+				'GB',
+			),
+			'tld'=>array(
+				'ie',
+			),
 		),
 		'IM'=>array(
 			'name'=>'Isle of Man',
 			'region'=>'Europe',
 			'currency'=>'GBP',
+			'lat'=>54.236107,
+			'lon'=>-4.548056,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'im',
+			),
 		),
 		'IL'=>array(
 			'name'=>'Israel',
 			'region'=>'Asia',
 			'currency'=>'ILS',
+			'lat'=>31.046051,
+			'lon'=>34.851612,
+			'borders'=>array(
+				'EG',
+				'JO',
+				'LB',
+				'PS',
+				'SY',
+			),
+			'tld'=>array(
+				'il',
+			),
 		),
 		'IT'=>array(
 			'name'=>'Italy',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>41.87194,
+			'lon'=>12.56738,
+			'borders'=>array(
+				'AT',
+				'CH',
+				'FR',
+				'SI',
+				'SM',
+				'VA',
+			),
+			'tld'=>array(
+				'it',
+			),
 		),
 		'JM'=>array(
 			'name'=>'Jamaica',
 			'region'=>'North America',
 			'currency'=>'JMD',
+			'lat'=>18.109581,
+			'lon'=>-77.297508,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'jm',
+			),
 		),
 		'JP'=>array(
 			'name'=>'Japan',
 			'region'=>'Asia',
 			'currency'=>'JPY',
+			'lat'=>36.204824,
+			'lon'=>138.252924,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'jp',
+			),
 		),
 		'JE'=>array(
 			'name'=>'Jersey',
 			'region'=>'Europe',
 			'currency'=>'GBP',
+			'lat'=>49.214439,
+			'lon'=>-2.13125,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'je',
+			),
 		),
 		'JO'=>array(
 			'name'=>'Jordan',
 			'region'=>'Asia',
 			'currency'=>'JOD',
+			'lat'=>30.585164,
+			'lon'=>36.238414,
+			'borders'=>array(
+				'IL',
+				'IQ',
+				'PS',
+				'SA',
+				'SY',
+			),
+			'tld'=>array(
+				'jo',
+			),
 		),
 		'KZ'=>array(
 			'name'=>'Kazakhstan',
 			'region'=>'Asia',
 			'currency'=>'KZT',
+			'lat'=>48.019573,
+			'lon'=>66.923684,
+			'borders'=>array(
+				'CN',
+				'KG',
+				'RU',
+				'TM',
+				'UZ',
+			),
+			'tld'=>array(
+				'kz',
+			),
 		),
 		'KE'=>array(
 			'name'=>'Kenya',
 			'region'=>'Africa',
 			'currency'=>'KES',
+			'lat'=>-0.023559,
+			'lon'=>37.906193,
+			'borders'=>array(
+				'ET',
+				'SO',
+				'SS',
+				'TZ',
+				'UG',
+			),
+			'tld'=>array(
+				'ke',
+			),
 		),
 		'KI'=>array(
 			'name'=>'Kiribati',
 			'region'=>'Australia',
 			'currency'=>'AUD',
+			'lat'=>-3.370417,
+			'lon'=>-168.734039,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ki',
+			),
 		),
 		'KW'=>array(
 			'name'=>'Kuwait',
 			'region'=>'Asia',
 			'currency'=>'KWD',
+			'lat'=>29.31166,
+			'lon'=>47.481766,
+			'borders'=>array(
+				'IQ',
+				'SA',
+			),
+			'tld'=>array(
+				'kw',
+			),
 		),
 		'KG'=>array(
 			'name'=>'Kyrgyzstan',
 			'region'=>'Asia',
 			'currency'=>'KGS',
+			'lat'=>41.20438,
+			'lon'=>74.766098,
+			'borders'=>array(
+				'CN',
+				'KZ',
+				'TJ',
+				'UZ',
+			),
+			'tld'=>array(
+				'kg',
+			),
 		),
 		'LA'=>array(
 			'name'=>'Laos',
 			'region'=>'Asia',
 			'currency'=>'LAK',
+			'lat'=>19.85627,
+			'lon'=>102.495496,
+			'borders'=>array(
+				'CN',
+				'KH',
+				'MM',
+				'TH',
+				'VN',
+			),
+			'tld'=>array(
+				'la',
+			),
 		),
 		'LV'=>array(
 			'name'=>'Latvia',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>56.879635,
+			'lon'=>24.603189,
+			'borders'=>array(
+				'BY',
+				'EE',
+				'LT',
+				'RU',
+			),
+			'tld'=>array(
+				'lv',
+			),
 		),
 		'LB'=>array(
 			'name'=>'Lebanon',
 			'region'=>'Asia',
 			'currency'=>'LBP',
+			'lat'=>33.854721,
+			'lon'=>35.862285,
+			'borders'=>array(
+				'IL',
+				'SY',
+			),
+			'tld'=>array(
+				'lb',
+			),
 		),
 		'LS'=>array(
 			'name'=>'Lesotho',
 			'region'=>'Africa',
 			'currency'=>'LSL',
+			'lat'=>-29.609988,
+			'lon'=>28.233608,
+			'borders'=>array(
+				'ZA',
+			),
+			'tld'=>array(
+				'ls',
+			),
 		),
 		'LR'=>array(
 			'name'=>'Liberia',
 			'region'=>'Africa',
 			'currency'=>'LRD',
+			'lat'=>6.428055,
+			'lon'=>-9.429499,
+			'borders'=>array(
+				'CI',
+				'GN',
+				'SL',
+			),
+			'tld'=>array(
+				'lr',
+			),
 		),
 		'LY'=>array(
 			'name'=>'Libya',
 			'region'=>'Africa',
 			'currency'=>'LYD',
+			'lat'=>26.3351,
+			'lon'=>17.228331,
+			'borders'=>array(
+				'DZ',
+				'EG',
+				'NE',
+				'SD',
+				'TD',
+				'TN',
+			),
+			'tld'=>array(
+				'ly',
+			),
 		),
 		'LI'=>array(
 			'name'=>'Liechtenstein',
 			'region'=>'Europe',
 			'currency'=>'CHF',
+			'lat'=>47.166,
+			'lon'=>9.555373,
+			'borders'=>array(
+				'AT',
+				'CH',
+			),
+			'tld'=>array(
+				'li',
+			),
 		),
 		'LT'=>array(
 			'name'=>'Lithuania',
 			'region'=>'Europe',
 			'currency'=>'LTL',
+			'lat'=>55.169438,
+			'lon'=>23.881275,
+			'borders'=>array(
+				'BY',
+				'LV',
+				'PL',
+				'RU',
+			),
+			'tld'=>array(
+				'lt',
+			),
 		),
 		'LU'=>array(
 			'name'=>'Luxembourg',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>49.815273,
+			'lon'=>6.129583,
+			'borders'=>array(
+				'BE',
+				'DE',
+				'FR',
+			),
+			'tld'=>array(
+				'lu',
+			),
 		),
 		'MO'=>array(
 			'name'=>'Macao',
 			'region'=>'Asia',
 			'currency'=>'MOP',
+			'lat'=>22.198745,
+			'lon'=>113.543873,
+			'borders'=>array(
+				'CN',
+			),
+			'tld'=>array(
+				'mo',
+			),
 		),
 		'MK'=>array(
 			'name'=>'Macedonia',
 			'region'=>'Europe',
 			'currency'=>'MKD',
+			'lat'=>41.608635,
+			'lon'=>21.745275,
+			'borders'=>array(
+				'AL',
+				'BG',
+				'GR',
+				'RS',
+				'XK',
+			),
+			'tld'=>array(
+				'mk',
+			),
 		),
 		'MG'=>array(
 			'name'=>'Madagascar',
 			'region'=>'Africa',
 			'currency'=>'MGA',
+			'lat'=>-18.766947,
+			'lon'=>46.869107,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'mg',
+			),
 		),
 		'MW'=>array(
 			'name'=>'Malawi',
 			'region'=>'Africa',
 			'currency'=>'MWK',
+			'lat'=>-13.254308,
+			'lon'=>34.301525,
+			'borders'=>array(
+				'MZ',
+				'TZ',
+				'ZM',
+			),
+			'tld'=>array(
+				'mw',
+			),
 		),
 		'MY'=>array(
 			'name'=>'Malaysia',
 			'region'=>'Asia',
 			'currency'=>'MYR',
+			'lat'=>4.210484,
+			'lon'=>101.975766,
+			'borders'=>array(
+				'BN',
+				'ID',
+				'TH',
+			),
+			'tld'=>array(
+				'my',
+			),
 		),
 		'MV'=>array(
 			'name'=>'Maldives',
 			'region'=>'Asia',
 			'currency'=>'MVR',
+			'lat'=>3.202778,
+			'lon'=>73.22068,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'mv',
+			),
 		),
 		'ML'=>array(
 			'name'=>'Mali',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>17.570692,
+			'lon'=>-3.996166,
+			'borders'=>array(
+				'BF',
+				'CI',
+				'DZ',
+				'GN',
+				'MR',
+				'NE',
+				'SN',
+			),
+			'tld'=>array(
+				'ml',
+			),
 		),
 		'MT'=>array(
 			'name'=>'Malta',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>35.937496,
+			'lon'=>14.375416,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'mt',
+			),
 		),
 		'MH'=>array(
 			'name'=>'Marshall Islands',
 			'region'=>'Australia',
 			'currency'=>'USD',
+			'lat'=>7.131474,
+			'lon'=>171.184478,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'mh',
+			),
 		),
 		'MQ'=>array(
 			'name'=>'Martinique',
 			'region'=>'South America',
 			'currency'=>'EUR',
+			'lat'=>14.641528,
+			'lon'=>-61.024174,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'mq',
+			),
 		),
 		'MR'=>array(
 			'name'=>'Mauritania',
 			'region'=>'Africa',
 			'currency'=>'MRO',
+			'lat'=>21.00789,
+			'lon'=>-10.940835,
+			'borders'=>array(
+				'DZ',
+				'EH',
+				'ML',
+				'SN',
+			),
+			'tld'=>array(
+				'mr',
+			),
 		),
 		'MU'=>array(
 			'name'=>'Mauritius',
 			'region'=>'Africa',
 			'currency'=>'MUR',
+			'lat'=>-20.348404,
+			'lon'=>57.552152,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'mu',
+			),
 		),
 		'YT'=>array(
 			'name'=>'Mayotte',
 			'region'=>'Africa',
 			'currency'=>'EUR',
+			'lat'=>-12.8275,
+			'lon'=>45.166244,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'yt',
+			),
 		),
 		'MX'=>array(
 			'name'=>'Mexico',
 			'region'=>'North America',
 			'currency'=>'MXV',
+			'lat'=>23.634501,
+			'lon'=>-102.552784,
+			'borders'=>array(
+				'BZ',
+				'GT',
+				'US',
+			),
+			'tld'=>array(
+				'mx',
+			),
 		),
 		'MD'=>array(
 			'name'=>'Moldova',
 			'region'=>'Europe',
 			'currency'=>'MDL',
+			'lat'=>47.411631,
+			'lon'=>28.369885,
+			'borders'=>array(
+				'RO',
+				'UA',
+			),
+			'tld'=>array(
+				'md',
+			),
 		),
 		'MC'=>array(
 			'name'=>'Monaco',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>43.750298,
+			'lon'=>7.412841,
+			'borders'=>array(
+				'FR',
+			),
+			'tld'=>array(
+				'mc',
+			),
 		),
 		'MN'=>array(
 			'name'=>'Mongolia',
 			'region'=>'Asia',
 			'currency'=>'MNT',
+			'lat'=>46.862496,
+			'lon'=>103.846656,
+			'borders'=>array(
+				'CN',
+				'RU',
+			),
+			'tld'=>array(
+				'mn',
+			),
 		),
 		'ME'=>array(
 			'name'=>'Montenegro',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>42.708678,
+			'lon'=>19.37439,
+			'borders'=>array(
+				'AL',
+				'BA',
+				'HR',
+				'RS',
+				'XK',
+			),
+			'tld'=>array(
+				'me',
+			),
 		),
 		'MS'=>array(
 			'name'=>'Montserrat',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>16.742498,
+			'lon'=>-62.187366,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ms',
+			),
 		),
 		'MA'=>array(
 			'name'=>'Morocco',
 			'region'=>'Africa',
 			'currency'=>'MAD',
+			'lat'=>31.791702,
+			'lon'=>-7.09262,
+			'borders'=>array(
+				'DZ',
+				'EH',
+				'ES',
+			),
+			'tld'=>array(
+				'ma',
+			),
 		),
 		'MZ'=>array(
 			'name'=>'Mozambique',
 			'region'=>'Africa',
 			'currency'=>'MZN',
+			'lat'=>-18.665695,
+			'lon'=>35.529562,
+			'borders'=>array(
+				'MW',
+				'SZ',
+				'TZ',
+				'ZA',
+				'ZM',
+				'ZW',
+			),
+			'tld'=>array(
+				'mz',
+			),
 		),
 		'MM'=>array(
 			'name'=>'Myanmar (Burma)',
 			'region'=>'Asia',
 			'currency'=>'MMK',
+			'lat'=>21.913965,
+			'lon'=>95.956223,
+			'borders'=>array(
+				'BD',
+				'CN',
+				'IN',
+				'LA',
+				'TH',
+			),
+			'tld'=>array(
+				'mm',
+			),
 		),
 		'NA'=>array(
 			'name'=>'Namibia',
 			'region'=>'Africa',
 			'currency'=>'NAD',
+			'lat'=>-22.95764,
+			'lon'=>18.49041,
+			'borders'=>array(
+				'AO',
+				'BW',
+				'ZA',
+				'ZM',
+			),
+			'tld'=>array(
+				'na',
+			),
 		),
 		'NR'=>array(
 			'name'=>'Nauru',
 			'region'=>'Australia',
 			'currency'=>'AUD',
+			'lat'=>-0.522778,
+			'lon'=>166.931503,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'nr',
+			),
 		),
 		'NP'=>array(
 			'name'=>'Nepal',
 			'region'=>'Asia',
 			'currency'=>'NPR',
+			'lat'=>28.394857,
+			'lon'=>84.124008,
+			'borders'=>array(
+				'CN',
+				'IN',
+			),
+			'tld'=>array(
+				'np',
+			),
 		),
 		'NL'=>array(
 			'name'=>'Netherlands',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>52.132633,
+			'lon'=>5.291266,
+			'borders'=>array(
+				'BE',
+				'DE',
+			),
+			'tld'=>array(
+				'nl',
+			),
 		),
 		'NC'=>array(
 			'name'=>'New Caledonia',
 			'region'=>'Australia',
 			'currency'=>'XPF',
+			'lat'=>-20.904305,
+			'lon'=>165.618042,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'nc',
+			),
 		),
 		'NZ'=>array(
 			'name'=>'New Zealand',
 			'region'=>'Australia',
 			'currency'=>'NZD',
+			'lat'=>-40.900557,
+			'lon'=>174.885971,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'nz',
+			),
 		),
 		'NI'=>array(
 			'name'=>'Nicaragua',
 			'region'=>'North America',
 			'currency'=>'NIO',
+			'lat'=>12.865416,
+			'lon'=>-85.207229,
+			'borders'=>array(
+				'CR',
+				'HN',
+			),
+			'tld'=>array(
+				'ni',
+			),
 		),
 		'NE'=>array(
 			'name'=>'Niger',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>17.607789,
+			'lon'=>8.081666,
+			'borders'=>array(
+				'BF',
+				'BJ',
+				'DZ',
+				'LY',
+				'ML',
+				'NG',
+				'TD',
+			),
+			'tld'=>array(
+				'ne',
+			),
 		),
 		'NG'=>array(
 			'name'=>'Nigeria',
 			'region'=>'Africa',
 			'currency'=>'NGN',
+			'lat'=>9.081999,
+			'lon'=>8.675277,
+			'borders'=>array(
+				'BJ',
+				'CM',
+				'NE',
+				'TD',
+			),
+			'tld'=>array(
+				'ng',
+			),
 		),
 		'NU'=>array(
 			'name'=>'Niue',
 			'region'=>'Australia',
 			'currency'=>'NZD',
+			'lat'=>-19.054445,
+			'lon'=>-169.867233,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'nu',
+			),
 		),
 		'NF'=>array(
 			'name'=>'Norfolk Island',
 			'region'=>'Australia',
 			'currency'=>'AUD',
+			'lat'=>-29.040835,
+			'lon'=>167.954712,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'nf',
+			),
 		),
 		'KP'=>array(
 			'name'=>'North Korea',
 			'region'=>'Asia',
 			'currency'=>'KPW',
+			'lat'=>40.339852,
+			'lon'=>127.510093,
+			'borders'=>array(
+				'CN',
+				'KR',
+				'RU',
+			),
+			'tld'=>array(
+				'kp',
+			),
 		),
 		'MP'=>array(
 			'name'=>'Northern Mariana Islands',
 			'region'=>'Australia',
 			'currency'=>'USD',
+			'lat'=>17.33083,
+			'lon'=>145.38469,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'mp',
+			),
 		),
 		'NO'=>array(
 			'name'=>'Norway',
 			'region'=>'Europe',
 			'currency'=>'NOK',
+			'lat'=>60.472024,
+			'lon'=>8.468946,
+			'borders'=>array(
+				'FI',
+				'RU',
+				'SE',
+			),
+			'tld'=>array(
+				'no',
+			),
 		),
 		'OM'=>array(
 			'name'=>'Oman',
 			'region'=>'Asia',
 			'currency'=>'OMR',
+			'lat'=>21.512583,
+			'lon'=>55.923255,
+			'borders'=>array(
+				'AE',
+				'SA',
+				'YE',
+			),
+			'tld'=>array(
+				'om',
+			),
 		),
 		'PK'=>array(
 			'name'=>'Pakistan',
 			'region'=>'Asia',
 			'currency'=>'PKR',
+			'lat'=>30.375321,
+			'lon'=>69.345116,
+			'borders'=>array(
+				'AF',
+				'CN',
+				'IN',
+				'IR',
+			),
+			'tld'=>array(
+				'pk',
+			),
 		),
 		'PW'=>array(
 			'name'=>'Palau',
 			'region'=>'Australia',
 			'currency'=>'USD',
+			'lat'=>7.51498,
+			'lon'=>134.58252,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'pw',
+			),
 		),
 		'PS'=>array(
 			'name'=>'Palestine',
 			'region'=>'Asia',
 			'currency'=>'EGP',
+			'lat'=>31.952162,
+			'lon'=>35.233154,
+			'borders'=>array(
+				'EG',
+				'IL',
+				'JO',
+			),
+			'tld'=>array(
+				'ps',
+			),
 		),
 		'PA'=>array(
 			'name'=>'Panama',
 			'region'=>'North America',
 			'currency'=>'PAB',
+			'lat'=>8.537981,
+			'lon'=>-80.782127,
+			'borders'=>array(
+				'CO',
+				'CR',
+			),
+			'tld'=>array(
+				'pa',
+			),
 		),
 		'PG'=>array(
 			'name'=>'Papua New Guinea',
 			'region'=>'Australia',
 			'currency'=>'PGK',
+			'lat'=>-6.314993,
+			'lon'=>143.95555,
+			'borders'=>array(
+				'ID',
+			),
+			'tld'=>array(
+				'pg',
+			),
 		),
 		'PY'=>array(
 			'name'=>'Paraguay',
 			'region'=>'South America',
 			'currency'=>'PYG',
+			'lat'=>-23.442503,
+			'lon'=>-58.443832,
+			'borders'=>array(
+				'AR',
+				'BO',
+				'BR',
+			),
+			'tld'=>array(
+				'py',
+			),
 		),
 		'PE'=>array(
 			'name'=>'Peru',
 			'region'=>'South America',
 			'currency'=>'PEN',
+			'lat'=>-9.189967,
+			'lon'=>-75.015152,
+			'borders'=>array(
+				'BO',
+				'BR',
+				'CL',
+				'CO',
+				'EC',
+			),
+			'tld'=>array(
+				'pe',
+			),
 		),
 		'PH'=>array(
 			'name'=>'Philippines',
 			'region'=>'Asia',
 			'currency'=>'PHP',
+			'lat'=>12.879721,
+			'lon'=>121.774017,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ph',
+			),
 		),
 		'PL'=>array(
 			'name'=>'Poland',
 			'region'=>'Europe',
 			'currency'=>'PLN',
+			'lat'=>51.919438,
+			'lon'=>19.145136,
+			'borders'=>array(
+				'BY',
+				'CZ',
+				'DE',
+				'LT',
+				'RU',
+				'SK',
+				'UA',
+			),
+			'tld'=>array(
+				'pl',
+			),
 		),
 		'PT'=>array(
 			'name'=>'Portugal',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>39.399872,
+			'lon'=>-8.224454,
+			'borders'=>array(
+				'ES',
+			),
+			'tld'=>array(
+				'pt',
+			),
 		),
 		'PR'=>array(
 			'name'=>'Puerto Rico',
 			'region'=>'North America',
 			'currency'=>'USD',
+			'lat'=>18.220833,
+			'lon'=>-66.590149,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'pr',
+			),
 		),
 		'QA'=>array(
 			'name'=>'Qatar',
 			'region'=>'Asia',
 			'currency'=>'QAR',
+			'lat'=>25.354826,
+			'lon'=>51.183884,
+			'borders'=>array(
+				'SA',
+			),
+			'tld'=>array(
+				'qa',
+			),
 		),
 		'RE'=>array(
 			'name'=>'Réunion',
 			'region'=>'Africa',
 			'currency'=>'EUR',
+			'lat'=>-21.115141,
+			'lon'=>55.536384,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				're',
+			),
 		),
 		'RO'=>array(
 			'name'=>'Romania',
 			'region'=>'Europe',
 			'currency'=>'RON',
+			'lat'=>45.943161,
+			'lon'=>24.96676,
+			'borders'=>array(
+				'BG',
+				'HU',
+				'MD',
+				'RS',
+				'UA',
+			),
+			'tld'=>array(
+				'ro',
+			),
 		),
 		'RU'=>array(
 			'name'=>'Russia',
 			'region'=>'Europe',
 			'currency'=>'RUB',
+			'lat'=>61.52401,
+			'lon'=>105.318756,
+			'borders'=>array(
+				'AZ',
+				'BY',
+				'CN',
+				'EE',
+				'FI',
+				'GE',
+				'KP',
+				'KZ',
+				'LT',
+				'LV',
+				'MN',
+				'NO',
+				'PL',
+				'UA',
+			),
+			'tld'=>array(
+				'ru',
+				'su',
+			),
 		),
 		'RW'=>array(
 			'name'=>'Rwanda',
 			'region'=>'Africa',
 			'currency'=>'RWF',
+			'lat'=>-1.940278,
+			'lon'=>29.873888,
+			'borders'=>array(
+				'BI',
+				'CD',
+				'TZ',
+				'UG',
+			),
+			'tld'=>array(
+				'rw',
+			),
 		),
 		'BL'=>array(
 			'name'=>'Saint Barthélemy',
 			'region'=>'North America',
 			'currency'=>'EUR',
+			'lat'=>0,
+			'lon'=>0,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'bl',
+			),
 		),
 		'SH'=>array(
 			'name'=>'Saint Helena, Ascension, and Tristan da Cunha',
 			'region'=>'Africa',
 			'currency'=>'SHP',
+			'lat'=>-24.143474,
+			'lon'=>-10.030696,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ac',
+				'sh',
+			),
 		),
 		'KN'=>array(
 			'name'=>'Saint Kitts and Nevis',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>17.357822,
+			'lon'=>-62.782998,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'kn',
+			),
 		),
 		'LC'=>array(
 			'name'=>'Saint Lucia',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>13.909444,
+			'lon'=>-60.978893,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'lc',
+			),
 		),
 		'MF'=>array(
 			'name'=>'Saint Martin',
 			'region'=>'North America',
 			'currency'=>'EUR',
+			'lat'=>0,
+			'lon'=>0,
+			'borders'=>array(
+				'SX',
+			),
+			'tld'=>array(
+				'fr',
+				'gp',
+			),
 		),
 		'PM'=>array(
 			'name'=>'Saint Pierre and Miquelon',
 			'region'=>'North America',
 			'currency'=>'EUR',
+			'lat'=>46.941936,
+			'lon'=>-56.27111,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'pm',
+			),
 		),
 		'VC'=>array(
 			'name'=>'Saint Vincent and the Grenadines',
 			'region'=>'North America',
 			'currency'=>'XCD',
+			'lat'=>12.984305,
+			'lon'=>-61.287228,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'vc',
+			),
 		),
 		'WS'=>array(
 			'name'=>'Samoa',
 			'region'=>'Australia',
 			'currency'=>'WST',
+			'lat'=>-13.759029,
+			'lon'=>-172.104629,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'ws',
+			),
 		),
 		'SM'=>array(
 			'name'=>'San Marino',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>43.94236,
+			'lon'=>12.457777,
+			'borders'=>array(
+				'IT',
+			),
+			'tld'=>array(
+				'sm',
+			),
 		),
 		'ST'=>array(
 			'name'=>'Sao Tomé and Príncipe',
 			'region'=>'Africa',
 			'currency'=>'STD',
+			'lat'=>0.18636,
+			'lon'=>6.613081,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'st',
+			),
 		),
 		'SA'=>array(
 			'name'=>'Saudi Arabia',
 			'region'=>'Asia',
 			'currency'=>'SAR',
+			'lat'=>23.885942,
+			'lon'=>45.079162,
+			'borders'=>array(
+				'AE',
+				'IQ',
+				'JO',
+				'KW',
+				'OM',
+				'QA',
+				'YE',
+			),
+			'tld'=>array(
+				'sa',
+			),
 		),
 		'SN'=>array(
 			'name'=>'Senegal',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>14.497401,
+			'lon'=>-14.452362,
+			'borders'=>array(
+				'GM',
+				'GN',
+				'GW',
+				'ML',
+				'MR',
+			),
+			'tld'=>array(
+				'sn',
+			),
 		),
 		'RS'=>array(
 			'name'=>'Serbia',
 			'region'=>'Europe',
 			'currency'=>'RSD',
+			'lat'=>44.016521,
+			'lon'=>21.005859,
+			'borders'=>array(
+				'BA',
+				'BG',
+				'HR',
+				'HU',
+				'ME',
+				'MK',
+				'RO',
+				'XK',
+			),
+			'tld'=>array(
+				'rs',
+			),
 		),
 		'SC'=>array(
 			'name'=>'Seychelles',
 			'region'=>'Africa',
 			'currency'=>'SCR',
+			'lat'=>-4.679574,
+			'lon'=>55.491977,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'sc',
+			),
 		),
 		'SL'=>array(
 			'name'=>'Sierra Leone',
 			'region'=>'Africa',
 			'currency'=>'SLL',
+			'lat'=>8.460555,
+			'lon'=>-11.779889,
+			'borders'=>array(
+				'GN',
+				'LR',
+			),
+			'tld'=>array(
+				'sl',
+			),
 		),
 		'SG'=>array(
 			'name'=>'Singapore',
 			'region'=>'Asia',
 			'currency'=>'SGD',
+			'lat'=>1.352083,
+			'lon'=>103.819836,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'sg',
+			),
 		),
 		'SX'=>array(
 			'name'=>'Sint Maarten',
 			'region'=>'North America',
 			'currency'=>'ANG',
+			'lat'=>0,
+			'lon'=>0,
+			'borders'=>array(
+				'MF',
+			),
+			'tld'=>array(
+				'sx',
+			),
 		),
 		'SK'=>array(
 			'name'=>'Slovakia',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>48.669026,
+			'lon'=>19.699024,
+			'borders'=>array(
+				'AT',
+				'CZ',
+				'HU',
+				'PL',
+				'UA',
+			),
+			'tld'=>array(
+				'sk',
+			),
 		),
 		'SI'=>array(
 			'name'=>'Slovenia',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>46.151241,
+			'lon'=>14.995463,
+			'borders'=>array(
+				'AT',
+				'HR',
+				'HU',
+				'IT',
+			),
+			'tld'=>array(
+				'si',
+			),
 		),
 		'SB'=>array(
 			'name'=>'Solomon Islands',
 			'region'=>'Australia',
 			'currency'=>'SBD',
+			'lat'=>-9.64571,
+			'lon'=>160.156194,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'sb',
+			),
 		),
 		'SO'=>array(
 			'name'=>'Somalia',
 			'region'=>'Africa',
 			'currency'=>'SOS',
+			'lat'=>5.152149,
+			'lon'=>46.199616,
+			'borders'=>array(
+				'DJ',
+				'ET',
+				'KE',
+			),
+			'tld'=>array(
+				'so',
+			),
 		),
 		'ZA'=>array(
 			'name'=>'South Africa',
 			'region'=>'Africa',
 			'currency'=>'ZAR',
+			'lat'=>-30.559482,
+			'lon'=>22.937506,
+			'borders'=>array(
+				'BW',
+				'LS',
+				'MZ',
+				'NA',
+				'SZ',
+				'ZW',
+			),
+			'tld'=>array(
+				'za',
+			),
 		),
 		'KR'=>array(
 			'name'=>'South Korea',
 			'region'=>'Asia',
 			'currency'=>'KRW',
+			'lat'=>35.907757,
+			'lon'=>127.766922,
+			'borders'=>array(
+				'KP',
+			),
+			'tld'=>array(
+				'kr',
+			),
 		),
 		'SS'=>array(
 			'name'=>'South Sudan',
 			'region'=>'Africa',
 			'currency'=>'SSP',
+			'lat'=>0,
+			'lon'=>0,
+			'borders'=>array(
+				'CD',
+				'CF',
+				'ET',
+				'KE',
+				'SD',
+				'UG',
+			),
+			'tld'=>array(
+				'ss',
+			),
 		),
 		'ES'=>array(
 			'name'=>'Spain',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>40.463667,
+			'lon'=>-3.74922,
+			'borders'=>array(
+				'AD',
+				'FR',
+				'GI',
+				'MA',
+				'PT',
+			),
+			'tld'=>array(
+				'es',
+			),
 		),
 		'LK'=>array(
 			'name'=>'Sri Lanka',
 			'region'=>'Asia',
 			'currency'=>'LKR',
+			'lat'=>7.873054,
+			'lon'=>80.771797,
+			'borders'=>array(
+				'IN',
+			),
+			'tld'=>array(
+				'lk',
+			),
 		),
 		'SD'=>array(
 			'name'=>'Sudan',
 			'region'=>'Africa',
 			'currency'=>'SDG',
+			'lat'=>12.862807,
+			'lon'=>30.217636,
+			'borders'=>array(
+				'CF',
+				'EG',
+				'ER',
+				'ET',
+				'LY',
+				'SS',
+				'TD',
+			),
+			'tld'=>array(
+				'sd',
+			),
 		),
 		'SR'=>array(
 			'name'=>'Suriname',
 			'region'=>'South America',
 			'currency'=>'SRD',
+			'lat'=>3.919305,
+			'lon'=>-56.027783,
+			'borders'=>array(
+				'BR',
+				'GF',
+				'GY',
+			),
+			'tld'=>array(
+				'sr',
+			),
 		),
 		'SJ'=>array(
 			'name'=>'Svalbard and Jan Mayen',
 			'region'=>'Europe',
 			'currency'=>'NOK',
+			'lat'=>77.553604,
+			'lon'=>23.670272,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'sj',
+			),
 		),
 		'SZ'=>array(
 			'name'=>'Swaziland',
 			'region'=>'Africa',
 			'currency'=>'SZL',
+			'lat'=>-26.522503,
+			'lon'=>31.465866,
+			'borders'=>array(
+				'MZ',
+				'ZA',
+			),
+			'tld'=>array(
+				'sz',
+			),
 		),
 		'SE'=>array(
 			'name'=>'Sweden',
 			'region'=>'Europe',
 			'currency'=>'SEK',
+			'lat'=>60.128161,
+			'lon'=>18.643501,
+			'borders'=>array(
+				'FI',
+				'NO',
+			),
+			'tld'=>array(
+				'se',
+			),
 		),
 		'CH'=>array(
 			'name'=>'Switzerland',
 			'region'=>'Europe',
 			'currency'=>'CHW',
+			'lat'=>46.818188,
+			'lon'=>8.227512,
+			'borders'=>array(
+				'AT',
+				'DE',
+				'FR',
+				'IT',
+				'LI',
+			),
+			'tld'=>array(
+				'ch',
+			),
 		),
 		'SY'=>array(
 			'name'=>'Syrian Arab Republic',
 			'region'=>'Asia',
 			'currency'=>'SYP',
+			'lat'=>34.802075,
+			'lon'=>38.996815,
+			'borders'=>array(
+				'IL',
+				'IQ',
+				'JO',
+				'LB',
+				'TR',
+			),
+			'tld'=>array(
+				'sy',
+			),
 		),
 		'TW'=>array(
 			'name'=>'Taiwan',
 			'region'=>'Asia',
 			'currency'=>'TWD',
+			'lat'=>23.69781,
+			'lon'=>120.960515,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'tw',
+			),
 		),
 		'TJ'=>array(
 			'name'=>'Tajikistan',
 			'region'=>'Asia',
 			'currency'=>'TJS',
+			'lat'=>38.861034,
+			'lon'=>71.276093,
+			'borders'=>array(
+				'AF',
+				'CN',
+				'KG',
+				'UZ',
+			),
+			'tld'=>array(
+				'tj',
+			),
 		),
 		'TZ'=>array(
 			'name'=>'Tanzania',
 			'region'=>'Africa',
 			'currency'=>'TZS',
+			'lat'=>-6.369028,
+			'lon'=>34.888822,
+			'borders'=>array(
+				'BI',
+				'CD',
+				'KE',
+				'MW',
+				'MZ',
+				'RW',
+				'UG',
+				'ZM',
+			),
+			'tld'=>array(
+				'tz',
+			),
 		),
 		'TH'=>array(
 			'name'=>'Thailand',
 			'region'=>'Asia',
 			'currency'=>'THB',
+			'lat'=>15.870032,
+			'lon'=>100.992541,
+			'borders'=>array(
+				'KH',
+				'LA',
+				'MM',
+				'MY',
+			),
+			'tld'=>array(
+				'th',
+			),
 		),
 		'TK'=>array(
 			'name'=>'Tokelau',
 			'region'=>'Australia',
 			'currency'=>'NZD',
+			'lat'=>-8.967363,
+			'lon'=>-171.855881,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'tk',
+			),
 		),
 		'TO'=>array(
 			'name'=>'Tonga',
 			'region'=>'Australia',
 			'currency'=>'TOP',
+			'lat'=>-21.178986,
+			'lon'=>-175.198242,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'to',
+			),
 		),
 		'TG'=>array(
 			'name'=>'Togo',
 			'region'=>'Africa',
 			'currency'=>'XOF',
+			'lat'=>8.619543,
+			'lon'=>0.824782,
+			'borders'=>array(
+				'BF',
+				'BJ',
+				'GH',
+			),
+			'tld'=>array(
+				'tg',
+			),
 		),
 		'TT'=>array(
 			'name'=>'Trinidad and Tobago',
 			'region'=>'North America',
 			'currency'=>'TTD',
+			'lat'=>10.691803,
+			'lon'=>-61.222503,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'tt',
+			),
 		),
 		'TN'=>array(
 			'name'=>'Tunisia',
 			'region'=>'Africa',
 			'currency'=>'TND',
+			'lat'=>33.886917,
+			'lon'=>9.537499,
+			'borders'=>array(
+				'DZ',
+				'LY',
+			),
+			'tld'=>array(
+				'tn',
+			),
 		),
 		'TR'=>array(
 			'name'=>'Turkey',
 			'region'=>'Europe',
 			'currency'=>'TRY',
+			'lat'=>38.963745,
+			'lon'=>35.243322,
+			'borders'=>array(
+				'AM',
+				'AZ',
+				'BG',
+				'GE',
+				'GR',
+				'IQ',
+				'IR',
+				'SY',
+			),
+			'tld'=>array(
+				'tr',
+			),
 		),
 		'TM'=>array(
 			'name'=>'Turkmenistan',
 			'region'=>'Asia',
 			'currency'=>'TMT',
+			'lat'=>38.969719,
+			'lon'=>59.556278,
+			'borders'=>array(
+				'AF',
+				'IR',
+				'KZ',
+				'UZ',
+			),
+			'tld'=>array(
+				'tm',
+			),
 		),
 		'TC'=>array(
 			'name'=>'Turks and Caicos Islands',
 			'region'=>'North America',
 			'currency'=>'USD',
+			'lat'=>21.694025,
+			'lon'=>-71.797928,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'tc',
+			),
 		),
 		'TV'=>array(
 			'name'=>'Tuvalu',
 			'region'=>'Australia',
 			'currency'=>'AUD',
+			'lat'=>-7.109535,
+			'lon'=>177.64933,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'tv',
+			),
 		),
 		'UG'=>array(
 			'name'=>'Uganda',
 			'region'=>'Africa',
 			'currency'=>'UGX',
+			'lat'=>1.373333,
+			'lon'=>32.290275,
+			'borders'=>array(
+				'CD',
+				'KE',
+				'RW',
+				'SS',
+				'TZ',
+			),
+			'tld'=>array(
+				'ug',
+			),
 		),
 		'UA'=>array(
 			'name'=>'Ukraine',
 			'region'=>'Europe',
 			'currency'=>'UAH',
+			'lat'=>48.379433,
+			'lon'=>31.16558,
+			'borders'=>array(
+				'BY',
+				'HU',
+				'MD',
+				'PL',
+				'RO',
+				'RU',
+				'SK',
+			),
+			'tld'=>array(
+				'ua',
+			),
 		),
 		'AE'=>array(
 			'name'=>'United Arab Emirates',
 			'region'=>'Asia',
 			'currency'=>'AED',
+			'lat'=>23.424076,
+			'lon'=>53.847818,
+			'borders'=>array(
+				'OM',
+				'SA',
+			),
+			'tld'=>array(
+				'ae',
+			),
 		),
 		'UY'=>array(
 			'name'=>'Uruguay',
 			'region'=>'South America',
 			'currency'=>'UYU',
+			'lat'=>-32.522779,
+			'lon'=>-55.765835,
+			'borders'=>array(
+				'AR',
+				'BR',
+			),
+			'tld'=>array(
+				'uy',
+			),
 		),
 		'VI'=>array(
 			'name'=>'U.S. Virgin Islands',
 			'region'=>'North America',
 			'currency'=>'USD',
+			'lat'=>18.335765,
+			'lon'=>-64.896335,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'vi',
+			),
 		),
 		'UZ'=>array(
 			'name'=>'Uzbekistan',
 			'region'=>'Asia',
 			'currency'=>'UZS',
+			'lat'=>41.377491,
+			'lon'=>64.585262,
+			'borders'=>array(
+				'AF',
+				'KG',
+				'KZ',
+				'TJ',
+				'TM',
+			),
+			'tld'=>array(
+				'uz',
+			),
 		),
 		'VA'=>array(
 			'name'=>'Vatican City',
 			'region'=>'Europe',
 			'currency'=>'EUR',
+			'lat'=>41.902916,
+			'lon'=>12.453389,
+			'borders'=>array(
+				'IT',
+			),
+			'tld'=>array(
+				'va',
+			),
 		),
 		'VE'=>array(
 			'name'=>'Venezuela',
 			'region'=>'South America',
 			'currency'=>'VEF',
+			'lat'=>6.42375,
+			'lon'=>-66.58973,
+			'borders'=>array(
+				'BR',
+				'CO',
+				'GY',
+			),
+			'tld'=>array(
+				've',
+			),
 		),
 		'VN'=>array(
 			'name'=>'Vietnam',
 			'region'=>'Asia',
 			'currency'=>'VND',
+			'lat'=>14.058324,
+			'lon'=>108.277199,
+			'borders'=>array(
+				'CN',
+				'KH',
+				'LA',
+			),
+			'tld'=>array(
+				'vn',
+			),
 		),
 		'WF'=>array(
 			'name'=>'Wallis and Futuna',
 			'region'=>'Australia',
 			'currency'=>'XPF',
+			'lat'=>-13.768752,
+			'lon'=>-177.156097,
+			'borders'=>array(
+			),
+			'tld'=>array(
+				'wf',
+			),
 		),
 		'EH'=>array(
 			'name'=>'Western Sahara',
 			'region'=>'Africa',
 			'currency'=>'MAD',
+			'lat'=>24.215527,
+			'lon'=>-12.885834,
+			'borders'=>array(
+				'DZ',
+				'MA',
+				'MR',
+			),
+			'tld'=>array(
+				'eh',
+			),
 		),
 		'YE'=>array(
 			'name'=>'Yemen',
 			'region'=>'Asia',
 			'currency'=>'YER',
+			'lat'=>15.552727,
+			'lon'=>48.516388,
+			'borders'=>array(
+				'OM',
+				'SA',
+			),
+			'tld'=>array(
+				'ye',
+			),
 		),
 		'ZM'=>array(
 			'name'=>'Zambia',
 			'region'=>'Africa',
 			'currency'=>'ZMW',
+			'lat'=>-13.133897,
+			'lon'=>27.849332,
+			'borders'=>array(
+				'AO',
+				'BW',
+				'CD',
+				'MW',
+				'MZ',
+				'NA',
+				'TZ',
+				'ZW',
+			),
+			'tld'=>array(
+				'zm',
+			),
 		),
 		'ZW'=>array(
 			'name'=>'Zimbabwe',
 			'region'=>'Africa',
 			'currency'=>'USD',
+			'lat'=>-19.015438,
+			'lon'=>29.154857,
+			'borders'=>array(
+				'BW',
+				'MZ',
+				'ZA',
+				'ZM',
+			),
+			'tld'=>array(
+				'zw',
+			),
 		),
 	);
 
@@ -2024,6 +4353,9 @@ class constants {
 
 	// -------------------------------------------------
 	// Miscellaneous.
+
+	// Default MIME Type.
+	const MIME_DEFAULT = 'application/octet-stream';
 
 	// From e.g. parse_url.
 	const URL_PARTS = array(

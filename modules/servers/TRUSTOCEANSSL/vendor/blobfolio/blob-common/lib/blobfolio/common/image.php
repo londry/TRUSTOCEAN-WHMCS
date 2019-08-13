@@ -12,12 +12,12 @@ namespace blobfolio\common;
 
 // PHP introduced WebP capabilities in batches; oddly this constant was
 // a late arrival.
-if (!defined('IMAGETYPE_WEBP')) {
-	define('IMAGETYPE_WEBP', 18);
+if (! \defined('IMAGETYPE_WEBP')) {
+	\define('IMAGETYPE_WEBP', 18);
 }
 
-if (!defined('IMG_WEBP')) {
-	define('IMG_WEBP', 32);
+if (! \defined('IMG_WEBP')) {
+	\define('IMG_WEBP', 32);
 }
 
 class image {
@@ -54,19 +54,19 @@ class image {
 	 */
 	public static function clean_svg(string $path, $args=null, string $output='HTML') {
 		try {
-			if (!@is_file($path)) {
+			if (! @\is_file($path)) {
 				return false;
 			}
 
-			$output = strtoupper($output);
+			$output = \strtoupper($output);
 
-			$svg = @file_get_contents($path);
+			$svg = @\file_get_contents($path);
 
 			// Options.
 			ref\cast::array($args);
 
 			// The strip_js option is a deprecated alias of sanitize.
-			if (isset($args['strip_js']) && !isset($args['sanitize'])) {
+			if (isset($args['strip_js']) && ! isset($args['sanitize'])) {
 				$args['sanitize'] = $args['strip_js'];
 			}
 
@@ -86,11 +86,11 @@ class image {
 			}
 
 			// If this SVG is marked "passthrough", don't process it.
-			$passthrough_key = hash('crc32', json_encode($options));
-			if (false !== strpos($svg, 'data-cleaned="' . $passthrough_key . '"')) {
-				$svg = substr($svg, strpos($svg, '<svg'));
+			$passthrough_key = \hash('crc32', \json_encode($options));
+			if (false !== \strpos($svg, 'data-cleaned="' . $passthrough_key . '"')) {
+				$svg = \substr($svg, \strpos($svg, '<svg'));
 				if ('DATA_URI' === $output) {
-					return 'data:image/svg+xml;base64,' . base64_encode($svg);
+					return 'data:image/svg+xml;base64,' . \base64_encode($svg);
 				}
 				elseif ('HTML' === $output) {
 					return $svg;
@@ -103,7 +103,7 @@ class image {
 			// Do a quick pass through DomDoc to standardize formatting.
 			$dom = dom::load_svg($svg);
 			$svg = dom::save_svg($dom);
-			if (!$svg) {
+			if (! $svg) {
 				return false;
 			}
 
@@ -117,13 +117,13 @@ class image {
 
 			// Let's get some early stripping done.
 			if ($options['strip_data']) {
-				$svg = preg_replace('/(\sdata\-[a-z\d_\-]+\s*=\s*"[^"]*")/i', '', $svg);
+				$svg = \preg_replace('/(\sdata\-[a-z\d_\-]+\s*=\s*"[^"]*")/i', '', $svg);
 			}
 			if ($options['strip_id']) {
-				$svg = preg_replace('/(\sid\s*=\s*"[^"]*")/i', '', $svg);
+				$svg = \preg_replace('/(\sid\s*=\s*"[^"]*")/i', '', $svg);
 			}
 			if ($options['strip_style']) {
-				$svg = preg_replace('/(\s(style|class)\s*=\s*"[^"]*")/i', '', $svg);
+				$svg = \preg_replace('/(\s(style|class)\s*=\s*"[^"]*")/i', '', $svg);
 			}
 
 			// Let's do the dom tasks in one swoop.
@@ -152,19 +152,19 @@ class image {
 
 			// Randomize IDs?
 			if ($options['random_id']) {
-				preg_match_all('/\sid\s*=\s*"([^"]*)"/i', $svg, $matches);
-				if (count($matches[0])) {
+				\preg_match_all('/\sid\s*=\s*"([^"]*)"/i', $svg, $matches);
+				if (\count($matches[0])) {
 					foreach ($matches[0] as $k=>$v) {
 						$id_string = $v;
 						$id_value = $matches[1][$k];
-						$id_new = 's' . mb::strtolower(data::random_string(4), false, true);
-						while (in_array($id_new, static::$svg_ids, true)) {
-							$id_new = 's' . mb::strtolower(data::random_string(4), false, true);
+						$id_new = 's' . mb::strtolower(data::random_string(4), false);
+						while (\in_array($id_new, static::$svg_ids, true)) {
+							$id_new = 's' . mb::strtolower(data::random_string(4), false);
 						}
 						static::$svg_ids[] = $id_new;
 
 						// Replace just the first occurrence.
-						$svg = preg_replace('/' . preg_quote($id_string, '/') . '/', ' id="' . $id_new . '"', $svg, 1);
+						$svg = \preg_replace('/' . \preg_quote($id_string, '/') . '/', ' id="' . $id_new . '"', $svg, 1);
 					}
 				}
 			}
@@ -172,30 +172,30 @@ class image {
 			// Fix dimensions?
 			if ($options['fix_dimensions']) {
 				// Before we dive in, fix existing viewbox values.
-				preg_match_all('/\sviewbox\s*=\s*"([^"]*)"/i', $svg, $matches);
-				if (count($matches[0])) {
+				\preg_match_all('/\sviewbox\s*=\s*"([^"]*)"/i', $svg, $matches);
+				if (\count($matches[0])) {
 					foreach ($matches[0] as $k=>$v) {
 						$vb_string = $v;
 						$vb_value = $matches[1][$k];
 						$vb_new = '';
-						if (false !== strpos($vb_value, ',')) {
-							$vb_new = explode(',', $vb_value);
+						if (false !== \strpos($vb_value, ',')) {
+							$vb_new = \explode(',', $vb_value);
 						}
 						else {
-							$vb_new = explode(' ', $vb_value);
+							$vb_new = \explode(' ', $vb_value);
 						}
-						$vb_new = array_map('trim', $vb_new);
-						$vb_new = array_filter($vb_new, 'is_numeric');
+						$vb_new = \array_map('trim', $vb_new);
+						$vb_new = \array_filter($vb_new, 'is_numeric');
 
 						// Remove invalid entries entirely.
-						if (count($vb_new) !== 4) {
-							$svg = preg_replace('/' . preg_quote($vb_string, '/') . '/', '', $svg, 1);
+						if (\count($vb_new) !== 4) {
+							$svg = \preg_replace('/' . \preg_quote($vb_string, '/') . '/', '', $svg, 1);
 						}
 						else {
-							$vb_new = implode(' ', $vb_new);
+							$vb_new = \implode(' ', $vb_new);
 							// Update it.
 							if ($vb_new !== $vb_value) {
-								$svg = preg_replace('/' . preg_quote($vb_string, '/') . '/', ' viewBox="' . $vb_new . '"', $svg, 1);
+								$svg = \preg_replace('/' . \preg_quote($vb_string, '/') . '/', ' viewBox="' . $vb_new . '"', $svg, 1);
 							}
 						}
 					}
@@ -212,8 +212,9 @@ class image {
 							$vb = $t->hasAttribute('viewBox') ? $t->getAttribute('viewBox') : null;
 
 							// Make sure width and height are numbers.
-							if (is_numeric($width) || preg_match('/^[\d\.]+px$/', $width)) {
-								ref\cast::float($width);
+							if (\is_numeric($width) || \preg_match('/^[\d\.]+px$/', $width)) {
+								ref\cast::float($width, true);
+
 								if ($width <= 0) {
 									$width = null;
 								}
@@ -222,8 +223,8 @@ class image {
 								$width = null;
 							}
 
-							if (is_numeric($height) || preg_match('/^[\d\.]+px$/', $height)) {
-								ref\cast::float($height);
+							if (\is_numeric($height) || \preg_match('/^[\d\.]+px$/', $height)) {
+								ref\cast::float($height, true);
 								if ($height <= 0) {
 									$height = null;
 								}
@@ -234,20 +235,20 @@ class image {
 
 							// All there or none there? Can't help it.
 							if (
-								(!is_null($width) && !is_null($height) && !is_null($vb)) ||
-								(is_null($width) && is_null($height) && is_null($vb))
+								((null !== $width) && (null !== $height) && (null !== $vb)) ||
+								((null === $width) && (null === $height) && (null === $vb))
 							) {
 								continue;
 							}
 
 							// Width and height from viewbox.
-							if (!is_null($vb)) {
-								$d = explode(' ', $vb);
+							if (null !== $vb) {
+								$d = \explode(' ', $vb);
 								$t->setAttribute('width', $d[2]);
 								$t->setAttribute('height', $d[3]);
 							}
 							// Viewbox from width and height.
-							elseif (is_numeric($width) && is_numeric($height)) {
+							elseif (\is_numeric($width) && \is_numeric($height)) {
 								$t->setAttribute('viewBox', "0 0 $width $height");
 							}
 						}
@@ -292,7 +293,7 @@ class image {
 
 								// Parse the styles.
 								$parsed = dom::parse_css($style->nodeValue);
-								if (is_array($parsed) && count($parsed)) {
+								if (\is_array($parsed) && \count($parsed)) {
 									$style_new = array();
 
 									if ($options['rewrite_styles']) {
@@ -308,25 +309,25 @@ class image {
 												foreach ($p['rules'] as $rk=>$rv) {
 													$r = "$rk:$rv";
 
-													if (!isset($rules[$r])) {
+													if (! isset($rules[$r])) {
 														$rules[$r] = array();
 													}
 
-													$rules[$r] = array_merge($rules[$r], array_values($p['selectors']));
+													$rules[$r] = \array_merge($rules[$r], \array_values($p['selectors']));
 												}
 											}
 										}
 
 										// Clean up the rules a touch.
 										foreach ($rules as $rule=>$selectors) {
-											$rules[$rule] = array_unique($rules[$rule]);
-											sort($rules[$rule]);
+											$rules[$rule] = \array_unique($rules[$rule]);
+											\sort($rules[$rule]);
 										}
 
 										// Great, now build the output.
 										foreach ($rules as $rule=>$selectors) {
 											// Something like an @media, out of scope here.
-											if (!count($selectors)) {
+											if (! \count($selectors)) {
 												$style_new[] = $rule;
 												continue;
 											}
@@ -335,27 +336,27 @@ class image {
 											$classes = array();
 											foreach ($selectors as $k=>$selector) {
 												// A valid class.
-												if (preg_match('/^\.[a-z\d_\-]+$/i', $selector)) {
+												if (\preg_match('/^\.[a-z\d_\-]+$/i', $selector)) {
 													$classes[] = $selector;
 													unset($selectors[$k]);
 												}
 												// A broken Adobe class,
 												// e.g. .\38 ab9678e-54ee-493d-b19f-2215c5549034.
 												else {
-													$selector = str_replace('.\\3', '.', $selector);
+													$selector = \str_replace('.\\3', '.', $selector);
 													// Fix weird adobe rules.
-													preg_match_all('/^\.([\d]) ([a-z\d\-]+)$/', $selector, $matches);
-													if (count($matches[0])) {
-														$classes[] = preg_replace('/\s/', '', $matches[0][0]);
+													\preg_match_all('/^\.([\d]) ([a-z\d\-]+)$/', $selector, $matches);
+													if (\count($matches[0])) {
+														$classes[] = \preg_replace('/\s/', '', $matches[0][0]);
 														unset($selectors[$k]);
 													}
 												}
 											}
 
-											if (count($classes)) {
-												$class_new = mb::strtolower('c' . data::random_string(4), false, true);
-												while (in_array($class_new, static::$svg_classes, true)) {
-													$class_new = mb::strtolower('c' . data::random_string(4), false, true);
+											if (\count($classes)) {
+												$class_new = mb::strtolower('c' . data::random_string(4), false);
+												while (\in_array($class_new, static::$svg_classes, true)) {
+													$class_new = mb::strtolower('c' . data::random_string(4), false);
 												}
 												$selectors[] = '.' . $class_new;
 
@@ -368,11 +369,11 @@ class image {
 												}
 
 												foreach ($classes as $class) {
-													$classes_old[] = ltrim($class, '.');
+													$classes_old[] = \ltrim($class, '.');
 												}
 											}
 
-											$style_new[] = implode(',', $selectors) . '{' . $rule . '}';
+											$style_new[] = \implode(',', $selectors) . '{' . $rule . '}';
 										}
 									}// End cleanup/rewrite.
 									else {
@@ -383,7 +384,7 @@ class image {
 									}
 
 									// And save it!
-									$style->nodeValue = implode('', $style_new);
+									$style->nodeValue = \implode('', $style_new);
 								}// Parseable styles.
 							}// If styles.
 						}// Clean styles.
@@ -407,18 +408,18 @@ class image {
 						}
 
 						// Remove old classes, if applicable.
-						if (count($classes_old)) {
-							sort($classes_old);
-							$classes_old = array_unique($classes_old);
+						if (\count($classes_old)) {
+							\sort($classes_old);
+							$classes_old = \array_unique($classes_old);
 
 							$nodes = dom::get_nodes_by_class($s, $classes_old);
 							foreach ($nodes as $node) {
 								$classes = $node->getAttribute('class');
-								ref\sanitize::whitespace($classes, 0, true);
-								$classes = explode(' ', $classes);
-								$classes = array_unique($classes);
-								$classes = array_diff($classes, $classes_old);
-								$node->setAttribute('class', implode(' ', $classes));
+								ref\sanitize::whitespace($classes, 0);
+								$classes = \explode(' ', $classes);
+								$classes = \array_unique($classes);
+								$classes = \array_diff($classes, $classes_old);
+								$node->setAttribute('class', \implode(' ', $classes));
 							}
 						}// Rewriting.
 					}// Each SVG.
@@ -429,7 +430,7 @@ class image {
 			// Get back to just the string.
 			$dom = dom::load_svg($svg);
 			$svg = dom::save_svg($dom);
-			if (!$svg) {
+			if (! $svg) {
 				return false;
 			}
 
@@ -441,21 +442,21 @@ class image {
 				$tmp->item(0)->setAttribute('data-cleaned', $passthrough_key);
 				$svg = dom::save_svg($dom);
 
-				$path_old = $path . '.dirty.' . microtime(true);
+				$path_old = $path . '.dirty.' . \microtime(true);
 				$num = 0;
-				while (@file_exists($path_old)) {
+				while (@\file_exists($path_old)) {
 					++$num;
 					$tmp = $path_old . "-$num";
-					if (!@file_exists($tmp)) {
+					if (! @\file_exists($tmp)) {
 						$path_old = $tmp;
 					}
 				}
-				@rename($path, $path_old);
-				@file_put_contents($path, constants::SVG_HEADER . "\n{$svg}");
+				@\rename($path, $path_old);
+				@\file_put_contents($path, constants::SVG_HEADER . "\n{$svg}");
 			}
 
 			if ('DATA_URI' === $output) {
-				return 'data:image/svg+xml;base64,' . base64_encode($svg);
+				return 'data:image/svg+xml;base64,' . \base64_encode($svg);
 			}
 			elseif ('HTML' === $output) {
 				return $svg;
@@ -477,19 +478,21 @@ class image {
 	 * @return array|bool Info or false.
 	 */
 	public static function getimagesize(string $file) {
-		if (!$file || !is_file($file)) {
+		if (! $file || ! \is_file($file)) {
 			return false;
 		}
 
 		// Do a quick MIME check to make sure this is something image-
 		// like.
 		$finfo = mime::finfo($file);
-		if (0 !== strpos($finfo['mime'], 'image/')) {
+		$mime = $finfo['mime'];
+
+		if (0 !== \strpos($mime, 'image/')) {
 			return false;
 		}
 
 		// If this is an SVG, let's use our own function.
-		if ('image/svg+xml' === $finfo['mime']) {
+		if ('image/svg+xml' === $mime) {
 			if (false === ($tmp = static::svg_dimensions($file))) {
 				return false;
 			}
@@ -499,7 +502,7 @@ class image {
 				$tmp['width'],
 				$tmp['height'],
 				-1,
-				sprintf(
+				\sprintf(
 					'width="%d" height="%d"',
 					$tmp['width'],
 					$tmp['height']
@@ -509,48 +512,48 @@ class image {
 		}
 
 		// Try getimagesize() first, just in case.
-		if (false !== ($info = @getimagesize($file))) {
+		if (false !== ($info = @\getimagesize($file))) {
 			return $info;
 		}
 
 		// Manually parse WebP.
 		if (
-			('image/webp' === $finfo['mime']) &&
-			($handle = @fopen($file, 'rb'))
+			('image/webp' === $mime) &&
+			($handle = @\fopen($file, 'rb'))
 		) {
 			// The magic (and dimensions) are in the first 40 bytes.
-			$magic = @fread($handle, 40);
-			fclose($handle);
+			$magic = @\fread($handle, 40);
+			\fclose($handle);
 
 			// We should have the number of bytes we asked for.
-			if (strlen($magic) < 40) {
+			if (\strlen($magic) < 40) {
 				return false;
 			}
 
 			$width = $height = false;
 
 			// There are three types of WebP. Haha.
-			switch (substr($magic, 12, 4)) {
+			switch (\substr($magic, 12, 4)) {
 				// Lossy WebP.
 				case 'VP8 ':
-					$parts = unpack('v2', substr($magic, 26, 4));
+					$parts = \unpack('v2', \substr($magic, 26, 4));
 					$width = (int) ($parts[1] & 0x3FFF);
 					$height = (int) ($parts[2] & 0x3FFF);
 					break;
 				// Lossless WebP.
 				case 'VP8L':
-					$parts = unpack('C4', substr($magic, 21, 4));
+					$parts = \unpack('C4', \substr($magic, 21, 4));
 					$width = (int) ($parts[1] | (($parts[2] & 0x3F) << 8)) + 1;
 					$height = (int) ((($parts[2] & 0xC0) >> 6) | ($parts[3] << 2) | (($parts[4] & 0x03) << 10)) + 1;
 					break;
 				// Animated/Alpha WebP.
 				case 'VP8X':
 					// Padd 24-bit int.
-					$width = unpack('V', substr($magic, 24, 3) . "\x00");
+					$width = \unpack('V', \substr($magic, 24, 3) . "\x00");
 					$width = (int) ($width[1] & 0xFFFFFF) + 1;
 
 					// Pad 24-bit int.
-					$height = unpack('V', substr($magic, 27, 3) . "\x00");
+					$height = \unpack('V', \substr($magic, 27, 3) . "\x00");
 					$height = (int) ($height[1] & 0xFFFFFF) + 1;
 					break;
 			}
@@ -559,8 +562,8 @@ class image {
 				return array(
 					$width,
 					$height,
-					IMAGETYPE_WEBP,
-					sprintf(
+					\IMAGETYPE_WEBP,
+					\sprintf(
 						'width="%d" height="%d"',
 						$width,
 						$height
@@ -586,12 +589,12 @@ class image {
 	 */
 	public static function has_webp($cwebp=null, $gif2webp=null) {
 		// Gotta set it first?
-		if (is_null(static::$_webp_gd)) {
-			$image_types = imagetypes();
+		if (null === static::$_webp_gd) {
+			$image_types = \imagetypes();
 			static::$_webp_gd = (
-				(0 !== ($image_types & IMG_WEBP)) &&
-				function_exists('imagewebp') &&
-				function_exists('imagecreatefromwebp')
+				(0 !== ($image_types & \IMG_WEBP)) &&
+				\function_exists('imagewebp') &&
+				\function_exists('imagecreatefromwebp')
 			);
 		}
 
@@ -599,7 +602,7 @@ class image {
 		// we'll just check this once, but if a previous check failed
 		// and binary paths are supplied, we'll check again.
 		if (
-			is_null(static::$_webp_binary) ||
+			(null === static::$_webp_binary) ||
 			(
 				(false === static::$_webp_binary) &&
 				$cwebp &&
@@ -610,31 +613,31 @@ class image {
 
 			// We're using proc_open() to handle execution; if this is
 			// missing or disabled, we're done.
-			if (function_exists('proc_open') && is_callable('proc_open')) {
+			if (\function_exists('proc_open') && \is_callable('proc_open')) {
 				// Resolve the binary paths.
-				if (is_null($cwebp)) {
+				if (null === $cwebp) {
 					$cwebp = constants::CWEBP;
 				}
 				else {
-					ref\cast::string($cwebp, true);
+					$cwebp = (string) $cwebp;
 				}
-				if (is_null($gif2webp)) {
+				if (null === $gif2webp) {
 					$gif2webp = constants::GIF2WEBP;
 				}
 				else {
-					ref\cast::string($gif2webp, true);
+					$gif2webp = (string) $gif2webp;
 				}
 
-				ref\file::path($cwebp, true, true);
-				ref\file::path($gif2webp, true, true);
+				ref\file::path($cwebp, true);
+				ref\file::path($gif2webp, true);
 
 				if (
 					$cwebp &&
 					$gif2webp &&
-					@is_file($cwebp) &&
-					@is_executable($cwebp) &&
-					@is_file($gif2webp) &&
-					@is_executable($gif2webp)
+					@\is_file($cwebp) &&
+					@\is_executable($cwebp) &&
+					@\is_file($gif2webp) &&
+					@\is_executable($gif2webp)
 				) {
 					static::$_webp_binary = array(
 						'cwebp'=>$cwebp,
@@ -651,17 +654,16 @@ class image {
 	 * Determine SVG Dimensions
 	 *
 	 * @param string $svg SVG content or file path.
-	 * @param bool $constringent Light cast.
 	 * @return array|bool Dimensions or false.
 	 */
-	public static function svg_dimensions($svg, bool $constringent=false) {
-		ref\cast::constringent($svg, $constringent);
+	public static function svg_dimensions($svg) {
+		ref\cast::string($svg, true);
 
 		// Make sure this is SVG-looking.
-		if (false === ($start = strpos(strtolower($svg), '<svg'))) {
-			if (@is_file($svg)) {
-				$svg = file_get_contents($svg);
-				if (false === ($start = strpos(strtolower($svg), '<svg'))) {
+		if (false === ($start = \strpos(\strtolower($svg), '<svg'))) {
+			if (@\is_file($svg)) {
+				$svg = \file_get_contents($svg);
+				if (false === ($start = \strpos(\strtolower($svg), '<svg'))) {
 					return false;
 				}
 			}
@@ -671,11 +673,11 @@ class image {
 		}
 
 		// Chop the code to the first tag.
-		$svg = substr($svg, $start);
-		if (false === ($end = strpos($svg, '>'))) {
+		$svg = \substr($svg, $start);
+		if (false === ($end = \strpos($svg, '>'))) {
 			return false;
 		}
-		$svg = strtolower(substr($svg, 0, $end + 1));
+		$svg = \strtolower(\substr($svg, 0, $end + 1));
 
 		// Hold our values.
 		$out = array(
@@ -685,21 +687,21 @@ class image {
 		$viewbox = null;
 
 		// Search for width, height, and viewbox.
-		ref\sanitize::whitespace($svg, 0, true);
+		ref\sanitize::whitespace($svg, 0);
 
-		preg_match_all(
+		\preg_match_all(
 			'/(height|width|viewbox)\s*=\s*(["\'])((?:(?!\2).)*)\2/',
 			$svg,
 			$match,
-			PREG_SET_ORDER
+			\PREG_SET_ORDER
 		);
 
-		if (is_array($match) && count($match)) {
+		if (\is_array($match) && \count($match)) {
 			foreach ($match as $v) {
 				switch ($v[1]) {
 					case 'width':
 					case 'height':
-						ref\cast::float($v[3]);
+						ref\cast::float($v[3], true);
 						ref\sanitize::to_range($v[3], 0.0);
 						if ($v[3]) {
 							$out[$v[1]] = $v[3];
@@ -720,13 +722,13 @@ class image {
 
 		// Maybe pull from viewbox?
 		if (isset($viewbox)) {
-			$viewbox = trim(str_replace(',', ' ', $viewbox));
-			$viewbox = explode(' ', $viewbox);
+			$viewbox = \trim(\str_replace(',', ' ', $viewbox));
+			$viewbox = \explode(' ', $viewbox);
 			foreach ($viewbox as $k=>$v) {
 				ref\cast::float($viewbox[$k], true);
 				ref\sanitize::to_range($viewbox[$k], 0.0);
 			}
-			if (count($viewbox) === 4) {
+			if (\count($viewbox) === 4) {
 				$out['width'] = $viewbox[2];
 				$out['height'] = $viewbox[3];
 				return $out;
@@ -749,29 +751,29 @@ class image {
 	 */
 	protected static function to_webp_sources(string &$from, &$to) {
 		// Validate the source.
-		ref\cast::string($from, true);
-		ref\file::path($from, true, true);
-		if (!$from) {
+		ref\file::path($from, true);
+		if (! $from) {
 			$from = '';
 			return false;
 		}
 
 		// We can only convert JPEG, PNG, and GIF sources.
 		$info = mime::finfo($from);
-		if (!in_array($info['mime'], array('image/jpeg', 'image/gif', 'image/png'), true)) {
+		if (! \in_array($info['mime'], array('image/jpeg', 'image/gif', 'image/png'), true)) {
 			$from = '';
 			return false;
 		}
 
 		// Build a destination if we need to.
-		if (!is_null($to)) {
+		if (null !== $to) {
 			ref\cast::string($to, true);
+
 			// If this is just a file name, throw it in from's dir.
-			if (false === strpos($to, '/')) {
+			if (false === \strpos($to, '/')) {
 				$to = "{$info['dirname']}/$to";
 			}
-			ref\file::path($to, false, true);
-			if ('.webp' !== substr(strtolower($to), -5)) {
+			ref\file::path($to, false);
+			if ('.webp' !== \substr(\strtolower($to), -5)) {
 				$to = '';
 				return false;
 			}
@@ -819,43 +821,43 @@ class image {
 	 * @return bool True/false.
 	 */
 	public static function to_webp_gd(string $from, $to=null, bool $refresh=false) {
-		if (!static::to_webp_sources($from, $to)) {
+		if (! static::to_webp_sources($from, $to)) {
 			return false;
 		}
 
 		// If it exists and we aren't refreshing, let's abort.
-		if (!$refresh && @is_file($to)) {
+		if (! $refresh && @\is_file($to)) {
 			return true;
 		}
 
 		// If this system can't do WebP, we're done.
-		if (!static::has_webp() || !static::$_webp_gd) {
+		if (! static::has_webp() || ! static::$_webp_gd) {
 			return false;
 		}
 
-		$image = @imagecreatefromstring(file_get_contents($from));
-		if (!$image || !@is_resource($image)) {
+		$image = @\imagecreatefromstring(\file_get_contents($from));
+		if (! $image || ! @\is_resource($image)) {
 			return false;
 		}
 
 		// Try to save it.
-		@imagewebp($image, $to, 90);
-		if (!@is_file($to)) {
+		@\imagewebp($image, $to, 90);
+		if (! @\is_file($to)) {
 			return false;
 		}
 
 		// Free up some memory.
-		@imagedestroy($image);
+		@\imagedestroy($image);
 
 		// Try to give it the same permissions as the original.
-		if (false !== ($from_chmod = @fileperms($from))) {
-			@chmod($to, $from_chmod);
+		if (false !== ($from_chmod = @\fileperms($from))) {
+			@\chmod($to, $from_chmod);
 		}
-		if (false !== ($from_owner = @fileowner($from))) {
-			@chown($to, $from_owner);
+		if (false !== ($from_owner = @\fileowner($from))) {
+			@\chown($to, $from_owner);
 		}
-		if (false !== ($from_group = @filegroup($from))) {
-			@chgrp($to, $from_group);
+		if (false !== ($from_group = @\filegroup($from))) {
+			@\chgrp($to, $from_group);
 		}
 
 		return true;
@@ -874,36 +876,36 @@ class image {
 	 * @return bool True/false.
 	 */
 	public static function to_webp_binary(string $from, $to=null, $cwebp=null, $gif2webp=null, bool $refresh=false) {
-		if (!static::to_webp_sources($from, $to)) {
+		if (! static::to_webp_sources($from, $to)) {
 			return false;
 		}
 
 		// If it exists and we aren't refreshing, let's abort.
-		if (!$refresh && @is_file($to)) {
+		if (! $refresh && @\is_file($to)) {
 			return true;
 		}
 
 		// If this system can't do WebP, we're done.
-		if (!static::has_webp($cwebp, $gif2webp) || (false === static::$_webp_binary)) {
+		if (! static::has_webp($cwebp, $gif2webp) || (false === static::$_webp_binary)) {
 			return false;
 		}
 
 		// We'll need a temporary directory for logging.
-		$tmp_dir = @sys_get_temp_dir();
-		if (!is_dir($tmp_dir)) {
+		$tmp_dir = @\sys_get_temp_dir();
+		if (! \is_dir($tmp_dir)) {
 			return false;
 		}
-		$error_log = file::trailingslash($tmp_dir) . 'cwebp-error_' . microtime(true) . '.txt';
+		$error_log = file::trailingslash($tmp_dir) . 'cwebp-error_' . \microtime(true) . '.txt';
 
 		// Pull the MIME info again.
 		$info = mime::finfo($from);
 
 		// Set up the command.
 		if ('image/gif' === $info['mime']) {
-			$cmd = escapeshellcmd(static::$_webp_binary['gif2webp']) . ' -m 6 -quiet ' . escapeshellarg($from) . ' -o ' . escapeshellarg($to);
+			$cmd = \escapeshellcmd(static::$_webp_binary['gif2webp']) . ' -m 6 -quiet ' . \escapeshellarg($from) . ' -o ' . \escapeshellarg($to);
 		}
 		else {
-			$cmd = escapeshellcmd(static::$_webp_binary['cwebp']) . ' -mt -quiet -jpeg_like ' . escapeshellarg($from) . ' -o ' . escapeshellarg($to);
+			$cmd = \escapeshellcmd(static::$_webp_binary['cwebp']) . ' -mt -quiet -jpeg_like ' . \escapeshellarg($from) . ' -o ' . \escapeshellarg($to);
 		}
 
 		// Some process setup.
@@ -916,7 +918,7 @@ class image {
 
 		try {
 			// Try to open the process.
-			$process = @proc_open(
+			$process = @\proc_open(
 				$cmd,
 				$descriptors,
 				$pipes,
@@ -924,35 +926,35 @@ class image {
 			);
 
 			// If we didn't end up with a resource, something is wrong.
-			if (!@is_resource($process)) {
+			if (! @\is_resource($process)) {
 				return false;
 			}
 
 			// Pull the stream contents.
-			$life = @stream_get_contents($pipes[0]);
-			@fclose($pipes[0]);
-			$return_value = @proc_close($process);
+			$life = @\stream_get_contents($pipes[0]);
+			@\fclose($pipes[0]);
+			$return_value = @\proc_close($process);
 
 			// We don't actually want the error log; it is just supplied
 			// to prevent interruptions to PHP.
-			if (@file_exists($error_log)) {
-				@unlink($error_log);
+			if (@\file_exists($error_log)) {
+				@\unlink($error_log);
 			}
 
 			// If this isn't a file, we're done.
-			if (!@file_exists($to)) {
+			if (! @\file_exists($to)) {
 				return false;
 			}
 
 			// Try to give it the same permissions as the original.
-			if (false !== ($from_chmod = @fileperms($from))) {
-				@chmod($to, $from_chmod);
+			if (false !== ($from_chmod = @\fileperms($from))) {
+				@\chmod($to, $from_chmod);
 			}
-			if (false !== ($from_owner = @fileowner($from))) {
-				@chown($to, $from_owner);
+			if (false !== ($from_owner = @\fileowner($from))) {
+				@\chown($to, $from_owner);
 			}
-			if (false !== ($from_group = @filegroup($from))) {
-				@chgrp($to, $from_group);
+			if (false !== ($from_group = @\filegroup($from))) {
+				@\chgrp($to, $from_group);
 			}
 
 			return true;

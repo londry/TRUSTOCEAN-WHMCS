@@ -20,7 +20,7 @@ class cli {
 	 * @return bool True/false.
 	 */
 	public static function is_cli() {
-		return ('cli' === php_sapi_name());
+		return ('cli' === \php_sapi_name());
 	}
 
 	/**
@@ -33,8 +33,8 @@ class cli {
 	 * @return bool True/false.
 	 */
 	public static function is_root() {
-		if (function_exists('posix_getuid')) {
-			return (0 === posix_getuid());
+		if (\function_exists('posix_getuid')) {
+			return (0 === \posix_getuid());
 		}
 
 		return false;
@@ -60,25 +60,25 @@ class cli {
 	 * @return string Colorized string.
 	 */
 	public static function colorize($args) {
-		$args = func_get_args();
+		$args = \func_get_args();
 		$out = '';
 
 		foreach ($args as $v) {
 			ref\cast::array($v);
-			if (!count($v)) {
+			if (! \count($v)) {
 				continue;
 			}
 
 			// The string comes first.
-			$str = array_shift($v);
+			$str = \array_shift($v);
 			ref\cast::string($str, true);
 
 			// Deal with codes.
 			ref\format::array_flatten($v);
-			$codes = array_filter($v, 'is_numeric');
-			if (count($codes)) {
+			$codes = \array_filter($v, 'is_numeric');
+			if (\count($codes)) {
 				ref\cast::int($codes);
-				$out .= "\033[" . implode(';', $codes) . "m{$str}\033[0m";
+				$out .= "\033[" . \implode(';', $codes) . "m{$str}\033[0m";
 			}
 			else {
 				$out .= $str;

@@ -1,0 +1,12 @@
+{
+  "name": "blob-domain",
+  "devDependencies": {
+    "blobfolio-phpcs": "git+ssh://git@blobfolio.com:3417/blobfolio-phpcs"
+  },
+  "scripts": {
+    "preinstall": "npm list onchange -g || npm install onchange -g",
+    "watch": "onchange '*.php' '**/*.php' -- npm run -s php",
+    "php": "npm_scripts/php.sh",
+    "php:fix": "npm_scripts/php-fix.sh"
+  }
+}

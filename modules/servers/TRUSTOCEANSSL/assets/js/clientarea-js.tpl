@@ -23,14 +23,15 @@ $(document).ready(function(){
 
     $('select[dcv-domain]').change(function(){
         $('tr[dcv-tds='+$(this).attr('dcv-domain')+']').find('td').hide();
-        $('tr[dcv-tds='+$(this).attr('dcv-domain')+']').find('td[dcv-change]').show();
+        //$('tr[dcv-tds='+$(this).attr('dcv-domain')+']').find('td[dcv-change]').show();
         var that = this;
-        $.post('/clientarea.php?action=productdetails&id=2&modop=custom&a=enroll',{id:$(that).attr('dcv-cert-id'), toca:'changedcv',domain:$(that).attr('dcv-domain-name'), method:$(that).val()}, function(resp){
-            $('tr[dcv-tds='+$(that).attr('dcv-domain')+']').find('td[dcv-change]').hide();
-            if($(that).val() === "dns" || $(that).val() === "http" || $(that).val() === "https"){
-                $('tr[dcv-tds='+$(that).attr('dcv-domain')+']').find('td[dcv-tab='+$(that).val()+']').show();
-            }
-        })
+        // $.post('/clientarea.php?action=productdetails&id=2&modop=custom&a=enroll',{id:$(that).attr('dcv-cert-id'), toca:'changedcv',domain:$(that).attr('dcv-domain-name'), method:$(that).val()}, function(resp){
+        //     $('tr[dcv-tds='+$(that).attr('dcv-domain')+']').find('td[dcv-change]').hide();
+        //
+        // })
+        if($(that).val() === "dns" || $(that).val() === "http" || $(that).val() === "https"){
+            $('tr[dcv-tds='+$(that).attr('dcv-domain')+']').find('td[dcv-tab='+$(that).val()+']').show();
+        }
     });
     $('select[ca-dcv-domain]').on('focus', function(){
         previous = this.value;

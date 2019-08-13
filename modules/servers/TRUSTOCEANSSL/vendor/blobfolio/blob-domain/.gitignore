@@ -1,0 +1,11 @@
+**/*.git
+**/.DS_Store
+**/.sass-cache/
+**/composer.lock
+**/node_modules/
+**/package-lock.json
+**/secrets.json
+**/wp-config.php
+/build/bob
+/build/lib/vendor/
+/lib/vendor/

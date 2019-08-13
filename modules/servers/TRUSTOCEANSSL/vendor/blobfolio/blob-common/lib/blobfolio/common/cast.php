@@ -19,8 +19,7 @@ class cast {
 	 * @return array Array.
 	 */
 	public static function to_array($value=null) {
-		ref\cast::array($value);
-		return $value;
+		return static::array($value);
 	}
 
 	/**
@@ -46,15 +45,15 @@ class cast {
 	 * @return string|bool Type. False on failure.
 	 */
 	public static function array_type(&$arr=null) {
-		if (!is_array($arr) || !count($arr)) {
+		if (! \is_array($arr) || ! \count($arr)) {
 			return false;
 		}
 
-		$keys = array_keys($arr);
-		if (range(0, count($keys) - 1) === $keys) {
+		$keys = \array_keys($arr);
+		if (\range(0, \count($keys) - 1) === $keys) {
 			return 'sequential';
 		}
-		elseif (count($keys) === count(array_filter($keys, 'is_numeric'))) {
+		elseif (\count($keys) === \count(\array_filter($keys, 'is_numeric'))) {
 			return 'indexed';
 		}
 		else {
@@ -70,8 +69,7 @@ class cast {
 	 * @return bool Bool.
 	 */
 	public static function to_bool($value=false, bool $flatten=false) {
-		ref\cast::bool($value, $flatten);
-		return $value;
+		return static::bool($value, $flatten);
 	}
 
 	/**
@@ -94,8 +92,7 @@ class cast {
 	 * @return bool Bool.
 	 */
 	public static function boolean($value=false, bool $flatten=false) {
-		ref\cast::bool($value, $flatten);
-		return $value;
+		return static::bool($value, $flatten);
 	}
 
 	/**
@@ -106,8 +103,7 @@ class cast {
 	 * @return float Float.
 	 */
 	public static function to_float($value=0, bool $flatten=false) {
-		ref\cast::float($value, $flatten);
-		return $value;
+		return static::float($value, $flatten);
 	}
 
 	/**
@@ -118,8 +114,7 @@ class cast {
 	 * @return float Float.
 	 */
 	public static function double($value=0, bool $flatten=false) {
-		ref\cast::float($value, $flatten);
-		return $value;
+		return static::float($value, $flatten);
 	}
 
 	/**
@@ -142,8 +137,7 @@ class cast {
 	 * @return int Int.
 	 */
 	public static function to_int($value=0, bool $flatten=false) {
-		ref\cast::int($value, $flatten);
-		return $value;
+		return static::int($value, $flatten);
 	}
 
 	/**
@@ -166,8 +160,7 @@ class cast {
 	 * @return int Int.
 	 */
 	public static function integer($value=0, bool $flatten=false) {
-		ref\cast::int($value, $flatten);
-		return $value;
+		return static::int($value, $flatten);
 	}
 
 	/**
@@ -178,8 +171,7 @@ class cast {
 	 * @return float Number.
 	 */
 	public static function to_number($value=0, bool $flatten=false) {
-		ref\cast::number($value, $flatten);
-		return $value;
+		return static::number($value, $flatten);
 	}
 
 	/**
@@ -202,8 +194,7 @@ class cast {
 	 * @return string String.
 	 */
 	public static function to_string($value='', bool $flatten=false) {
-		ref\cast::string($value, $flatten);
-		return $value;
+		return static::string($value, $flatten);
 	}
 
 	/**

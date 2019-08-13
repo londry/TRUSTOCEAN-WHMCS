@@ -11,12 +11,11 @@
 
 namespace blobfolio\mimes;
 
-use \blobfolio\common\constants;
-use \blobfolio\common\data as c_data;
-use \blobfolio\common\ref\cast as r_cast;
-use \blobfolio\common\ref\file as r_file;
-use \blobfolio\common\ref\sanitize as r_sanitize;
-use \blobfolio\common\sanitize as v_sanitize;
+use blobfolio\common\data as c_data;
+use blobfolio\common\ref\cast as r_cast;
+use blobfolio\common\ref\file as r_file;
+use blobfolio\common\ref\sanitize as r_sanitize;
+use blobfolio\common\sanitize as v_sanitize;
 
 class mimes {
 	const MIME_DEFAULT = 'application/octet-stream';
@@ -56,7 +55,7 @@ class mimes {
 		}
 
 		// Try aliases.
-		$loose = array_diff(static::get_loose_mimes($mime), array($mime));
+		$loose = \array_diff(static::get_loose_mimes($mime), array($mime));
 		foreach ($loose as $v) {
 			if (isset(data::BY_MIME[$v])) {
 				return data::BY_MIME[$v];
@@ -87,7 +86,7 @@ class mimes {
 	 */
 	public static function get_extension(string $ext='') {
 		r_sanitize::file_extension($ext);
-		return isset(data::BY_EXT[$ext]) ? data::BY_EXT[$ext] : false;
+		return data::BY_EXT[$ext] ?? false;
 	}
 
 	/**
@@ -101,14 +100,14 @@ class mimes {
 	public static function check_ext_and_mime(string $ext='', string $mime='', bool $soft=true) {
 		// Check the extension.
 		r_sanitize::file_extension($ext);
-		if (!$ext) {
+		if (! $ext) {
 			return false;
 		}
 
 		// Check the MIME.
 		r_sanitize::mime($mime);
 		if (
-			!$mime ||
+			! $mime ||
 			(static::MIME_EMPTY === $mime) ||
 			($soft && (static::MIME_DEFAULT === $mime))
 		) {
@@ -122,10 +121,10 @@ class mimes {
 
 		// Loose mime check.
 		$real = $ext['mime'];
-		$found = array_intersect($real, static::get_loose_mimes($mime));
+		$found = \array_intersect($real, static::get_loose_mimes($mime));
 
 		// If we found something, hurray!
-		return count($found) > 0;
+		return \count($found) > 0;
 	}
 
 	/**
@@ -138,12 +137,12 @@ class mimes {
 	 * @param string $mime MIME.
 	 * @return array MIMEs.
 	 */
-	protected static function get_loose_mimes(string $mime) {
+	public static function get_loose_mimes(string $mime) {
 		r_sanitize::mime($mime);
 
 		$out = array();
 
-		if (!$mime) {
+		if (! $mime) {
 			return $out;
 		}
 
@@ -153,24 +152,24 @@ class mimes {
 		}
 
 		// Weird Microsoft MIME.
-		if (0 === strpos($mime, 'application/cdfv2')) {
+		if (0 === \strpos($mime, 'application/cdfv2')) {
 			$out[] = 'application/vnd.ms-office';
 		}
 
 		// Split it up.
-		list($type, $subtype) = explode('/', $mime);
+		list($type, $subtype) = \explode('/', $mime);
 		if ($type && $subtype) {
-			$subtype = preg_replace('/^(x\-|vnd.)/', '', $subtype);
+			$subtype = \preg_replace('/^(x\-|vnd.)/', '', $subtype);
 			$out[] = "$type/x-$subtype";
 			$out[] = "$type/vnd.$subtype";
 			$out[] = "$type/$subtype";
 		}
 
 		// Sort our results, preferring non-prefixed types.
-		$out = array_unique($out);
-		usort($out, function($a, $b) {
-			$a_key = (!preg_match('#/(x\-|vnd\.)#', $a) ? '0_' : '1_') . $a;
-			$b_key = (!preg_match('#/(x\-|vnd\.)#', $b) ? '0_' : '1_') . $b;
+		$out = \array_unique($out);
+		\usort($out, function($a, $b) {
+			$a_key = (! \preg_match('#/(x\-|vnd\.)#', $a) ? '0_' : '1_') . $a;
+			$b_key = (! \preg_match('#/(x\-|vnd\.)#', $b) ? '0_' : '1_') . $b;
 
 			return $a_key < $b_key ? -1 : 1;
 		});
@@ -189,7 +188,7 @@ class mimes {
 	 */
 	public static function finfo($path='', $nice=null) {
 		r_cast::string($path, true);
-		if (!is_null($nice)) {
+		if (! \is_null($nice)) {
 			r_cast::string($nice, true);
 		}
 
@@ -205,11 +204,11 @@ class mimes {
 
 		// Path might just be an extension.
 		if (
-			(false === strpos($path, '.')) &&
-			(false === strpos($path, '/')) &&
-			(false === strpos($path, '\\'))
+			(false === \strpos($path, '.')) &&
+			(false === \strpos($path, '/')) &&
+			(false === \strpos($path, '\\'))
 		) {
-			$out['extension'] = v_sanitize::file_extension($path, true);
+			$out['extension'] = v_sanitize::file_extension($path);
 			if (false !== ($ext = static::get_extension($path))) {
 				$out['mime'] = $ext['mime'][0];
 			}
@@ -218,17 +217,17 @@ class mimes {
 		}
 
 		// Path is something path-like.
-		r_file::path($path, false, true);
+		r_file::path($path, false);
 		$out['path'] = $path;
-		$out = c_data::parse_args(pathinfo($path), $out);
+		$out = c_data::parse_args(\pathinfo($path), $out);
 
-		if (!is_null($nice)) {
-			$pathinfo = pathinfo($nice);
-			$out['filename'] = isset($pathinfo['filename']) ? $pathinfo['filename'] : '';
-			$out['extension'] = isset($pathinfo['extension']) ? $pathinfo['extension'] : '';
+		if (! \is_null($nice)) {
+			$pathinfo = \pathinfo($nice);
+			$out['filename'] = $pathinfo['filename'] ?? '';
+			$out['extension'] = $pathinfo['extension'] ?? '';
 		}
 
-		r_sanitize::file_extension($out['extension'], true);
+		r_sanitize::file_extension($out['extension']);
 
 		// Pull the mimes from the extension.
 		if (false !== ($ext = static::get_extension($out['extension']))) {
@@ -238,22 +237,22 @@ class mimes {
 		// Try to read the magic mime, if possible.
 		try {
 			// Find the real path, if possible.
-			if (false !== ($path = @realpath($path))) {
+			if (false !== ($path = @\realpath($path))) {
 				$out['path'] = $path;
-				$out['dirname'] = dirname($path);
+				$out['dirname'] = \dirname($path);
 			}
 
 			// Lookup magic mime, if possible.
 			if (
 				(false !== $path) &&
-				function_exists('finfo_file') &&
-				defined('FILEINFO_MIME_TYPE') &&
-				@is_file($path) &&
-				@filesize($path) > 0
+				\function_exists('finfo_file') &&
+				\defined('FILEINFO_MIME_TYPE') &&
+				@\is_file($path) &&
+				@\filesize($path) > 0
 			) {
-				$finfo = finfo_open(FILEINFO_MIME_TYPE);
-				$magic_mime = v_sanitize::mime(finfo_file($finfo, $path));
-				finfo_close($finfo);
+				$finfo = \finfo_open(\FILEINFO_MIME_TYPE);
+				$magic_mime = v_sanitize::mime(\finfo_file($finfo, $path));
+				\finfo_close($finfo);
 
 				// SVGs can be misidentified by fileinfo if they are
 				// missing the XML tag and/or DOCTYPE declarations. Most
@@ -264,10 +263,10 @@ class mimes {
 					('svg' === $out['extension']) &&
 					('image/svg+xml' !== $magic_mime)
 				) {
-					$tmp = @file_get_contents($path);
+					$tmp = @\file_get_contents($path);
 					if (
-						is_string($tmp) &&
-						(false !== strpos(strtolower($tmp), '<svg'))
+						\is_string($tmp) &&
+						(false !== \strpos(\strtolower($tmp), '<svg'))
 					) {
 						$magic_mime = 'image/svg+xml';
 					}
@@ -279,9 +278,9 @@ class mimes {
 					(static::MIME_DEFAULT !== $magic_mime) &&
 					(
 						(static::MIME_DEFAULT === $out['mime']) ||
-						(0 !== strpos($magic_mime, 'text/'))
+						(0 !== \strpos($magic_mime, 'text/'))
 					) &&
-					!static::check_ext_and_mime($out['extension'], $magic_mime)
+					! static::check_ext_and_mime($out['extension'], $magic_mime)
 				) {
 					// If we have an alternative magic mime and it is
 					// legit, it should override what we derived from

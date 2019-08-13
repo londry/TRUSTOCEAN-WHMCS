@@ -21,19 +21,19 @@ class data {
 	 */
 	public static function array_compare(&$arr1, &$arr2) {
 		// Obviously bad data.
-		if (!is_array($arr1) || !is_array($arr2)) {
+		if (! \is_array($arr1) || ! \is_array($arr2)) {
 			return false;
 		}
 
-		$length = count($arr1);
+		$length = \count($arr1);
 
 		// Length mismatch.
-		if (count($arr2) !== $length) {
+		if (\count($arr2) !== $length) {
 			return false;
 		}
 
 		// Different keys, we don't need to check further.
-		if (count(array_intersect_key($arr1, $arr2)) !== $length) {
+		if (\count(\array_intersect_key($arr1, $arr2)) !== $length) {
 			return false;
 		}
 
@@ -42,18 +42,18 @@ class data {
 			(cast::array_type($arr1) !== 'associative') &&
 			(cast::array_type($arr2) !== 'associative')
 		) {
-			return count(array_intersect($arr1, $arr2)) === $length;
+			return \count(\array_intersect($arr1, $arr2)) === $length;
 		}
 
 		// Check each item.
 		foreach ($arr1 as $k=>$v) {
-			if (!isset($arr2[$k])) {
+			if (! isset($arr2[$k])) {
 				return false;
 			}
 
 			// Recursive?
-			if (is_array($arr1[$k]) && is_array($arr2[$k])) {
-				if (!static::array_compare($arr1[$k], $arr2[$k])) {
+			if (\is_array($arr1[$k]) && \is_array($arr2[$k])) {
+				if (! static::array_compare($arr1[$k], $arr2[$k])) {
 					return false;
 				}
 			}
@@ -77,24 +77,24 @@ class data {
 	public static function array_idiff($arr1, $arr2) {
 		// First off, a variable number of arguments can be passed.
 		// Let's take a look and see what we have.
-		$arrays = func_get_args();
-		if (!isset($arrays[1])) {
+		$arrays = \func_get_args();
+		if (! isset($arrays[1])) {
 			return array();
 		}
 		foreach ($arrays as $a) {
-			if (!is_array($a)) {
+			if (! \is_array($a)) {
 				return array();
 			}
 		}
 
 		// Compare the first to each.
-		$length = count($arrays);
+		$length = \count($arrays);
 		for ($x = 1; $x < $length; ++$x) {
 			$common = array();
 
 			// If the arrays are the same, or the second is empty,
 			// we can skip the tests.
-			if (!count($arrays[$x])) {
+			if (! \count($arrays[$x])) {
 				continue;
 			}
 
@@ -103,13 +103,13 @@ class data {
 			$arr2 = mb::strtolower($arrays[$x], true);
 
 			foreach ($arr1 as $k=>$v) {
-				if (!is_array($v) && !in_array($v, $arr2, true)) {
+				if (! \is_array($v) && ! \in_array($v, $arr2, true)) {
 					$common[$k] = $arrays[0][$k];
 				}
 			}
 
 			// Nothing left? The end!
-			if (!count($common)) {
+			if (! \count($common)) {
 				return $common;
 			}
 
@@ -129,18 +129,18 @@ class data {
 	public static function array_iintersect($arr1, $arr2) {
 		// First off, a variable number of arguments can be passed.
 		// Let's take a look and see what we have.
-		$arrays = func_get_args();
-		if (!isset($arrays[1])) {
+		$arrays = \func_get_args();
+		if (! isset($arrays[1])) {
 			return array();
 		}
 		foreach ($arrays as $a) {
-			if (!is_array($a) || !count($a)) {
+			if (! \is_array($a) || ! \count($a)) {
 				return array();
 			}
 		}
 
 		// Compare the first to each.
-		$length = count($arrays);
+		$length = \count($arrays);
 		for ($x = 1; $x < $length; ++$x) {
 			$common = array();
 
@@ -149,13 +149,13 @@ class data {
 			$arr2 = mb::strtolower($arrays[$x], true);
 
 			foreach ($arr1 as $k=>$v) {
-				if (!is_array($v) && in_array($v, $arr2, true)) {
+				if (! \is_array($v) && \in_array($v, $arr2, true)) {
 					$common[$k] = $arrays[0][$k];
 				}
 			}
 
 			// Nothing left? The end!
-			if (!count($common)) {
+			if (! \count($common)) {
 				return $common;
 			}
 
@@ -173,10 +173,10 @@ class data {
 	 * @return bool True/false.
 	 */
 	public static function array_ikey_exists($needle, $haystack) {
-		if (!is_array($haystack) || !count($haystack)) {
+		if (! \is_array($haystack) || ! \count($haystack)) {
 			return false;
 		}
-		$haystack = array_keys($haystack);
+		$haystack = \array_keys($haystack);
 
 		return (false !== static::array_isearch($needle, $haystack));
 	}
@@ -189,8 +189,8 @@ class data {
 	 * @param bool $strict Strict.
 	 * @return mixed Key or false.
 	 */
-	public static function array_isearch($needle, $haystack, bool $strict=true) {
-		if (!is_array($haystack) || !count($haystack)) {
+	public static function array_isearch($needle, array $haystack, bool $strict=true) {
+		if (! \count($haystack)) {
 			return false;
 		}
 
@@ -211,7 +211,7 @@ class data {
 	 * @return bool True/false.
 	 */
 	public static function array_map_recursive(callable $func, array $arr) {
-		return filter_var($arr, FILTER_CALLBACK, array('options'=>$func));
+		return \filter_var($arr, \FILTER_CALLBACK, array('options'=>$func));
 	}
 
 	/**
@@ -226,39 +226,40 @@ class data {
 	 * @param string $other Label for others.
 	 * @return array|bool Array or false.
 	 */
-	public static function array_otherize($arr=null, int $length=5, $other='Other') {
+	public static function array_otherize(array $arr, int $length=5, $other='Other') {
 		if ('associative' !== cast::array_type($arr)) {
 			return false;
 		}
 
 		// Make sure everything is numeric.
 		foreach ($arr as $k=>$v) {
-			if (!is_int($arr[$k]) && !is_float($arr[$k])) {
+			if (! \is_int($arr[$k]) && ! \is_float($arr[$k])) {
 				ref\cast::float($arr[$k], true);
 			}
 		}
 
-		arsort($arr);
+		\arsort($arr);
 
 		ref\sanitize::to_range($length, 1);
 
 		// Nothing to do.
-		if (count($arr) <= $length) {
+		if (\count($arr) <= $length) {
 			return $arr;
 		}
 
 		ref\cast::string($other, true);
-		if (!$other) {
+
+		if (! $other) {
 			$other = 'Other';
 		}
 
 		// Just sum it.
 		if (1 === $length) {
-			return array($other=>array_sum($arr));
+			return array($other=>\array_sum($arr));
 		}
 
-		$out = array_slice($arr, 0, $length - 1);
-		$out[$other] = array_sum(array_slice($arr, $length - 1));
+		$out = \array_slice($arr, 0, $length - 1);
+		$out[$other] = \array_sum(\array_slice($arr, $length - 1));
 
 		return $out;
 	}
@@ -272,11 +273,11 @@ class data {
 	 * @return mixed Value. False on error.
 	 */
 	public static function array_pop(array &$arr) {
-		if (!count($arr)) {
+		if (! \count($arr)) {
 			return false;
 		}
 
-		$reversed = array_reverse($arr);
+		$reversed = \array_reverse($arr);
 		return static::array_pop_top($reversed);
 	}
 
@@ -287,9 +288,9 @@ class data {
 	 * @return mixed Value. False on error.
 	 */
 	public static function array_pop_rand(array &$arr) {
-		$length = count($arr);
+		$length = \count($arr);
 
-		if (!$length) {
+		if (! $length) {
 			return false;
 		}
 
@@ -298,7 +299,7 @@ class data {
 			return static::array_pop_top($arr);
 		}
 
-		$keys = array_keys($arr);
+		$keys = \array_keys($arr);
 		$index = static::random_int(0, $length - 1);
 
 		return $arr[$keys[$index]];
@@ -311,12 +312,12 @@ class data {
 	 * @return mixed Value. False on error.
 	 */
 	public static function array_pop_top(array &$arr) {
-		if (!count($arr)) {
+		if (! \count($arr)) {
 			return false;
 		}
 
-		reset($arr);
-		return $arr[key($arr)];
+		\reset($arr);
+		return $arr[\key($arr)];
 	}
 
 	/**
@@ -328,7 +329,7 @@ class data {
 	public static function cc_exp_months(string $format='m - M') {
 		$months = array();
 		for ($x = 1; $x <= 12; ++$x) {
-			$months[$x] = date($format, strtotime('2000-' . sprintf('%02d', $x) . '-01'));
+			$months[$x] = \date($format, \strtotime('2000-' . \sprintf('%02d', $x) . '-01'));
 		}
 		return $months;
 	}
@@ -346,7 +347,7 @@ class data {
 
 		$years = array();
 		for ($x = 0; $x < $length; ++$x) {
-			$year = (int) (date('Y') + $x);
+			$year = (int) (\date('Y') + $x);
 			$years[$year] = $year;
 		}
 
@@ -366,8 +367,8 @@ class data {
 
 		// Same or bad dates.
 		if (
-			!is_string($date1) ||
-			!is_string($date2) ||
+			! \is_string($date1) ||
+			! \is_string($date2) ||
 			($date1 === $date2) ||
 			('0000-00-00' === $date1) ||
 			('0000-00-00' === $date2)
@@ -376,18 +377,18 @@ class data {
 		}
 
 		// Prefer DateTime.
-		if (class_exists('DateTime')) {
+		if (\class_exists('DateTime')) {
 			$date1 = new \DateTime($date1);
 			$date2 = new \DateTime($date2);
 			$diff = $date1->diff($date2);
 
-			return abs($diff->days);
+			return \abs($diff->days);
 		}
 
 		// Fallback to counting seconds.
-		$date1 = strtotime($date1);
-		$date2 = strtotime($date2);
-		return ceil(abs($date2 - $date1) / 60 / 60 / 24);
+		$date1 = \strtotime($date1);
+		$date2 = \strtotime($date2);
+		return \ceil(\abs($date2 - $date1) / 60 / 60 / 24);
 	}
 
 	/**
@@ -428,17 +429,17 @@ class data {
 	 */
 	public static function ip_in_range(string $ip, $min, $max=null) {
 		ref\sanitize::ip($ip, true);
-		if (!is_string($min)) {
+		if (! \is_string($min)) {
 			return false;
 		}
 
 		// Bad IP.
-		if (!$ip) {
+		if (! $ip) {
 			return false;
 		}
 
 		// Is $min a range?
-		if (false !== strpos($min, '/')) {
+		if (false !== \strpos($min, '/')) {
 			if (false === ($range = format::cidr_to_range($min))) {
 				return false;
 			}
@@ -446,7 +447,7 @@ class data {
 			$max = $range['max'];
 		}
 		// Max is required otherwise.
-		elseif (is_null($max)) {
+		elseif (null === $max) {
 			return false;
 		}
 
@@ -474,16 +475,16 @@ class data {
 	 * @return bool True/false.
 	 */
 	public static function is_json($str, bool $empty=false) {
-		if (!is_string($str) || (!$empty && !$str)) {
+		if (! \is_string($str) || (! $empty && ! $str)) {
 			return false;
 		}
 
-		if ($empty && !$str) {
+		if ($empty && ! $str) {
 			return true;
 		}
 
-		$json = json_decode($str);
-		return !is_null($json);
+		$json = \json_decode($str);
+		return (null !== $json);
 	}
 
 	/**
@@ -493,11 +494,11 @@ class data {
 	 * @return bool True/false.
 	 */
 	public static function is_utf8($str) {
-		if (is_numeric($str) || is_bool($str)) {
+		if (\is_numeric($str) || \is_bool($str)) {
 			return true;
 		}
-		elseif (is_string($str)) {
-			return (bool) preg_match('//u', $str);
+		elseif (\is_string($str)) {
+			return (bool) \preg_match('//u', $str);
 		}
 
 		return false;
@@ -519,14 +520,14 @@ class data {
 	public static function json_decode_array($json, $defaults=null, bool $strict=true, bool $recursive=true) {
 		ref\format::json_decode($json);
 
-		if (is_null($json) || (is_string($json) && !$json)) {
+		if ((null === $json) || (\is_string($json) && ! $json)) {
 			$json = array();
 		}
 		else {
 			ref\cast::array($json);
 		}
 
-		if (is_array($defaults)) {
+		if (\is_array($defaults)) {
 			return static::parse_args($json, $defaults, $strict, $recursive);
 		}
 		else {
@@ -545,23 +546,23 @@ class data {
 	 * @return bool True/false.
 	 */
 	public static function length_in_range(string $str, $min=null, $max=null) {
-		if (!is_null($min) && !is_int($min)) {
+		if ((null !== $min) && ! \is_int($min)) {
 			ref\cast::int($min, true);
 		}
-		if (!is_null($max) && !is_int($max)) {
+		if ((null !== $max) && ! \is_int($max)) {
 			ref\cast::int($max, true);
 		}
 
-		$length = mb::strlen($str, true);
-		if (!is_null($min) && !is_null($max) && $min > $max) {
+		$length = mb::strlen($str);
+		if ((null !== $min) && (null !== $max) && $min > $max) {
 			static::switcheroo($min, $max);
 		}
 
-		if (!is_null($min) && $min > $length) {
+		if ((null !== $min) && $min > $length) {
 			return false;
 		}
 
-		if (!is_null($max) && $max < $length) {
+		if ((null !== $max) && $max < $length) {
 			return false;
 		}
 
@@ -582,19 +583,22 @@ class data {
 	 * @return array Parsed arguments.
 	 */
 	public static function parse_args($args, $defaults, bool $strict=true, bool $recursive=true) {
-		ref\cast::array($args);
 		ref\cast::array($defaults);
-
-		if (!count($defaults)) {
+		if (! \count($defaults)) {
 			return array();
 		}
 
+		ref\cast::array($args);
+		if (! \count($args)) {
+			return $defaults;
+		}
+
 		foreach ($defaults as $k=>$v) {
-			if (array_key_exists($k, $args)) {
+			if (\array_key_exists($k, $args)) {
 				// Recurse if the default is a populated associative array.
 				if (
 					$recursive &&
-					is_array($defaults[$k]) &&
+					\is_array($defaults[$k]) &&
 					(cast::array_type($defaults[$k]) === 'associative')
 				) {
 					$defaults[$k] = static::parse_args($args[$k], $defaults[$k], $strict, $recursive);
@@ -602,8 +606,8 @@ class data {
 				// Otherwise just replace.
 				else {
 					$defaults[$k] = $args[$k];
-					if ($strict && !is_null($v)) {
-						ref\cast::to_type($defaults[$k], gettype($v), true);
+					if ($strict && (null !== $v)) {
+						ref\cast::to_type($defaults[$k], \gettype($v), true);
 					}
 				}
 			}
@@ -627,12 +631,7 @@ class data {
 			static::switcheroo($min, $max);
 		}
 
-		if (function_exists('random_int')) {
-			return random_int($min, $max);
-		}
-		else {
-			return mt_rand($min, $max);
-		}
+		return \random_int($min, $max);
 	}
 
 	/**
@@ -651,28 +650,28 @@ class data {
 			return '';
 		}
 
-		if (is_array($soup) && count($soup)) {
+		if (\is_array($soup) && \count($soup)) {
 			ref\cast::string($soup);
 
-			$soup = implode('', $soup);
-			ref\sanitize::printable($soup, true);
+			$soup = \implode('', $soup);
+			ref\sanitize::printable($soup);
 
-			$soup = preg_replace('/\s/u', '', $soup);
-			$soup = array_unique(mb::str_split($soup, 1, true));
-			$soup = array_values($soup);
-			if (!count($soup)) {
+			$soup = \preg_replace('/\s/u', '', $soup);
+			$soup = \array_unique(mb::str_split($soup, 1, true));
+			$soup = \array_values($soup);
+			if (! \count($soup)) {
 				return '';
 			}
 		}
 
 		// Use default soup.
-		if (!is_array($soup) || !count($soup)) {
+		if (! \is_array($soup) || ! \count($soup)) {
 			$soup = constants::RANDOM_CHARS;
 		}
 
 		// Pick nine entries at random.
 		$salt = '';
-		$max = count($soup) - 1;
+		$max = \count($soup) - 1;
 		for ($x = 0; $x < $length; ++$x) {
 			$salt .= $soup[static::random_int(0, $max)];
 		}
@@ -711,8 +710,8 @@ class data {
 	 */
 	public static function unsetcookie(string $name, string $path='', string $domain='', bool $secure=false, bool $httponly=false) {
 
-		if (!headers_sent()) {
-			setcookie($name, false, -1, $path, $domain, $secure, $httponly);
+		if (! \headers_sent()) {
+			\setcookie($name, false, -1, $path, $domain, $secure, $httponly);
 			if (isset($_COOKIE[$name])) {
 				unset($_COOKIE[$name]);
 			}

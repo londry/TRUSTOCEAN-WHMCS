@@ -10,13 +10,12 @@
 
 namespace blobfolio\domain;
 
-use \blobfolio\common\constants;
-use \blobfolio\common\data as c_data;
-use \blobfolio\common\mb as v_mb;
-use \blobfolio\common\ref\cast as r_cast;
-use \blobfolio\common\ref\file as r_file;
-use \blobfolio\common\ref\mb as r_mb;
-use \blobfolio\common\ref\sanitize as r_sanitize;
+use blobfolio\common\data as c_data;
+use blobfolio\common\mb as v_mb;
+use blobfolio\common\ref\cast as r_cast;
+use blobfolio\common\ref\file as r_file;
+use blobfolio\common\ref\mb as r_mb;
+use blobfolio\common\ref\sanitize as r_sanitize;
 
 class domain {
 
@@ -77,7 +76,7 @@ class domain {
 	 */
 	public static function parse_host($host) {
 		// Try to parse it the easy way.
-		$tmp = v_mb::parse_url($host, PHP_URL_HOST);
+		$tmp = v_mb::parse_url($host, \PHP_URL_HOST);
 		if ($tmp) {
 			$host = $tmp;
 		}
@@ -85,88 +84,88 @@ class domain {
 		else {
 			r_cast::string($host, true);
 
-			r_mb::trim($host, true);
+			r_mb::trim($host);
 
 			// Cut off the path, if any.
 			if (false !== ($start = v_mb::strpos($host, '/'))) {
-				$host = v_mb::substr($host, 0, $start, true);
+				$host = v_mb::substr($host, 0, $start);
 			}
 
 			// Cut off the query, if any.
 			if (false !== ($start = v_mb::strpos($host, '?'))) {
-				$host = v_mb::substr($host, 0, $start, true);
+				$host = v_mb::substr($host, 0, $start);
 			}
 
 			// Cut off credentials, if any.
 			if (false !== ($start = v_mb::strpos($host, '@'))) {
-				$host = v_mb::substr($host, $start + 1, null, true);
+				$host = v_mb::substr($host, $start + 1, null);
 			}
 
 			// Is this an IPv6 address?
-			if (filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+			if (\filter_var($host, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV6)) {
 				r_sanitize::ip($host, true);
 			}
 			elseif (
-				(0 === strpos($host, '[')) &&
+				(0 === \strpos($host, '[')) &&
 				false !== ($end = v_mb::strpos($host, ']'))
 			) {
-				$host = v_mb::substr($host, 1, $end - 1, true);
+				$host = v_mb::substr($host, 1, $end - 1);
 				r_sanitize::ip($host, true);
 			}
 			// Cut off port, if any.
 			elseif (false !== ($start = v_mb::strpos($host, ':'))) {
-				$host = v_mb::substr($host, 0, $start, true);
+				$host = v_mb::substr($host, 0, $start);
 			}
 
 			// If it is empty or invalid, there is nothing we can do.
-			if (!strlen($host)) {
+			if (! \strlen($host)) {
 				return false;
 			}
 
 			// Convert to ASCII if possible.
-			if (function_exists('idn_to_ascii')) {
-				$host = explode('.', $host);
+			if (\function_exists('idn_to_ascii')) {
+				$host = \explode('.', $host);
 				r_file::idn_to_ascii($host);
-				$host = implode('.', $host);
+				$host = \implode('.', $host);
 			}
 
 			// Lowercase it.
-			r_mb::strtolower($host, false, true);
+			r_mb::strtolower($host, false);
 
 			// Get rid of trailing periods.
-			$host = ltrim($host, '.');
-			$host = rtrim($host, '.');
+			$host = \ltrim($host, '.');
+			$host = \rtrim($host, '.');
 		}
 
 		// Liberate IPv6 from its walls.
-		if (0 === strpos($host, '[')) {
-			$host = str_replace(array('[', ']'), '', $host);
+		if (0 === \strpos($host, '[')) {
+			$host = \str_replace(array('[', ']'), '', $host);
 			r_sanitize::ip($host, true);
 		}
 
 		// Is this an IP address? If so, we're done!
-		if (filter_var($host, FILTER_VALIDATE_IP)) {
+		if (\filter_var($host, \FILTER_VALIDATE_IP)) {
 			return $host;
 		}
 
 		// Look for illegal characters. At this point we should
 		// only have nice and safe ASCII.
-		if (preg_match('/[^a-z\d\-\.]/u', $host)) {
+		if (\preg_match('/[^a-z\d\-\.]/u', $host)) {
 			return false;
 		}
-		$host = explode('.', $host);
+		$host = \explode('.', $host);
 		foreach ($host as $v) {
 			// Gotta have length, and can't start or end with a dash.
 			if (
-				!strlen($v) ||
-				(0 === strpos($v, '-')) ||
-				('-' === substr($v, -1))
+				! \strlen($v) ||
+				(0 === \strpos($v, '-')) ||
+				('-' === \substr($v, -1))
 			) {
 				return false;
 			}
 		}
 
-		return implode('.', $host);
+		return \implode('.', $host);
 	}
 
 	/**
@@ -187,7 +186,7 @@ class domain {
 		$out = static::HOST_PARTS;
 
 		// If this is an IP, we don't have to do anything else.
-		if (filter_var($host, FILTER_VALIDATE_IP)) {
+		if (\filter_var($host, \FILTER_VALIDATE_IP)) {
 			$out['host'] = $host;
 			$out['domain'] = $host;
 			return $out;
@@ -197,8 +196,8 @@ class domain {
 		// correspond to a registered suffix.
 		$suffixes = data::SUFFIXES;
 		$suffix = array();
-		$parts = explode('.', $host);
-		$parts = array_reverse($parts);
+		$parts = \explode('.', $host);
+		$parts = \array_reverse($parts);
 
 		foreach ($parts as $k=>$part) {
 			// Override rule.
@@ -208,7 +207,7 @@ class domain {
 
 			// A match.
 			if (isset($suffixes[$part])) {
-				array_unshift($suffix, $part);
+				\array_unshift($suffix, $part);
 				$suffixes = $suffixes[$part];
 				unset($parts[$k]);
 				continue;
@@ -216,7 +215,7 @@ class domain {
 
 			// A wildcard.
 			if (isset($suffixes['*'])) {
-				array_unshift($suffix, $part);
+				\array_unshift($suffix, $part);
 				$suffixes = $suffixes['*'];
 				unset($parts[$k]);
 				continue;
@@ -227,22 +226,22 @@ class domain {
 		}
 
 		// The suffix can't be all there is.
-		if (!count($parts)) {
+		if (! \count($parts)) {
 			return false;
 		}
 
 		// The domain.
-		$parts = array_reverse($parts);
-		$out['domain'] = array_pop($parts);
+		$parts = \array_reverse($parts);
+		$out['domain'] = \array_pop($parts);
 
 		// The subdomain.
-		if (count($parts)) {
-			$out['subdomain'] = implode('.', $parts);
+		if (\count($parts)) {
+			$out['subdomain'] = \implode('.', $parts);
 		}
 
 		// The suffix.
-		if (count($suffix)) {
-			$out['suffix'] = implode('.', $suffix);
+		if (\count($suffix)) {
+			$out['suffix'] = \implode('.', $suffix);
 		}
 
 		$out['host'] = $host;
@@ -259,20 +258,20 @@ class domain {
 	 * @return bool True/false.
 	 */
 	public function strip_www() {
-		if (!$this->is_valid() || is_null($this->subdomain)) {
+		if (! $this->is_valid() || \is_null($this->subdomain)) {
 			return false;
 		}
 
 		if (
 			('www' === $this->subdomain) ||
-			(0 === strpos($this->subdomain, 'www.'))
+			(0 === \strpos($this->subdomain, 'www.'))
 		) {
-			$this->subdomain = preg_replace('/^www\.?/u', '', $this->subdomain);
-			if (!strlen($this->subdomain)) {
+			$this->subdomain = \preg_replace('/^www\.?/u', '', $this->subdomain);
+			if (! \strlen($this->subdomain)) {
 				$this->subdomain = null;
 			}
 
-			$this->host = preg_replace('/^www\./u', '', $this->host);
+			$this->host = \preg_replace('/^www\./u', '', $this->host);
 			return true;
 		}
 
@@ -294,7 +293,7 @@ class domain {
 	 * @return bool True/false.
 	 */
 	public function is_valid(bool $dns=false) {
-		return !is_null($this->host) && (!$dns || $this->has_dns());
+		return ! \is_null($this->host) && (! $dns || $this->has_dns());
 	}
 
 	/**
@@ -305,7 +304,7 @@ class domain {
 	public function is_fqdn() {
 		return (
 			$this->is_valid() &&
-			(is_string($this->suffix) || $this->is_ip(false))
+			(\is_string($this->suffix) || $this->is_ip(false))
 		);
 	}
 
@@ -316,18 +315,18 @@ class domain {
 	 * @return bool True/false.
 	 */
 	public function is_ip(bool $restricted=true) {
-		if (!$this->is_valid()) {
+		if (! $this->is_valid()) {
 			return false;
 		}
 
 		if ($restricted) {
-			return !!filter_var($this->host, FILTER_VALIDATE_IP);
+			return !! \filter_var($this->host, \FILTER_VALIDATE_IP);
 		}
 
-		return !!filter_var(
+		return !! \filter_var(
 			$this->host,
-			FILTER_VALIDATE_IP,
-			FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+			\FILTER_VALIDATE_IP,
+			\FILTER_FLAG_NO_PRIV_RANGE | \FILTER_FLAG_NO_RES_RANGE
 		);
 	}
 
@@ -337,18 +336,18 @@ class domain {
 	 * @return bool True/false.
 	 */
 	public function has_dns() {
-		if (is_null($this->dns)) {
-			if (!$this->is_fqdn()) {
+		if (\is_null($this->dns)) {
+			if (! $this->is_fqdn()) {
 				$this->dns = false;
 			}
 			elseif ($this->is_ip()) {
 				$this->dns = $this->is_ip(false);
 			}
 			else {
-				$this->dns = !!filter_var(
-					gethostbyname("{$this->host}."),
-					FILTER_VALIDATE_IP,
-					FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+				$this->dns = !! \filter_var(
+					\gethostbyname("{$this->host}."),
+					\FILTER_VALIDATE_IP,
+					\FILTER_FLAG_NO_PRIV_RANGE | \FILTER_FLAG_NO_RES_RANGE
 				);
 			}
 		}
@@ -362,11 +361,11 @@ class domain {
 	 * @return bool True/false.
 	 */
 	public function is_ascii() {
-		if (!$this->is_valid()) {
+		if (! $this->is_valid()) {
 			return false;
 		}
 
-		return !$this->is_unicode();
+		return ! $this->is_unicode();
 	}
 
 	/**
@@ -375,7 +374,7 @@ class domain {
 	 * @return bool True/false.
 	 */
 	public function is_unicode() {
-		if (!$this->is_valid() || $this->is_ip() || !function_exists('idn_to_utf8')) {
+		if (! $this->is_valid() || $this->is_ip() || ! \function_exists('idn_to_utf8')) {
 			return false;
 		}
 
@@ -408,15 +407,15 @@ class domain {
 	 * @throws \Exception Invalid method.
 	 */
 	public function __call($method, $args) {
-		preg_match_all('/^get_(.+)$/', $method, $matches);
+		\preg_match_all('/^get_(.+)$/', $method, $matches);
 		if (
-			count($matches[0]) &&
+			\count($matches[0]) &&
 			('dns' !== $matches[1][0]) &&
-			property_exists($this, $matches[1][0])
+			\property_exists($this, $matches[1][0])
 		) {
 			$variable = $matches[1][0];
 
-			if (is_array($args) && count($args)) {
+			if (\is_array($args) && \count($args)) {
 				$args = c_data::array_pop_top($args);
 				r_cast::bool($args);
 				if ($args) {
@@ -428,10 +427,10 @@ class domain {
 		}
 
 		throw new \Exception(
-			sprintf(
+			\sprintf(
 				'The required method "%s" does not exist for %s',
 				$method,
-				get_called_class()
+				static::class
 			)
 		);
 	}
@@ -444,10 +443,10 @@ class domain {
 	 */
 	protected function to_unicode($key) {
 		$value = $this->{$key};
-		if (function_exists('idn_to_utf8') && is_string($value)) {
-			$value = explode('.', $value);
+		if (\function_exists('idn_to_utf8') && \is_string($value)) {
+			$value = \explode('.', $value);
 			r_file::idn_to_utf8($value);
-			return implode('.', $value);
+			return \implode('.', $value);
 		}
 
 		return $value;
@@ -460,7 +459,7 @@ class domain {
 	 * @return array|bool Host data or false.
 	 */
 	public function get_data(bool $unicode=false) {
-		if (!$this->is_valid()) {
+		if (! $this->is_valid()) {
 			return false;
 		}
 

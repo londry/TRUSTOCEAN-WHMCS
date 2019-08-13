@@ -78,6 +78,9 @@
                 <li>
                     <a href="#chaincertificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
                 </li>
+                <li>
+                    <a href="#csrcode"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
+                </li>
             </ul>
         </div>
         <div class="tab-content">
@@ -95,6 +98,15 @@
                     <li>
                         <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</span>
                         <textarea class="form-control" rows="25" style="width: 80%;">{$vars.chainscert}</textarea>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="tab-pane" id="csrcode">
+                <ul class="list-info list-info-50 list-info-bordered cert-info-tb">
+                    <li>
+                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</span>
+                        <textarea class="form-control" rows="25" style="width: 80%;">{$vars.csr}</textarea>
                     </li>
                 </ul>
             </div>

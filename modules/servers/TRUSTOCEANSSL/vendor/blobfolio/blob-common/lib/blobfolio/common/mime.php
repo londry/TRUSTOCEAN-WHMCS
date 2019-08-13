@@ -10,11 +10,8 @@
 
 namespace blobfolio\common;
 
-use \blobfolio\mimes\mimes;
+use blobfolio\mimes\mimes;
 
 class mime extends mimes {
 
 }
-
-
-
