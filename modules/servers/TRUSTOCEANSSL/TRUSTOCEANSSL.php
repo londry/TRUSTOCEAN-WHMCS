@@ -1051,6 +1051,81 @@ function TRUSTOCEANSSL_ajaxTrySubmittoca($vars){
 }
 
 /**
+ * 尝试提交到 TRUSTOCEAN SSL CA
+ * @param $vars
+ * @throws Exception
+ */
+function TRUSTOCEANSSL_trySubmittoca($vars){
+    global $MODLANG;
+
+    $service = Capsule::table('tbltrustocean_certificate')->where('serviceid',$vars['serviceid'])->first();
+    # todo:: 检查证书的状态是否可以提交到CA
+    if($service->status !== "enroll_dcv"){
+        return $MODLANG['trustoceanssl']['apierror']['cannotsubmitca'];
+    }
+    // todo:: 尝试提交到 TRUSTOCEAN CA
+
+    //todo:: ca params
+    $caprams = array(
+        'action'    =>'addSSLOrder',
+        'pid'       =>$vars['configoption1'],
+    );
+
+    # todo:: 多域名 域名列表
+    if($vars['configoption4'] === "on"){
+        $domainString = "";
+        foreach (json_decode($service->domains, 1) as $domain){
+            $domainString  = $domainString.$domain.",";
+        }
+        $domainString = substr($domainString, 0, strlen($domainString)-1);
+        $caprams['domains'] = $domainString;
+    }
+
+    # todo:: DCV信息列表
+    $dcvString = implode(',', $_POST['domaindcvmathod']);
+    // 其他非主域名还需要使用相同的method进行填充后并核对顺序才可以使用
+
+    $caprams['dcv_method'] = $dcvString;
+
+    // todo:: CSR信息
+    $caprams['csr_code'] = $service->csr_code;
+    // todo:: contact_email
+    $caprams['contact_email'] = $service->contact_email;
+    // todo:: period
+    $caprams['period'] = $service->period;
+    // todo:; unique_id
+    $caprams['unique_id'] = $service->unique_id;
+
+    // todo:: 企业联系信息
+    if($vars['configoption2'] !== "dv"){
+        $org_info = json_decode($service->org_info, 1);
+        foreach ($org_info as $key => $value){
+            $caprams[$key] = $value;
+        }
+    }
+
+    $result = TRUSTOCEANSSL_CALLAPI($caprams);
+
+    // todo:: 检查CA错误
+    if($result['status'] === "error"){
+        return $result['message'];
+    }
+    // todo:: 提交成功, 更新本地数据库
+    Capsule::table('tbltrustocean_certificate')->where('id', $service->id)->update(array(
+        'status'=>$result['cert_status'],
+        'vendor_id'=>$result['vendor_id'],
+        'unique_id'=>$result['unique_id'],
+        'paidcertificate_delivery_time'=>$result['certificate_delivery_time'],
+        'reissue'=>$result['reissue'],
+        'renew'=>$result['renew'],
+        'trustocean_id'=>$result['trustocean_id'],
+    ));
+
+    // 提交成功 返回至详情页面
+    return "success";
+}
+
+/**
  * 计算CSR的Hash值
  * @param $csrCode
  * @return array
@@ -2034,6 +2109,7 @@ function TRUSTOCEANSSL_ClientAreaAllowedFunctions(){
         'syncRemoveSANDomain'=>'syncRemoveSANDomain',
         'ajaxUploadCertInfo'=>'ajaxUploadCertInfo',
         'ajaxTrySubmittoca'=>'ajaxTrySubmittoca',
+        'trySubmittoca' => 'trySubmittoca',
         'prepareForReissue'=>'prepareForReissue',
         'ajaxTryToReissueSSL','ajaxTryToReissueSSL',
     );

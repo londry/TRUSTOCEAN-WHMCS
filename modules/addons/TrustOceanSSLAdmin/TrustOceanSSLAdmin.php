@@ -125,18 +125,18 @@ function TrustOceanSSLAdmin_config() {
     $configarray = array(
     "name" => "TRUSTOCEAN SSL Admin",
     "description" => "This is a WHMCS Admin module for TrustOcean SSL Partner",
-    "version" => "1.0",
+    "version" => "1.0.1",
     "language" => "chinese",
     "author" => "QiaoKr Corporation Limited",
     "fields" => array(
         "apiusername" => array ("FriendlyName" => "API Username", "Type" => "text", "Size" => "35",
-                              "Description" => "API UserName"),
-        "apipassword" => array ("FriendlyName" => "API password", "Type" => "password", "Size" => "35",
-                              "Description" => "API Token", ),
+                              "Description" => "It's the email address of your TrustOcean Reseller Account."),
+        "apipassword" => array ("FriendlyName" => "API Token", "Type" => "password", "Size" => "35",
+                              "Description" => "Generate your API Token at <a target='_blank' href='https://console.trustocean.com/partner/api-setting'>Partner API Setting Page</a>.", ),
         "apiunicodesalt" => array ("FriendlyName" => "API Salt", "Type" => "text", "Size" => "35",
-                              "Description" => "API Salt" ),
+                              "Description" => "Check your API Salt at <a target='_blank' href='https://console.trustocean.com/partner/api-setting'>Partner API Setting Page</a>." ),
         "apiservertype" => array("FriendlyName" => "API Server Location", "Type" => "dropdown", "Options" =>
-                              "CN-Beijing,UK-London", "Description" => "Select the API server location", "Default" => "CN-Beijin",)
+                              "CN-Beijing,UK-London", "Description" => "Choose the best API access point based on your server location.", "Default" => "CN-Beijin",)
     ));
     return $configarray;
 }

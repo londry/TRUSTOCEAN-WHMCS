@@ -18,6 +18,7 @@
             {include file="$template/includes/alert.tpl" type="success" msg=$vars.info textcenter=false idname="alertModuleCustomButtonFailed"}
         {/if}
     </div>
+    <div class="text-danger">asf {$error}</div>
     <ul class="tabul list-group list-group-tab-nav">
         <button onclick="$('.dnd-info').toggle();" data-dcv class="btn btn-sm btn-info" data-toggle="tab">{$MODLANG.trustoceanssl.enroll.setup3.dndinfo}</button>
     </ul>
@@ -39,7 +40,7 @@
             {$MODLANG.trustoceanssl.enroll.setup3.dcvhttps2}</p>
     </div>
     <div class="section-body">
-        <form action="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=ajaxTrySubmittoca" method="post">
+        <form action="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=trySubmittoca" method="post">
         <div class="panel panel-default" data-inputs-container="">
             <div class="panel-body">
                 <div class="table-container clearfix" style="border:none;max-height: none;">
@@ -68,7 +69,7 @@
                                 </td>
                                 <td style="display: flex;">
                                 {*<form style="display: flex;" action="{$smarty.server.PHP_SELF}?action=productdetails&id={$vars.serviceid}&modop=custom&a=setdcvforall" method="post">*}
-                                 <select name="domaindcvmathod" {if $domain === $vars.domains.0}data-maindcv="true"{else}data-sandcv="true"{/if} dcv-cert-id={$serviceid} dcv-domain-name={$domain} dcv-domain={$domain|md5} class="form-control input-sm" style="width: 120px; text-align: center;" {if $info.method neq 'email'}{if $info.status eq 'verified'}disabled{/if}{/if}>
+                                 <select name="domaindcvmathod[{$domain}]" {if $domain === $vars.domains.0}data-maindcv="true"{else}data-sandcv="true"{/if} dcv-cert-id={$serviceid} dcv-domain-name={$domain} dcv-domain={$domain|md5} class="form-control input-sm" style="width: 120px; text-align: center;" {if $info.method neq 'email'}{if $info.status eq 'verified'}disabled{/if}{/if}>
                                      <option data-method="dns" value="dns" {if $info.method eq 'dns'}selected{/if} {if $info.isip eq 'true'}disabled{/if} {if $info.isip eq 'true'}style="display:none;"{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.dns}</option>
                                      <option data-method="http" value="http" {if $info.method eq 'http'}selected{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.http}</option>
                                      <option data-method="https" value="https" {if $info.method eq 'https'}selected{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.https}</option>
@@ -136,46 +137,59 @@
                                     var c = $("select[data-maindcv] option:selected");
                                     $("select[data-sandcv]").each(function() {
                                         var a = $(this).children("option");
+                                        var that = this;
                                         $(a).each(function() {
                                             if($(this).attr("data-emailkey") === c.attr("data-emailkey")){
-                                                $(this).attr("selected", !0).trigger("change")
-                                            }else{
-                                                $(this).removeAttr("selected").trigger("change")
+                                                $(that).val($(this).val()).trigger("change");
+                                                //$(this).attr("selected", !0).trigger("change")
                                             }
+                                            // else{
+                                            //     $(this).removeAttr("selected").trigger("change")
+                                            // }
+
                                         })
                                     })
                                 }
                                 if("dns" === b){
                                     $("select[data-sandcv]").each(function() {
                                     var a = $(this).children("option");
+                                    var that = this;
                                     $(a).each(function() {
                                         if($(this).attr("data-method") === "dns"){
-                                            $(this).attr("selected", !0).trigger("change")
-                                        }else{
-                                            $(this).removeAttr("selected").trigger("change")
+                                            $(that).val($(this).val()).trigger("change");
+                                            // $(this).attr("selected", !0).trigger("change")
                                         }
+                                        // else{
+                                        //     $(this).removeAttr("selected").trigger("change")
+                                        // }
                                     })
                                 })}
                                 if("http" === b){
                                     $("select[data-sandcv]").each(function() {
                                     var a = $(this).children("option");
+                                    var that = this;
                                     $(a).each(function() {
                                         if($(this).attr("data-method") === "http"){
-                                            $(this).attr("selected", !0).trigger("change")
-                                        }else{
-                                            $(this).removeAttr("selected").trigger("change")
+                                            $(that).val($(this).val()).trigger("change");
+                                            // $(this).attr("selected", !0).trigger("change")
                                         }
+                                        // else{
+                                        //     $(this).removeAttr("selected").trigger("change")
+                                        // }
                                     })
                                 })}
                                 if("https" === b){
                                     $("select[data-sandcv]").each(function() {
                                     var a = $(this).children("option");
+                                    var that = this;
                                     $(a).each(function() {
                                         if($(this).attr("data-method") === "https"){
-                                            $(this).attr("selected", !0).trigger("change")
-                                        }else{
-                                            $(this).removeAttr("selected").trigger("change")
+                                            $(that).val($(this).val()).trigger("change");
+                                            // $(this).attr("selected", !0).trigger("change")
                                         }
+                                        // else{
+                                        //     $(this).removeAttr("selected").trigger("change")
+                                        // }
                                     })
                                 })}
                             }
