@@ -22,7 +22,7 @@
 </a>
 </div>
 <div class="col-xs-6 col-button-right">
-<a class="btn btn-info btn-md btn-block" href="/index.php?m=TrustOceanSSLAdmin">
+<a class="btn btn-info btn-md btn-block" href="/clientarea.php?action=services">
 <span class="fa fa-reply" style='margin-right: 5px;'></span> {$MODLANG.trustoceanssl.enroll.sider.certlist}
 </a>
 </div>

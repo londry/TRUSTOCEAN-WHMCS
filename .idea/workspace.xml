@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="43c26f23-da41-4ef0-bae6-16642572101f" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/modules/addons/TrustOceanSSLAdmin/TrustOceanSSLAdmin.php" afterPath="$PROJECT_DIR$/modules/addons/TrustOceanSSLAdmin/TrustOceanSSLAdmin.php" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/chinese.php" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/chinese.php" />
-      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_dcv.tpl" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_dcv.tpl" />
+      <change beforePath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/sider_left.tpl" afterPath="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/sider_left.tpl" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,61 +18,69 @@
       <file leaf-file-name="TRUSTOCEANSSL.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="1124" column="21" lean-forward="false" selection-start-line="1124" selection-start-column="21" selection-end-line="1124" selection-end-column="21" />
+            <state relative-caret-position="28696">
+              <caret line="1692" column="7" lean-forward="false" selection-start-line="1692" selection-start-column="7" selection-end-line="1692" selection-end-column="7" />
               <folding>
-                <element signature="e#6#79#0#PHP" expanded="true" />
-                <element signature="e#159#186#0#PHP" expanded="true" />
-                <element signature="n#TRUSTOCEANSSL_ConfigOptions#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_AdminServicesTabFields#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_clientarteaSyncOrderStatus#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_checkOrgParams#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_resetorderstatus#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_setRenewOrder#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_adminSynccertorderdata#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_clientSynccertorderdata#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_x509stringtopem#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_CALLAPI#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_CreateAccount#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_checkDomains#0;n#!!top" expanded="false" />
-                <element signature="e#20225#29925#0#PHP" expanded="false" />
-                <element signature="e#24004#29925#0#PHP" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_strRand#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_getUniqueValue#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_prepareForReissue#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_ajaxTryToReissueSSL#0;n#!!top" expanded="false" />
-                <element signature="e#33510#33778#0#PHP" expanded="false" />
-                <element signature="e#33824#34269#0#PHP" expanded="false" />
-                <element signature="e#34527#35339#0#PHP" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_getCsrHash#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_generateDcvEmails#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_changedcv#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_findDcvDomains#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_convertssl#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_genkeypaire#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_getClientProduct#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_clientApiResponse#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_clientAreaChangeDCVMethod#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_clientAreaRemoveDomain#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_syncRemoveSANDomain#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_ajaxUploadCertInfo#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_adminSendIssuedNotification#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_sendEmailNotificationForCertIssuance#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_APIRESPONSE#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_clientarearesenddcvemail#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_TerminateAccount#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_downloadcertificate#0;n#!!top" expanded="false" />
-                <element signature="n#TRUSTOCEANSSL_deldir#0;n#!!top" expanded="false" />
-                <marker date="1565774126999" expanded="true" signature="2532:2640" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="2540:2631" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="2545:2622" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="3263:3853" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="3379:3825" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="4219:4233" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="4235:9639" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="10980:11190" ph="..." />
-                <marker date="1565774126999" expanded="true" signature="64338:64353" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="2532:2640" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="2540:2631" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="2545:2622" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="3263:3853" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="3379:3825" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="4219:4233" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="4235:9639" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="10980:11190" ph="..." />
+                <marker date="1565779856767" expanded="true" signature="64338:64353" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sider_left.tpl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/sider_left.tpl">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" column="4" lean-forward="false" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="languageLoader.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/languageLoader.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TrustOceanAPI.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/TrustOceanAPI.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="764">
+              <caret line="47" column="7" lean-forward="true" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Certificate.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/models/Certificate.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -82,18 +88,18 @@
       <file leaf-file-name="hooks.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/hooks.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+            <state relative-caret-position="425">
+              <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cert_upgradesan.tpl" pinned="false" current-in-tab="true">
+      <file leaf-file-name="cert_upgradesan.tpl" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/cert_upgradesan.tpl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="41" column="42" lean-forward="false" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+            <state relative-caret-position="442">
+              <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -102,8 +108,8 @@
       <file leaf-file-name="chinese.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/chinese.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="647">
-              <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
+            <state relative-caret-position="1734">
+              <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -112,94 +118,9 @@
       <file leaf-file-name="english.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/english.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="431">
-              <caret line="27" column="77" lean-forward="true" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
+            <state relative-caret-position="459">
+              <caret line="27" column="77" lean-forward="false" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="enroll_dcv.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_dcv.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="40" lean-forward="false" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cert_view.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/cert_view.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1445">
-              <caret line="105" column="83" lean-forward="false" selection-start-line="105" selection-start-column="83" selection-end-line="105" selection-end-column="83" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clientarea-js.tpl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/assets/js/clientarea-js.tpl">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-778">
-              <caret line="281" column="56" lean-forward="true" selection-start-line="281" selection-start-column="56" selection-end-line="281" selection-end-column="56" />
-              <folding>
-                <marker date="1565684772937" expanded="true" signature="161:215" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="390:427" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="550:587" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="3383:3459" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="4158:4234" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="10004:10060" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="10324:10400" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="11371:11386" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="12440:12458" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="14565:14584" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="14633:14709" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="16375:16394" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="16450:16526" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="16749:16768" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="16824:16900" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="17299:17343" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="17480:17539" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="17643:17685" ph="..." />
-                <marker date="1565684772937" expanded="true" signature="17791:17804" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TrustOceanSSLAdmin.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/addons/TrustOceanSSLAdmin/TrustOceanSSLAdmin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="122" column="38" lean-forward="false" selection-start-line="122" selection-start-column="38" selection-end-line="122" selection-end-column="38" />
-              <folding>
-                <element signature="n#TrustOceanSSLAdmin_activate#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="clientarea.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/assets/js/clientarea.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="918">
-              <caret line="54" column="12" lean-forward="false" selection-start-line="54" selection-start-column="12" selection-end-line="54" selection-end-column="12" />
-              <folding>
-                <marker date="1565676892597" expanded="true" signature="108:162" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="337:374" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="497:534" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="3320:3396" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="4095:4171" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="8493:8549" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="8782:8858" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="9829:9844" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="11448:11492" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="11582:11641" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="11745:11787" ph="..." />
-                <marker date="1565676892597" expanded="true" signature="11893:11906" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -235,6 +156,7 @@
       <find>ajaxTrySubmittoca</find>
       <find>029-88188289</find>
       <find>trySubmittoca</find>
+      <find>clientarea</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -256,6 +178,8 @@
         <option value="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_dcv.tpl" />
         <option value="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/chinese.php" />
         <option value="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php" />
+        <option value="$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/sider_left.tpl" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -266,11 +190,11 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="4" />
-    <option name="y" value="144" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="221" />
+    <option name="y" value="137" />
     <option name="width" value="2358" />
-    <option name="height" value="1190" />
+    <option name="height" value="1279" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -288,7 +212,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -296,75 +219,11 @@
               <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
               <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="addons" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="assets" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="lang" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="libary" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="TrustOcean-WHMCS-Plugin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="TrustOcean-WHMCS-Plugin" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="modules" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="servers" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="TRUSTOCEANSSL" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="templates" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -399,29 +258,31 @@
       <workItem from="1547533824414" duration="191000" />
       <workItem from="1547784606177" duration="21027000" />
       <workItem from="1565676917201" duration="11917000" />
-      <workItem from="1565749444034" duration="7070000" />
+      <workItem from="1565749444034" duration="9157000" />
+      <workItem from="1565845784310" duration="44000" />
+      <workItem from="1566279753483" duration="62000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="40205000" />
+    <option name="totallyTimeSpent" value="42398000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="4" y="144" width="2358" height="1190" extended-state="1" />
+    <frame x="221" y="137" width="2358" height="1279" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15970409" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1640557" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23242737" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30088496" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.47115386" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -444,41 +305,10 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/assets/js/clientarea-js.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5202">
-          <caret line="306" column="132" lean-forward="false" selection-start-line="306" selection-start-column="112" selection-end-line="306" selection-end-column="132" />
-          <folding>
-            <marker date="1565684772937" expanded="true" signature="161:215" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="390:427" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="550:587" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="3383:3459" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="4158:4234" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="10004:10060" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="10324:10400" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="11371:11386" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="12440:12458" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="14565:14584" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="14633:14709" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="16375:16394" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="16450:16526" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="16749:16768" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="16824:16900" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="17299:17343" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="17480:17539" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="17643:17685" ph="..." />
-            <marker date="1565684772937" expanded="true" signature="17791:17804" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/addons/TrustOceanSSLAdmin/TrustOceanSSLAdmin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="122" column="38" lean-forward="true" selection-start-line="122" selection-start-column="38" selection-end-line="122" selection-end-column="38" />
-          <folding>
-            <element signature="n#TrustOceanSSLAdmin_activate#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -507,7 +337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -515,7 +344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="58" lean-forward="true" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -531,7 +359,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -553,9 +380,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2040">
           <caret line="120" column="16" lean-forward="false" selection-start-line="120" selection-start-column="16" selection-end-line="120" selection-end-column="16" />
-          <folding>
-            <element signature="n#TrustOceanSSLAdmin_activate#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -563,7 +387,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1870">
           <caret line="110" column="27" lean-forward="false" selection-start-line="110" selection-start-column="27" selection-end-line="110" selection-end-column="27" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -607,57 +430,15 @@
         <state relative-caret-position="17">
           <caret line="4" column="3" lean-forward="true" selection-start-line="4" selection-start-column="3" selection-end-line="4" selection-end-column="3" />
           <folding>
-            <element signature="e#6#79#0#PHP" expanded="true" />
-            <element signature="e#159#186#0#PHP" expanded="true" />
-            <element signature="n#TRUSTOCEANSSL_ConfigOptions#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_AdminServicesTabFields#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientarteaSyncOrderStatus#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_checkOrgParams#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_resetorderstatus#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_setRenewOrder#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_adminSynccertorderdata#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientSynccertorderdata#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_x509stringtopem#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_CALLAPI#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_CreateAccount#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_checkDomains#0;n#!!top" expanded="false" />
-            <element signature="e#20225#29925#0#PHP" expanded="false" />
-            <element signature="e#24004#29925#0#PHP" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_strRand#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getUniqueValue#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_prepareForReissue#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_ajaxTryToReissueSSL#0;n#!!top" expanded="false" />
-            <element signature="e#33510#33778#0#PHP" expanded="false" />
-            <element signature="e#33824#34269#0#PHP" expanded="false" />
-            <element signature="e#34527#35339#0#PHP" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getCsrHash#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_generateDcvEmails#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_changedcv#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_findDcvDomains#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_convertssl#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_genkeypaire#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getClientProduct#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientApiResponse#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientAreaChangeDCVMethod#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientAreaRemoveDomain#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_syncRemoveSANDomain#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_ajaxUploadCertInfo#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_adminSendIssuedNotification#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_sendEmailNotificationForCertIssuance#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_APIRESPONSE#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientarearesenddcvemail#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_TerminateAccount#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_downloadcertificate#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_deldir#0;n#!!top" expanded="false" />
-            <marker date="1565774126999" expanded="true" signature="2532:2640" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="2540:2631" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="2545:2622" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="3263:3853" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="3379:3825" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="4219:4233" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="4235:9639" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="10980:11190" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="64338:64353" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2532:2640" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2540:2631" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2545:2622" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="3263:3853" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="3379:3825" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="4219:4233" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="4235:9639" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="10980:11190" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="64338:64353" ph="..." />
           </folding>
         </state>
       </provider>
@@ -674,57 +455,15 @@
         <state relative-caret-position="6001">
           <caret line="357" column="0" lean-forward="true" selection-start-line="357" selection-start-column="0" selection-end-line="357" selection-end-column="0" />
           <folding>
-            <element signature="e#6#79#0#PHP" expanded="true" />
-            <element signature="e#159#186#0#PHP" expanded="true" />
-            <element signature="n#TRUSTOCEANSSL_ConfigOptions#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_AdminServicesTabFields#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientarteaSyncOrderStatus#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_checkOrgParams#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_resetorderstatus#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_setRenewOrder#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_adminSynccertorderdata#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientSynccertorderdata#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_x509stringtopem#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_CALLAPI#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_CreateAccount#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_checkDomains#0;n#!!top" expanded="false" />
-            <element signature="e#20225#29925#0#PHP" expanded="false" />
-            <element signature="e#24004#29925#0#PHP" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_strRand#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getUniqueValue#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_prepareForReissue#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_ajaxTryToReissueSSL#0;n#!!top" expanded="false" />
-            <element signature="e#33510#33778#0#PHP" expanded="false" />
-            <element signature="e#33824#34269#0#PHP" expanded="false" />
-            <element signature="e#34527#35339#0#PHP" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getCsrHash#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_generateDcvEmails#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_changedcv#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_findDcvDomains#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_convertssl#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_genkeypaire#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getClientProduct#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientApiResponse#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientAreaChangeDCVMethod#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientAreaRemoveDomain#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_syncRemoveSANDomain#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_ajaxUploadCertInfo#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_adminSendIssuedNotification#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_sendEmailNotificationForCertIssuance#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_APIRESPONSE#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientarearesenddcvemail#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_TerminateAccount#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_downloadcertificate#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_deldir#0;n#!!top" expanded="false" />
-            <marker date="1565774126999" expanded="true" signature="2532:2640" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="2540:2631" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="2545:2622" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="3263:3853" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="3379:3825" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="4219:4233" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="4235:9639" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="10980:11190" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="64338:64353" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2532:2640" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2540:2631" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2545:2622" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="3263:3853" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="3379:3825" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="4219:4233" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="4235:9639" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="10980:11190" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="64338:64353" ph="..." />
           </folding>
         </state>
       </provider>
@@ -754,21 +493,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1411">
           <caret line="83" column="1" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="83" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/models/Certificate.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/TrustOceanAPI.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="799">
-          <caret line="47" column="7" lean-forward="true" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -814,13 +538,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/sider_left.tpl">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/enroll_organization_prevalidation.tpl">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
@@ -863,19 +580,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/languageLoader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/modules/addons/TrustOceanSSLAdmin/ssl_expiration_crontabs.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="26" column="58" lean-forward="false" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -890,7 +598,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="5" lean-forward="false" selection-start-line="6" selection-start-column="5" selection-end-line="6" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -898,7 +605,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -906,9 +612,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
           <caret line="122" column="38" lean-forward="false" selection-start-line="122" selection-start-column="38" selection-end-line="122" selection-end-column="38" />
-          <folding>
-            <element signature="n#TrustOceanSSLAdmin_activate#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -935,8 +638,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/assets/js/clientarea-js.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-778">
-          <caret line="281" column="56" lean-forward="true" selection-start-line="281" selection-start-column="56" selection-end-line="281" selection-end-column="56" />
+        <state relative-caret-position="4777">
+          <caret line="281" column="56" lean-forward="false" selection-start-line="281" selection-start-column="56" selection-end-line="281" selection-end-column="56" />
           <folding>
             <marker date="1565684772937" expanded="true" signature="161:215" ph="..." />
             <marker date="1565684772937" expanded="true" signature="390:427" ph="..." />
@@ -963,7 +666,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/cert_view.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1445">
+        <state relative-caret-position="1785">
           <caret line="105" column="83" lean-forward="false" selection-start-line="105" selection-start-column="83" selection-end-line="105" selection-end-column="83" />
           <folding />
         </state>
@@ -979,92 +682,90 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/english.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="431">
-          <caret line="27" column="77" lean-forward="true" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
+        <state relative-caret-position="459">
+          <caret line="27" column="77" lean-forward="false" selection-start-line="27" selection-start-column="77" selection-end-line="27" selection-end-column="77" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/lang/chinese.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="647">
-          <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="1124" column="21" lean-forward="false" selection-start-line="1124" selection-start-column="21" selection-end-line="1124" selection-end-column="21" />
-          <folding>
-            <element signature="e#6#79#0#PHP" expanded="true" />
-            <element signature="e#159#186#0#PHP" expanded="true" />
-            <element signature="n#TRUSTOCEANSSL_ConfigOptions#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_AdminServicesTabFields#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientarteaSyncOrderStatus#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_checkOrgParams#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_resetorderstatus#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_setRenewOrder#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_adminSynccertorderdata#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientSynccertorderdata#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_x509stringtopem#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_CALLAPI#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_CreateAccount#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_checkDomains#0;n#!!top" expanded="false" />
-            <element signature="e#20225#29925#0#PHP" expanded="false" />
-            <element signature="e#24004#29925#0#PHP" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_strRand#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getUniqueValue#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_prepareForReissue#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_ajaxTryToReissueSSL#0;n#!!top" expanded="false" />
-            <element signature="e#33510#33778#0#PHP" expanded="false" />
-            <element signature="e#33824#34269#0#PHP" expanded="false" />
-            <element signature="e#34527#35339#0#PHP" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getCsrHash#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_generateDcvEmails#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_changedcv#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_findDcvDomains#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_convertssl#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_genkeypaire#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_getClientProduct#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientApiResponse#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientAreaChangeDCVMethod#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientAreaRemoveDomain#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_syncRemoveSANDomain#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_ajaxUploadCertInfo#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_adminSendIssuedNotification#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_sendEmailNotificationForCertIssuance#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_APIRESPONSE#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_clientarearesenddcvemail#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_TerminateAccount#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_downloadcertificate#0;n#!!top" expanded="false" />
-            <element signature="n#TRUSTOCEANSSL_deldir#0;n#!!top" expanded="false" />
-            <marker date="1565774126999" expanded="true" signature="2532:2640" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="2540:2631" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="2545:2622" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="3263:3853" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="3379:3825" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="4219:4233" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="4235:9639" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="10980:11190" ph="..." />
-            <marker date="1565774126999" expanded="true" signature="64338:64353" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/hooks.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="25" column="38" lean-forward="true" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+        <state relative-caret-position="1734">
+          <caret line="102" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/cert_upgradesan.tpl">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="41" column="42" lean-forward="false" selection-start-line="41" selection-start-column="42" selection-end-line="41" selection-end-column="42" />
+        <state relative-caret-position="442">
+          <caret line="26" column="18" lean-forward="false" selection-start-line="26" selection-start-column="18" selection-end-line="26" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/hooks.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="38" lean-forward="false" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/TRUSTOCEANSSL.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="28696">
+          <caret line="1692" column="7" lean-forward="false" selection-start-line="1692" selection-start-column="7" selection-end-line="1692" selection-end-column="7" />
+          <folding>
+            <marker date="1565779856767" expanded="true" signature="2532:2640" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2540:2631" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="2545:2622" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="3263:3853" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="3379:3825" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="4219:4233" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="4235:9639" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="10980:11190" ph="..." />
+            <marker date="1565779856767" expanded="true" signature="64338:64353" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/templates/sider_left.tpl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" column="4" lean-forward="false" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/languageLoader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="24" lean-forward="false" selection-start-line="14" selection-start-column="24" selection-end-line="14" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/TrustOceanAPI.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="764">
+          <caret line="47" column="7" lean-forward="true" selection-start-line="47" selection-start-column="7" selection-end-line="47" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modules/servers/TRUSTOCEANSSL/libary/models/Certificate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="17" lean-forward="true" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="6" lean-forward="false" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
           <folding />
         </state>
       </provider>
