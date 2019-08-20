@@ -2,6 +2,9 @@
 /*  Chinese Simple Language File*/
 /* WHMCS模块语言文件 - 客户端 */
 
+$_ADDONLANG['admin']['inputapiusername'] = "Input your TrustOcean API username.";
+$_ADDONLANG['admin']['inputapipassword'] = "Input your TrustOcean API Token V2.";
+
 
 $TRUSTOCEAN_LANG['trustoceanssl']['clientnav']['mysslcertificate'] = "Manage SSL";
 
@@ -40,7 +43,7 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup2']['next2'] = "Next";
 #第三步 选择域名验证方式
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['title'] = "Step3： Choose & Finish The Domain Validation Method";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['desc'] = "Before we can issue your certificate, you must choose and finish the Domain Validation Process for each domain.";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['dndinfo'] = "Click Here to View Domain Validation Description";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['dndinfo'] = "Domain Validation";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['dcvdns1'] = "1. DNS CNAME Record：";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['dcvdns2'] = "You can choose a DCV CNAME_CSR_HASH method, then you need create one CNAME record for verification your domain name.";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['dcvhttp1'] = "2. HTTP FILE Upload：";
@@ -78,8 +81,8 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['dcv']['submit'][
 
 # 即将签发证书页面预览
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['title'] = "We are processing your certificate";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['desc'] = "1.For Domain Validation Certificate, It is need 5-15 minutes to issue。<br>2.For Organization Validation Certificate, Maybe need 7-15 days to process and issue。<br>3.We will send an email to you onece your certificate issued out。";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['desc2'] = "Now, Please use these buttons to finishd your Domain Validation, after that we will auto-issue your certifica.";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['desc'] = "1.For Domain Validation Certificate, It is need 5-15 minutes to issue.<br>2.For Organization Validation Certificate, Maybe need 7-15 days to process and issue.<br>3.We will send an email to you onece your certificate issued out.";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['desc2'] = "Now, Please use these buttons to finishd your Domain Validation, after that we will auto-issue your certificate.";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['resenddcv'] = "Resend DCV Emails";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['checkdcv'] = "View Order Validation Status";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['caprocessing']['submitticket'] = "Submit Ticket";
@@ -160,9 +163,9 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['type'] = "Type";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['class'] = "Class";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['valid'] = "Created At";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['trustoceanno'] = "SSL Service ID";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['comodono'] = "COMODO Order ID";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['certinfo'] = "View Details";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['certlist'] = "Back To List";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['comodono'] = "CA Order ID";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['certinfo'] = "Details";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['certlist'] = "Back";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['sider']['dcvmanagement'] = "DCV Status";
 
 # SAN增加页面
@@ -174,7 +177,7 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['btn2'] = "Next";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['desc3'] = "How Many Domains You Want To Add?";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['desc4'] = "Input a number";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['erpage']['title'] = "Please pay the previous invoice #:invoiceid";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['erpage']['desc'] = "You are currently unable to add a domain name because the current certificate has an outstanding upgrade invoice.<br><br>If you need to continue, please pay the unpaid bill first, and you can continue to operate after the bill is paid.<br><br>如果您认为您此消息有误，请提交故障工单给我们。";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['erpage']['desc'] = "You are currently unable to add a domain name because the current certificate has an outstanding upgrade invoice.<br><br>If you need to continue, please pay the unpaid bill first, and you can continue to operate after the bill is paid.";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['erpage']['paybtn'] = "Pay Now";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['addsan']['erpage']['submitticket'] = "Submit Ticket";
 
@@ -188,10 +191,10 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['status']['verified'] = "Verified";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['status']['processing'] = "Processing";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['status']['emailsent'] = "Email Sent";
 
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['btn']['updatedcv'] = "Check Verification Status";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['btn']['updatedcv'] = "Sync DCV";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['btn']['loadingtext'] = "Processing...";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['btn']['checkissue'] = "Check Certificate Status";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['btn']['retrydcv'] = "ReSend DCV Email / Check Domain";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['btn']['checkissue'] = "Check Cert";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['btn']['retrydcv'] = "Retry DCV";
 
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['choosecsr'] = "Choose CSR";
 

@@ -1814,6 +1814,7 @@ function TRUSTOCEANSSL_ClientArea($vars) {
             'x509' => $x509,
             'vars' => $returnvars,
             'MODLANG' => $MODLANG,
+            'TOLANG'  => $vars['_lang'],
         ),
     );
     // parse x509 info

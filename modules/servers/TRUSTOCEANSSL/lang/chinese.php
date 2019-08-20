@@ -235,4 +235,19 @@ $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['internalApiError'] = "无法�
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceDesc'] = "通过API修改了域名SAN数量额度";
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceNotes'] = "这是一个TrustOcean SAN订单, 手动标记支付将不会进行SAN升级";
 
+// 组织信息预验证页面
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['title'] = "等待我们完成审核";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['desc1'] = "1.为协助您顺利进行企业证书认证，我们将会对您提交的以下企业信息进行预验证，预验证通过后由证书颁发机构进行复核并签发证书。";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['desc2'] = "2.预审核过程中我们可能会通过热线电话联系您, 若您对此过程存在疑问，欢迎通过通过工单和在线客服联系我们。";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['orgName'] = "组织名称";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['orgNo'] = "组织编号";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['orgRegistertedAt'] = "登记日期";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['orgLocation'] = "地理信息";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['orgLocationedAt'] = "执照地址";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['orgContactPhone'] = "联系电话";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['orgContact'] = "申请联系人";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['trustedDatabaseDesc'] = "请确保可以在下面这些网站的其中一个查询到您的企业名称和联系电话: ";
+$TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['trustedDatabaseList'] = "百度地图 - map.baidu.com （登记免费, 1-7工作日可完成可查）<br>邓白氏DUNS - www.upik.de（付费, 7-30工作日可完成可查）<br>黄页(YellowPages) - www.yellowpages.com （适用于港台、海外企业, 1-15工作日可完成可查）<br>谷歌商家(GoogleBusiness) - www.google.com （适用于港台、海外企业, 1-15工作日可完成可查）";
+
+
 return $TRUSTOCEAN_LANG;

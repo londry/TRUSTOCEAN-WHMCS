@@ -14,7 +14,12 @@ class lanaguageLoader{
     {
         $TRUSTOCEAN_LANG = [];
         $langDirBase =  __DIR__.'/../lang/';
-        $file = 'chinese.php';
+
+        if($vars['Language'] != "" && file_exists(__DIR__.'/../lang/'.strtolower($vars['Language']).'.php')){
+            $file = strtolower($vars['Language']).'.php';
+        }else{
+            $file = 'english.php';
+        }
         require_once $langDirBase.$file;
         $this->lang = $TRUSTOCEAN_LANG;
     }
