@@ -11,17 +11,7 @@ if (!defined("WHMCS")) {
 use WHMCS\Database\Capsule;
 use WHMCS\View\Menu\Item as MenuItem;
 
-// todo:: require the vender composer autoloader
-require_once __DIR__ . '/vendor/autoload.php';
-require_once  __DIR__.'/libary/TrustOceanAPI.php';
-# 语言文件
-GLOBAL $MODLANG;
-require_once __DIR__.'/libary/languageLoader.php';
-$langLoader = new lanaguageLoader($_SESSION);
-$MODLANG = $langLoader->loading();
-
-// TODO:: SET OPENSSL CNF FILE PATH
-define("OPEN_SSL_CONF_PATH", __DIR__."/openssl.cnf");
+require __DIR__.'/service/globalService.php';
 
 function TRUSTOCEANSSL_MetaData()
 {
@@ -40,45 +30,8 @@ function TRUSTOCEANSSL_MetaData()
  */
 function TRUSTOCEANSSL_ConfigOptions()
 {
-    $API = new \TrustOceanAPI();
-
-    $rlt = $API->getProductList();
-
-    $options = [];
-
-    foreach ($rlt as $pid => $product){
-        $options[$pid] = $product['name'];
-    }
-
-    return array(
-        // a text field type allows for single line text input
-        'Product' => array(
-            'Type' => 'dropdown',
-            'Options' => $options,
-        ),
-        'Class' => array(
-            'Type' => 'dropdown',
-            'Options' => array(
-                'dv' => "Domain Validation",
-                'ov' => "Organization Validation",
-                'ev' => "Extend Validation"
-            ),
-            'Description' => 'Validation Class',
-        ),
-        // the radio field type displays a series of radio button options
-        'Wildcard' => array(
-            'Type' => 'yesno',
-            'Description' => 'Is Support Wildcard?',
-        ),
-        'MultiDomain' => array(
-            'Type' => 'yesno',
-            'Description' => 'Is Support MultiDomain?',
-        ),
-        'IP' => array(
-            'Type' => 'yesno',
-            'Description' => 'Is Support IP address?',
-        )
-    );
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController();
+    return $adminController->ConfigOptions();
 }
 
 /**
@@ -87,136 +40,8 @@ function TRUSTOCEANSSL_ConfigOptions()
  * @return array
  */
 function TRUSTOCEANSSL_AdminServicesTabFields($vars) {
-    $service = Capsule::table('tbltrustocean_certificate')->where('serviceid',$vars['serviceid'])->first();
-    $dcvinfo = json_decode($service->dcv_info, 1);
-    $domains = "<br><table class=\"table\">
-<thead>
-<tr>
-<th>域名</th>
-<th>验证方式</th>
-<th>验证状态</th>
-<th>发送CAA记录</th>
-<th>其他操作</th>
-</tr>
-</thead>
-<tbody>
-";
-    $domainstd = "";
-    $csrHash = TRUSTOCEANSSL_getCsrHash($service->csr_code);
-    $csrinfo = openssl_csr_get_subject($service->csr_code);
-    foreach (json_decode($service->domains, 1) as $domain){
-        $dcvstring = "";
-        $subdomain = empty($dcvinfo[$domain]['subdomain'])?"":$dcvinfo[$domain]['subdomain'].'.';
-        if($dcvinfo[$domain]['method'] === "http" || $dcvinfo[$domain]['method'] === "https"){
-            $dcvstring .= $dcvinfo[$domain]['method'].'://'.$subdomain.$dcvinfo[$domain]['topdomain'].'/.well-known/pki-validation/'.$csrHash['http']['filename'];
-        }
-        $domainstd .= "<tr>
-<td>$domain</td>
-<td>".strtoupper($dcvinfo[$domain]['method'])."</td>
-<td>".$dcvinfo[$domain]['status']."</td>
-<td>
-<button type=\"button\" class=\"btn btn-xs btn-info\" onclick=\"runTrustOceanCommand('sendcaarecord',{domain:'".$domain."'}, ".$service->uid.", ".$service->serviceid.")\" id=\"btncaa".md5($domain)."\">发送CAA</button>
-<button type=\"button\" class=\"btn btn-xs btn-danger\" onclick=\"runTrustOceanCommand('adminremovedomain',{domain:'".$domain."'}, ".$service->uid.", ".$service->serviceid.")\" id=\"btnremove".md5($domain)."\">删除域名</button>
-</td>
-<td> $dcvstring </td>
-</tr>";
-    }
-    $domainTable = $domains . $domainstd ."
-</tbody>
-</table>";
-    // 企业验证信息
-    $orgInfo = "";
-    $orginfo = json_decode($service->org_info, 1);
-    if($service->class === "ov" || $service->class === "ev"){
-        $isDisabled = $service->status === 'enroll_organization_pre'?'':'disabled';
-        $orgInfo = "
-        <div id=\"orderorginfo\" style=\"padding: 20px;\">
-        组织名称：<input type=\"text\" name=\"organization_name\" value=\"".$orginfo['organization_name']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        部门名称：<input type=\"text\" name=\"organizationalUnitName\" value=\"".$orginfo['organizationalUnitName']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        组织编号：<input type=\"text\" name=\"registered_no\" value=\"".$orginfo['registered_no']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        注册日期：<input type=\"text\" name=\"date_of_incorporation\" value=\"".$orginfo['date_of_incorporation']."\" size=\"25\" class=\"form-control input-200\" ".$isDisabled.">
-        注册地址：<input type=\"text\" name=\"registered_address_line1\" value=\"".$orginfo['registered_address_line1']."\" size=\"25\" class=\"form-control input-500\" ".$isDisabled.">
-        国家：<input type=\"text\" name=\"country\" value=\"".$orginfo['country']."\" size=\"25\" class=\"form-control input-100\" ".$isDisabled.">
-        省份：<input type=\"text\" name=\"state\" value=\"".$orginfo['state']."\" size=\"25\" class=\"form-control input-100\" ".$isDisabled.">
-        城市：<input type=\"text\" name=\"city\" value=\"".$orginfo['city']."\" size=\"25\" class=\"form-control input-100\" ".$isDisabled.">
-        邮政编码：<input type=\"text\" name=\"postal_code\" value=\"".$orginfo['postal_code']."\" size=\"25\" class=\"form-control input-200\" ".$isDisabled.">
-        企业联系电话(CallBack)：<input type=\"text\" name=\"organization_phone\" value=\"".$orginfo['organization_phone']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        <hr />
-        认证联系人_姓名：<input type=\"text\" name=\"contact_name\" value=\"".$orginfo['contact_name']."\" size=\"25\" class=\"form-control input-200\" ".$isDisabled.">
-        认证联系人_职位：<input type=\"text\" name=\"contact_title\" value=\"".$orginfo['contact_title']."\" size=\"25\" class=\"form-control input-200\" ".$isDisabled.">
-        认证联系人_电话：<input type=\"text\" name=\"contact_phone\" value=\"".$orginfo['contact_phone']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        认证联系人_电子邮箱：<input type=\"text\" name=\"contact_email\" value=\"".$orginfo['contact_email']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        <hr/>
-        DUNS号码：<input type=\"text\" name=\"dunsNumber\" value=\"".$orginfo['dunsNumber']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        DBA名称：<input type=\"text\" name=\"assumedName\" value=\"".$orginfo['assumedName']."\" size=\"25\" class=\"form-control input-300\" ".$isDisabled.">
-        <hr/>
-        企业类型(".$orginfo['businessCategory'].")：<select name=\"businessCategory\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"b\">b - Private Organization</option> <option value=\"c\">c - Government Entity</option> <option value=\"d\">d - Business Entity</option> </select>
-        CallBack方式(".$orginfo['callbackMethod'].")：<select name=\"callbackMethod\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"T\">Telephone Callback</option> <option value=\"L\">Law Letter</option> </select>
-        申请人已验证(".$orginfo['isAppRepValidated'].")：<select name=\"isAppRepValidated\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"Y\">是-已经验证申请人权限</option> <option value=\"N\">否-COMODO会二次验证</option> </select>
-        已完成CallBack验证(".$orginfo['isCallbackCompleted'].")：<select name=\"isCallbackCompleted\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"Y\">是-TRUSTOCEAN已经完成CALLBACK</option> <option value=\"N\">否-COMODO会执行CALLBACK</option> </select>
-        是否让COMODO验证OV(".$orginfo['doAutoOV'].")：<select name=\"doAutoOV\" class=\"form-control input-300\" ".$isDisabled."> <option value=\"Y\">是</option> <option value=\"N\">否</option> </select>
-        <br>
-        <button type=\"button\" class=\"btn btn-sm btn-info\" onclick=\"runTrustOceanCommand('updateorginfo',
-        {organization_name:$('input[name=organization_name]').val(), 
-        registered_no:$('input[name=registered_no]').val(), 
-        date_of_incorporation:$('input[name=date_of_incorporation]').val(), 
-        registered_address_line1:$('input[name=registered_address_line1]').val(), 
-        country:$('input[name=country]').val(), 
-        state:$('input[name=state]').val(), 
-        city:$('input[name=city]').val(), 
-        contact_name:$('input[name=contact_name]').val(), 
-        contact_title:$('input[name=contact_title]').val(), 
-        contact_phone:$('input[name=contact_phone]').val(), 
-        contact_email:$('input[name=contact_email]').val(), 
-        postal_code:$('input[name=postal_code]').val(), 
-        dunsNumber:$('input[name=dunsNumber]').val(), 
-        assumedName:$('input[name=assumedName]').val(), 
-        organizationalUnitName:$('input[name=organizationalUnitName]').val(), 
-        businessCategory:$('select[name=businessCategory]').val(), 
-        callbackMethod:$('select[name=callbackMethod]').val(), 
-        isAppRepValidated:$('select[name=isAppRepValidated]').val(), 
-        isCallbackCompleted:$('select[name=isCallbackCompleted]').val(), 
-        doAutoOV:$('select[name=doAutoOV]').val(), 
-        organization_phone:$('input[name=organization_phone]').val()}, ".$service->uid.", ".$service->serviceid.")\" id=\"btnorginfo".md5($domain)."\"  ".$isDisabled.">更新企业信息</button>
-        </div>
-        ";
-    }
-
-    $fieldsarray = array(
-        '证书状态' => $service->status."<script src=\"/modules/addons/TRUSTOCEANSSL_RA/static/js/admin.js\" type='application/javascript'></script>",
-        '重签操作' => $service->reissue === 1?'是':'否',
-        '续费订单' => $service->renew === 1?'是':'否',
-        '证书ID' => $service->certificate_id,
-        '提交时间' => $service->created_at,
-        '手动DCV' => "<button type=\"button\" class=\"btn btn-xs btn-success\" onclick=\"runTrustOceanCommand('adminReDoDCV',{domain:'".$domain."'}, ".$service->uid.", ".$service->serviceid.")\" id=\"btndcv".md5($domain)."\">执行DCV检查</button>",
-        'DCV_5M' => $service->dcv_5min,
-        'DCV_8M' => $service->dcv_8min,
-        'DCV_15M' => $service->dcv_15min,
-        'DCV_30M' => $service->dcv_30min,
-        'DCV_2H' => $service->dcv_2hour,
-        'DCV_24H' => $service->dcv_24hour,
-        'DCV_72H' => $service->dcv_72hour,
-        'COMODO ID' => $service->vendor_id,
-        '错误日志' => $service->api_error,
-        'Unique ID' => strtolower($service->unique_id),
-        '域名列表' => $domainTable,
-        'DCV INFO' => $service->dcv_info,
-        '企业信息' => $orgInfo,
-        '证书代码' => "<pre>".$service->cert_code."</pre>",
-        '证书链代码' => "<pre>".$service->ca_code."</pre>",
-        'CSR代码' => "<pre>".$service->csr_code."</pre>",
-        'CSR信息' => "<pre>
-CN: ".$csrinfo['CN']."\r\n
-emailAddress: ".$csrinfo['emailAddress']."\r\n
-OU: ".$csrinfo['OU']."\r\n
-O: ".$csrinfo['O']."\r\n
-L: ".$csrinfo['L']."\r\n
-ST: ".$csrinfo['ST']."\r\n
-C: ".$csrinfo['C']."\r\n
-</pre>",
-    );
-    return $fieldsarray;
-
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController();
+    return $adminController->AdminServiceTab($vars);
 }
 
 /**
