@@ -45,6 +45,16 @@ function TRUSTOCEANSSL_AdminServicesTabFields($vars) {
 }
 
 /**
+ * 移除未通过验证的域名
+ * @param $vars
+ * @return string
+ */
+function TRUSTOCEANSSL_removeDomain($vars){
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
+    return $adminController->removeDomainName($_POST);
+}
+
+/**
  * 客户端异步获取域名验证状态
  * @param $vars
  * @throws Exception
@@ -1951,6 +1961,7 @@ function TRUSTOCEANSSL_AdminCustomButtonArray(){
         "设为新订单" => 'resetorderstatus',
         "发送签发通知" => 'adminSendIssuedNotification',
         "设为续费订单"=>'setRenewOrder',
+        //"removeDomain"=>"removeDomain",
     );
 }
 

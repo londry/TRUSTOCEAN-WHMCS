@@ -1,5 +1,6 @@
 <?php
 namespace WHMCS\Module\Server\TRUSTOCEANSSL\Controller;
+use Londry\TrustOceanSSL\api\SslOrder;
 use WHMCS\Module\Server\TRUSTOCEANSSL\Model\CertificateModel;
 use WHMCS\Module\Server\TRUSTOCEANSSL\TrustOceanAPI;
 use WHMCS\Database\Capsule;
@@ -9,10 +10,30 @@ class AdminController
     // API 服务
     private $apiService;
 
-    function __construct()
+    private $apiApplication;
+
+    private $serviceModel;
+
+    function __construct($serviceid = "")
     {
+        // 加载本地证书服务模型
+        if($serviceid != NULL){
+            $this->serviceModel = new CertificateModel($serviceid);
+        }
+
         // 初始化 API 服务
         $this->apiService = new TrustOceanAPI();
+        $api_username = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apiusername')->value('value');
+        $api_password = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apipassword')->value('value');
+        $this->initApiApplication($api_username, $api_password);
+    }
+
+    /**
+     * @param $userName
+     * @param $apiToken
+     */
+    private function initApiApplication($userName, $apiToken){
+        $this->apiApplication = new SslOrder($userName, $apiToken);
     }
 
     /**
@@ -61,6 +82,43 @@ class AdminController
     }
 
     /**
+     * 移除证书中的域名
+     * @param $domainName
+     * @return string
+     */
+    public function removeDomainName($requestParams){
+        $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
+        $domainName = trim($requestParams['domain']);
+        try{
+            $result = $this->apiApplication->callRemoveDomainName($domainName);
+
+            if($result === TRUE){
+                $dcvInfo = $this->serviceModel->getDcvInfo();
+                unset($dcvInfo[$domainName]);
+                $this->serviceModel->setDcvInfo($dcvInfo);
+
+                $domains = $this->serviceModel->getDomains();
+                $newDomains = [];
+                foreach ($domains as $key => $theDomainName){
+                    if($theDomainName != $domainName){
+                        array_push($newDomains, $theDomainName);
+                    }
+                }
+                $this->serviceModel->setDomains($newDomains);
+                // 保存修改到数据库
+                $this->serviceModel->flush();
+
+                return "success";
+
+            }else{
+                return "删除域名时出现错误, 请您检查后再试.";
+            }
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    /**
      * WHMCS 订单详情页面附加信息
      * @param $vars
      * @return array
@@ -74,6 +132,9 @@ class AdminController
         $serviceModel = new CertificateModel($service->serviceid);
         $smarty->assign('dcvInformation', $serviceModel->getDcvInfo());
         $smarty->assign('certCode', $serviceModel->getCertCode());
+        $smarty->assign('certModel', $serviceModel);
+        $smarty->assign('csrInfo', openssl_csr_get_subject($serviceModel->getCsrCode()), 1);
+        $smarty->assign('orgInfo', $serviceModel->getOrgInfo());
 
         $html = $smarty->fetch(__DIR__.'/../../templates/admin/testTab.tpl');
         return [

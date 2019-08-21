@@ -1,0 +1,24 @@
+.datatable.to-table>tbody>tr>td:nth-child(1){
+    background-color: #efefef;
+}
+.datatable.to-table>tbody>tr>td{
+    padding: 5px 10px;
+}
+.to-connectionStatus.error{
+    background-color: red;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px !important;
+    font-size: 12px;
+    text-decoration: none;
+}
+.to-connectionStatus.success{
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px !important;
+    font-size: 12px;
+    text-decoration: none;
+}

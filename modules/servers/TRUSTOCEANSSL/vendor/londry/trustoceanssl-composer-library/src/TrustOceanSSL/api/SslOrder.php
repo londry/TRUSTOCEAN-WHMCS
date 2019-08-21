@@ -6,7 +6,7 @@ use Londry\TrustOceanSSL\TrustoceanException;
 
 class SslOrder extends Order{
 
-    public function __construct($username, $token)
+    public function __construct($username ="", $token ="")
     {
         $this->username = $username;
         $this->password = $token;
@@ -315,7 +315,7 @@ class SslOrder extends Order{
         $params['password'] =  $this->password;
         $postVars = http_build_query($params);
 
-        $apiURL = "https://api.trustocean.com/ssl/v3/$method"; // API Endpoint located in Beijing CN
+        $apiURL = "https://api.trustocean.com/ssl/v2/$method"; // API Endpoint located in Beijing CN
         // $apiURL = "https://sapi.trustocean.com/ssl/v3/$method"; // API Endpoint located in London UK
 
         $curlHandle = curl_init ();

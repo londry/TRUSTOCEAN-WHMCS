@@ -5,6 +5,7 @@ use WHMCS\Database\Capsule;
 
 class CertificateModel extends DatabaseModel
 {
+
     /**
      * @var string
      */
@@ -189,7 +190,7 @@ class CertificateModel extends DatabaseModel
     /**
      * @param array $domains
      */
-    public function setDomains(array $domains)
+    public function setDomains(array $domains = [])
     {
         $this->domains = $domains;
     }
@@ -753,8 +754,9 @@ class CertificateModel extends DatabaseModel
         // 从数据库加载
         if($serviceid !== NULL){
             $certificate = Capsule::table($this->tableName)->where('serviceid', $serviceid)->first();
+
             if($certificate != NULL){
-                echo $this->fillModel($this, $certificate);
+                $this->fillModel($this, $certificate);
             }
         }
     }
@@ -764,7 +766,7 @@ class CertificateModel extends DatabaseModel
      * @param $model
      * @param $databaseRecord
      */
-    protected function fillModel($model, $databaseRecord){
+    protected function fillModel(CertificateModel $model, $databaseRecord){
         foreach ($databaseRecord as $databaseKey => $value){
             $keyArray = explode('_', $databaseKey);
             $keyName = "";
@@ -775,18 +777,64 @@ class CertificateModel extends DatabaseModel
             if(method_exists($model, $functionName)){
                 $reflectionFunction = new \ReflectionMethod($model, $functionName);
                 $reflectionFunctionParameter = $reflectionFunction->getParameters();
-
                 if($reflectionFunctionParameter[0]->isArray()){
                     if(gettype($value) === 'string'){
-                        call_user_func_array([$model, $functionName], [json_decode($value, 1)]);
-                    }
-                    if(gettype($value) === 'NULL'){
+                        $valueDecoded = json_decode(json_decode(json_encode($value, true, 10), true), true);
+                        if($valueDecoded === NULL){
+                            $valueDecoded = [];
+                        }
+                        call_user_func_array([$model, $functionName], [$valueDecoded]);
+                    }elseif(gettype($value) === 'NULL'){
+                        call_user_func_array([$model, $functionName], [[]]);
+                    }else{
                         call_user_func_array([$model, $functionName], [[]]);
                     }
                 }else{
                     call_user_func_array([$model, $functionName], [$value]);
                 }
+            }else{
+
             }
         }
+    }
+
+    /**
+     * 更新模型到数据库中
+     */
+    public function flush(){
+        $updateParams = [];
+        $unspported = [];
+        foreach (get_class_vars(get_class($this)) as $name => $value){
+            $keyName = $name;
+            for ($i = 0; $i < substr_count($keyName, "_"); $i++) {
+                $keyName = preg_replace_callback('/_([a-zA-Z]{1})/', function ($matches) {
+                    return str_replace($matches[0], strtoupper(str_replace('_', '', $matches[0])), $matches[0]);
+                }, $keyName);
+            }
+
+            $setterName = "set".ucfirst($keyName);
+            $getterName = "get".ucfirst($keyName);
+
+            if(method_exists($this, $setterName)){
+                $dataKeyName = preg_replace_callback('/([A-Z]{1})/', function($matches){
+                    return '_'.strtolower($matches[0]);
+                }, lcfirst(str_replace("set","",$name)));
+
+                $dataValue = $this->$getterName();
+
+                if(gettype($dataValue) === "array"){
+                    $dataValue = json_encode($dataValue, true, 10);
+                }
+
+                if($dataValue !== NULL){
+                    $updateParams[$dataKeyName] = $dataValue;
+                }
+            }else{
+                $unspported[] = $setterName;
+            }
+        }
+
+        Capsule::table($this->tableName)->where('serviceid', $this->getServiceid())
+            ->update($updateParams);
     }
 }
