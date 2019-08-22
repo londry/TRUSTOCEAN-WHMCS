@@ -55,6 +55,25 @@ function TRUSTOCEANSSL_removeDomain($vars){
 }
 
 /**
+ * 首次订单, 设置续费赠送30~90天
+ * @param $vars
+ * @return string
+ */
+function TRUSTOCEANSSL_setOrderAsRenewal($vars){
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
+    return $adminController->setOrderAsRenewal();
+}
+
+/**
+ * 同步签发系统信息至本地WHMCS系统
+ * @param $vars
+ * @return string
+ */
+function TRUSTOCEANSSL_syncOrderInformation($vars){
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
+    return $adminController->syncOrderInformation();
+}
+/**
  * 客户端异步获取域名验证状态
  * @param $vars
  * @throws Exception
@@ -1957,11 +1976,11 @@ function TRUSTOCEANSSL_ClientAreaAllowedFunctions(){
  */
 function TRUSTOCEANSSL_AdminCustomButtonArray(){
     return array(
-        "同步订单信息" => 'adminSynccertorderdata',
-        "设为新订单" => 'resetorderstatus',
-        "发送签发通知" => 'adminSendIssuedNotification',
-        "设为续费订单"=>'setRenewOrder',
-        //"removeDomain"=>"removeDomain",
+//        "同步订单信息" => 'adminSynccertorderdata',
+//        "设为新订单" => 'resetorderstatus',
+//        "发送签发通知" => 'adminSendIssuedNotification',
+//        "设为续费订单"=>'setRenewOrder',
+//        "removeDomain"=>"removeDomain",
     );
 }
 

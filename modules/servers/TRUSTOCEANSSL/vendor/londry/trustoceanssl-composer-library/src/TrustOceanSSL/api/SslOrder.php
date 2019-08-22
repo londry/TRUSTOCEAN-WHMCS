@@ -327,7 +327,8 @@ class SslOrder extends Order{
         $callResult = curl_exec ($curlHandle);
         if (!curl_error ($curlHandle)) {
             curl_close ($curlHandle);
-            $result = json_decode($callResult, 1);
+            $result = json_decode($callResult, 1, 10);
+            //var_dump($result);die();
             if($result['status'] === 'error'){
                 throw new TrustoceanException($result['message'], 25000);
             }else{

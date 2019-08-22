@@ -141,4 +141,45 @@ class AdminController
             'SSL Management' => $html
         ];
     }
+
+    /**
+     * 首次提交到TRUSTOCEAN之前, 可设置订单为续费订单
+     * @return string
+     */
+    public function setOrderAsRenewal(){
+        // 只有未完成首次提交的订单方可设置为续费订单
+        if($this->serviceModel->getTrustoceanId() !== ""){
+            return "无法标记为续费订单, 因为此订单已经完成了首次提交至签发系统";
+        }
+        $this->serviceModel->setRenew(1);
+        $this->serviceModel->flush();
+        return "success";
+    }
+
+    /**
+     * 同步签发系统的订单信息至本地WHMCS系统
+     * @return string
+     */
+    public function syncOrderInformation(){
+        // 检查是否已经提交至签发系统
+        if($this->serviceModel->getTrustoceanId() == ""){
+            return "同步信息失败, 当前订单并未提交至签发系统";
+        }
+        // 本地WHMCS订单
+        $localOrder = $this->serviceModel;
+        // 取回远端签发系统中的订单
+        $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
+        // 更新本地订单
+        $localOrder->setDomains($remoteOrder->getDomains());
+        $localOrder->setDcvInfo($remoteOrder->getDcvInfo());
+        $localOrder->setCsrCode($remoteOrder->getCsrCode());
+        $localOrder->setStatus($remoteOrder->getOrderStatus());
+        $localOrder->setCsrCode($remoteOrder->getCertCode());
+        $localOrder->setCaCode($remoteOrder->getCaCode());
+        $localOrder->setContactEmail($remoteOrder->getContactEmail());
+        $localOrder->setRefundStatus($remoteOrder->getRefundStatus());
+        $localOrder->flush();
+
+        return "success";
+    }
 }

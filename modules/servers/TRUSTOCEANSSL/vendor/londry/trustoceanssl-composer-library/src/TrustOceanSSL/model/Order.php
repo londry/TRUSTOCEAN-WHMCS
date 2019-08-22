@@ -208,7 +208,7 @@ class Order{
      * @return array
      */
     public function getDomains(){
-        return explode(',', $this->domains);
+        return $this->domains;
     }
 
     protected $renew = FALSE;

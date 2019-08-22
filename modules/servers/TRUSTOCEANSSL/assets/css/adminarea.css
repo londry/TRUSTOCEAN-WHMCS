@@ -22,3 +22,18 @@
     font-size: 12px;
     text-decoration: none;
 }
+#TrustOceanSSLmodelworking{
+    position: absolute;
+    margin-top: -30px;
+    z-index: 2000;
+    height: 30px;
+    background-color: #efefef;
+    width: 950px;
+    padding-top: 5px;
+    text-align: left;
+    display: none;
+    -moz-opacity:0.9;
+    -khtml-opacity:0.9;
+    opacity:0.9;
+    filter: alpha(opacity=90);
+}

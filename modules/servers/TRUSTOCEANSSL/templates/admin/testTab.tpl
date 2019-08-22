@@ -28,11 +28,20 @@
 </ul>
 <div class="tab-content admin-tabs" style="background-color: #ffffff;">
     <div class="tab-pane active" id="tabOrder">
-        <div style="padding: 10px 0px;">
-            <button class="btn btn-default btn-xs">同步信息</button>
-        </div>
         <table class="datatable to-table" width="100%">
             <tbody>
+                <tr>
+                    <td colspan="2">
+                        <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('setOrderAsRenewal', {})">设为续费订单</a>
+                        <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('syncOrderInformation', {})">同步订单信息</a>
+                        <a class="btn btn-default btn-sm">申请退款</a>
+                        <a class="btn btn-default btn-sm">吊销证书</a>
+                        <a class="btn btn-default btn-sm">重新验证域名</a>
+                        <a class="btn btn-default btn-sm">重发签发通知</a>
+                        <a class="btn btn-default btn-sm">重发电话验证邮件</a>
+                        <div id="TrustOceanSSLmodelworking"><img src="images/loader.gif"> &nbsp; API Working...</div>
+                    </td>
+                </tr>
                 <tr>
                     <td width="150px;">状态</td>
                     <td>{$certModel->getStatus()}</td>

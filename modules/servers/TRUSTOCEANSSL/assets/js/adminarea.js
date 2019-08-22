@@ -16,7 +16,8 @@ var TRUSTOCEANSSLModelApp = {
         // Hide the modal that was activated.
         jQuery("[id^=modalModule]").modal("hide");
         var commandButtons = jQuery('#modcmdbtns'),
-            commandWorking = jQuery('#modcmdworking');
+            commandWorkingTrustOceanSSL = jQuery('#TrustOceanSSLmodelworking');
+            commandWorking = jQuery("[id^=modcmdworking]");
 
         commandButtons.css("filter", "alpha(opacity=20)");
         commandButtons.css("-moz-opacity", "0.2");
@@ -29,6 +30,7 @@ var TRUSTOCEANSSLModelApp = {
         commandWorking.css("left", position.left);
         commandWorking.css("padding", "9px 50px 0");
         commandWorking.fadeIn();
+        commandWorkingTrustOceanSSL.fadeIn();
 
         var reqstr = "userid="+this.userId+"&id="+this.serviceId+"&modop=custom&ac=" + cmd + "&ajax=1&token="+csrfToken;
         if (params) {
@@ -53,6 +55,7 @@ var TRUSTOCEANSSLModelApp = {
                     commandButtons.css("-khtml-opacity", "1");
                     commandButtons.css("opacity", "1");
                     commandWorking.fadeOut();
+                    commandWorkingTrustOceanSSL.fadeOut();
                 } else {
                     $("#servicecontent").html(data);
                     $('html, body').animate({
