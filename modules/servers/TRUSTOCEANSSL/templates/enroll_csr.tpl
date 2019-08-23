@@ -7,7 +7,7 @@
     }
 </style>
 <div class="section">
-    <div class="section-header">
+    <div class="section-header" style="margin: 0px 15px;">
         <h3>{$MODLANG.trustoceanssl.enroll.setupone.title}</h3>
         <p>{$MODLANG.trustoceanssl.enroll.setupone.desc}</p>
         {if $result}

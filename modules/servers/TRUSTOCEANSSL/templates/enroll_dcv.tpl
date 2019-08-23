@@ -8,9 +8,9 @@
 </style>
 
 <div class="section" style="text-align: left;">
-    <div class="section-header">
-        <h3>{$MODLANG.trustoceanssl.enroll.setup3.title}</h3>
-        <p>{$MODLANG.trustoceanssl.enroll.setup3.desc}</p>
+    <div class="section-header" style="margin: 0px 15px;">
+        <h3>预先验证域名</h3>
+        <p>提交签发之前，您需要为每条域名分别选择域名验证方式并根据验证说明完成域名控制权验证, 如果同时存在多条子域名, 您仅需要为顶级域名验证即可。</p>
         {if $vars.error}
             {include file="$template/includes/alert.tpl" type="error" msg=$vars.error textcenter=false idname="alertModuleCustomButtonFailed"}
         {/if}
@@ -18,11 +18,11 @@
             {include file="$template/includes/alert.tpl" type="success" msg=$vars.info textcenter=false idname="alertModuleCustomButtonFailed"}
         {/if}
     </div>
-    <div class="text-danger">asf {$error}</div>
-    <ul class="tabul list-group list-group-tab-nav">
-        <button onclick="$('.dnd-info').toggle();" data-dcv class="btn btn-sm btn-info" data-toggle="tab">{$MODLANG.trustoceanssl.enroll.setup3.dndinfo}</button>
+    <div class="text-danger">{$error}</div>
+    <ul class="tabul list-group list-group-tab-nav" style="margin: 0px 15px;">
+        <button onclick="$('.dnd-info').toggle();" data-dcv class="btn btn-sm btn-default btn-se1" data-toggle="tab">{$MODLANG.trustoceanssl.enroll.setup3.dndinfo}</button>
     </ul>
-    <div class="dnd-info" style="display: none;">
+    <div class="dnd-info" style="display: none;margin: 0px 15px;">
         <p>
             {$MODLANG.trustoceanssl.enroll.setup3.dcvdns1}
         </p>
@@ -41,10 +41,10 @@
     </div>
     <div class="section-body">
         <form action="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=trySubmittoca" method="post">
-        <div class="panel panel-default" data-inputs-container="">
+        <div class="" data-inputs-container="">
             <div class="panel-body">
                 <div class="table-container clearfix" style="border:none;max-height: none;">
-                    <table id="tableDCVDomainList" class="table table-list">
+                    <table id="tableDCVDomainList" class="table to-dcv-table">
                         <thead>
                             <tr>
                                 <th data-priority="1" ><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.domain}</span><span class="sorting-arrows"></span></span></th>
@@ -54,7 +54,7 @@
                         </thead>
                         <tbody>
                         {foreach from=$vars.dcvinfo key=domain item=info}
-                            <tr>
+                            <tr class="domaininfo">
                                 <td>{$domain}</td>
                                 <td>
                                     {if $info.status eq 'needverification'}

@@ -48,12 +48,11 @@
 {if $status==='enroll_caprocessing'}
     {include file="./enroll_ca.tpl"}
 {/if}
-</div>
 
 
 {*证书已经签发*}
 {if $status === 'issued_active'}
-<div class="panel panel-default panel-product-details ssl-container" style="text-align: left;">
+<div class="panel-product-details" style="text-align: left;">
     <div class="panel-body">
     <div class="module-client-area">
         <div class="section">
@@ -74,8 +73,8 @@
     </div>
     </div>
 </div>
-<div class="section ssl-container" style="text-align: left;" >
-    <div class="panel panel-default">
+<div class="section" style="text-align: left;" >
+    <div class="panel panel-default ">
         <div class="panel-nav">
             <ul class="nav nav-tabs">
                 <li class="active">
@@ -188,3 +187,4 @@
     </div>
 </div>
 {/if}
+</div>

@@ -174,7 +174,7 @@ class AdminController
         $localOrder->setDcvInfo($remoteOrder->getDcvInfo());
         $localOrder->setCsrCode($remoteOrder->getCsrCode());
         $localOrder->setStatus($remoteOrder->getOrderStatus());
-        $localOrder->setCsrCode($remoteOrder->getCertCode());
+        $localOrder->setCertCode($remoteOrder->getCertCode());
         $localOrder->setCaCode($remoteOrder->getCaCode());
         $localOrder->setContactEmail($remoteOrder->getContactEmail());
         $localOrder->setRefundStatus($remoteOrder->getRefundStatus());

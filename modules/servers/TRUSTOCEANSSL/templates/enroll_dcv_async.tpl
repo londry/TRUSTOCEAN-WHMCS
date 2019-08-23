@@ -9,7 +9,7 @@
 
 <div class="section" style="text-align: left;">
     <div class="section-header" style="padding-left: 15px;">
-        <p>{$MODLANG.trustoceanssl.enroll.setup3.desc}</p>
+        <p>请您为域名选择验证方式并按照验证说明完成验证, 若同时存在多条子域名, 仅需要为顶级域名做验证即可。</p>
         {if $vars.error}
             {include file="$template/includes/alert.tpl" type="error" msg=$vars.error textcenter=false idname="alertModuleCustomButtonFailed"}
         {/if}
@@ -31,7 +31,7 @@
         <button onclick="syncGetCertStatus(this);" data-serviceid="{$serviceid}" data-loading-text="{$MODLANG.trustoceanssl.enroll.btn.loadingtext}..." class="btn btn-sm btn-primary" style="margin-right: 10px;margin-top: 10px;">{$MODLANG.trustoceanssl.enroll.btn.checkissue}</button>
         <button onclick="tryToRecheckDCV(this);" data-loading-text="{$MODLANG.trustoceanssl.enroll.btn.loadingtext}..." data-redo-dcv="{$serviceid}" data-dcv class="btn btn-sm btn-success" style="margin-right: 10px;margin-top: 10px;">{$MODLANG.trustoceanssl.enroll.btn.retrydcv}</button>
     </ul>
-    <div class="dnd-info" style="display: none;">
+    <div class="dnd-info" style="display: none;margin-left: 15px; margin-right: 15px;">
         <p>
             {$MODLANG.trustoceanssl.enroll.setup3.dcvdns1}
         </p>
@@ -70,7 +70,7 @@
                                         <span class="text-warning" style="padding-left: 10px;"><i class="oi fa fa-spin" data-glyph="aperture" style="margin-left: -18px;margin-top: 2px; position: absolute; padding-bottom: 2px;"></i> Fetching...</span>
                                     {elseif $info.status eq 'verified'}
                                         {if $info.method === 'email'}
-                                            <span class="text-info" style="padding-left: 10px;"><i class="oi" data-glyph="circle-check" style="margin-left: -18px;margin-top: 2px; position: absolute; padding-bottom: 2px;"></i> {$MODLANG.trustoceanssl.enroll.status.emailsent}</span><br>{$info.email}
+                                            <span class="" style="padding-left: 10px;"><i class="oi" data-glyph="circle-check" style="margin-left: -18px;margin-top: 2px; position: absolute; padding-bottom: 2px;"></i> {$MODLANG.trustoceanssl.enroll.status.emailsent}</span><br>{$info.email}
                                         {else}
                                             <span class="text-success" style="padding-left: 10px;"><i class="oi" data-glyph="circle-check" style="margin-left: -18px;margin-top: 2px; position: absolute; padding-bottom: 2px;"></i> {$MODLANG.trustoceanssl.enroll.status.verified}</span>
                                         {/if}
@@ -156,9 +156,9 @@
             </div>
         </div>
 
-        <p style="color: #909090;">
+        <p style="color: #909090;margin: 10px 15px;">
             {$MODLANG.trustoceanssl.enroll.setup3.table.dcv.submit.desc}</p>
-        <p>{$MODLANG.trustoceanssl.enroll.desc90}</p>
+        <p style="margin: 10px 15px;">{$MODLANG.trustoceanssl.enroll.desc90}</p>
 
     </div>
 </div>
