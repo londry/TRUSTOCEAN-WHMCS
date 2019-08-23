@@ -36,7 +36,7 @@
                         <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('syncOrderInformation', {})">同步订单信息</a>
                         <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('cancelAndRefundOrder', {})">申请退款</a>
                         <a class="btn btn-default btn-sm" onclick="jQuery('#modalModuleTrustOceanRevocationSSL').modal('show')">吊销证书</a>
-                        <a class="btn btn-default btn-sm">重新验证域名</a>
+                        <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('retryDcvProcess', {})">重新验证域名</a>
                         <a class="btn btn-default btn-sm">重发签发通知</a>
                         <a class="btn btn-default btn-sm">重发电话验证邮件</a>
                         <div id="TrustOceanSSLmodelworking"><img src="images/loader.gif"> &nbsp; API Working...</div>

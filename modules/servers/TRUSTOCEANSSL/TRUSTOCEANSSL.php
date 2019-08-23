@@ -93,6 +93,16 @@ function TRUSTOCEANSSL_revokeSSLWithReason($vars){
     $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
     return $adminController->revokeSSLWithReason($_POST['revocationReason']);
 }
+
+/**
+ * 重新执行域名验证信息检查
+ * @param $vars
+ * @return string
+ */
+function TRUSTOCEANSSL_retryDcvProcess($vars){
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
+    return $adminController->retryDcvProcess();
+}
 /**
  * 客户端异步获取域名验证状态
  * @param $vars
