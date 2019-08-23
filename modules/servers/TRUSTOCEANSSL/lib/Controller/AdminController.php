@@ -182,4 +182,48 @@ class AdminController
 
         return "success";
     }
+
+    /**
+     * 申请吊销并退款
+     * @return string
+     */
+    public function cancelAndRefundOrder(){
+        // 检查是否已经提交至签发系统
+        if($this->serviceModel->getTrustoceanId() == ""){
+            return "同步信息失败, 当前订单并未提交至签发系统";
+        }
+        // 本地WHMCS订单
+        $localOrder = $this->serviceModel;
+
+        try{
+            // 取回远端签发系统中的订单
+            $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
+            $remoteOrder->callCancelAndRevokeCertificate();
+            return "success";
+        }catch(\Exception $e){
+            return $e->getMessage();
+        }
+    }
+
+    /**
+     * 直接从CA处吊销证书, 不申请退款
+     * @param $vars
+     * @return string
+     */
+    public function revokeSSLWithReason($revocationReason){
+        // 检查是否已经提交至签发系统
+        if($this->serviceModel->getTrustoceanId() == ""){
+            return "同步信息失败, 当前订单并未提交至签发系统";
+        }
+        // 本地WHMCS订单
+        $localOrder = $this->serviceModel;
+        try {
+            // 取回远端签发系统中的订单
+            $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
+            $remoteOrder->callRevokeCertificate($revocationReason);
+            return "success";
+        }catch(\Exception $exception){
+            return $exception->getMessage();
+        }
+    }
 }

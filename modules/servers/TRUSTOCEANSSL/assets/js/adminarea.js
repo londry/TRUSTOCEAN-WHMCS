@@ -6,6 +6,9 @@ var TRUSTOCEANSSLModelApp = {
         this.domainNameForRemoval = domainName;
         jQuery('#modalModuleTrustOceanRemoveDomain').modal('show');
     },
+    revokeSSL: function(){
+        this.runModuleCommand('revokeSSLWithReason', {revocationReason: jQuery('select[name=revocationReason]').val()});
+    },
     removeDomain: function(){
         this.runModuleCommand("removeDomain", {domain:this.domainNameForRemoval});
     },

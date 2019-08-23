@@ -34,8 +34,8 @@
                     <td colspan="2">
                         <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('setOrderAsRenewal', {})">设为续费订单</a>
                         <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('syncOrderInformation', {})">同步订单信息</a>
-                        <a class="btn btn-default btn-sm">申请退款</a>
-                        <a class="btn btn-default btn-sm">吊销证书</a>
+                        <a class="btn btn-default btn-sm" onclick="TRUSTOCEANSSLModelApp.runModuleCommand('cancelAndRefundOrder', {})">申请退款</a>
+                        <a class="btn btn-default btn-sm" onclick="jQuery('#modalModuleTrustOceanRevocationSSL').modal('show')">吊销证书</a>
                         <a class="btn btn-default btn-sm">重新验证域名</a>
                         <a class="btn btn-default btn-sm">重发签发通知</a>
                         <a class="btn btn-default btn-sm">重发电话验证邮件</a>
@@ -237,6 +237,38 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="modalModuleTrustOceanRevocationSSL" role="dialog" aria-labelledby="ModuleTrustOceanRevocationSSLLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content panel panel-primary">
+            <div id="modalModuleTrustOceanRevocationSSLHeading" class="modal-header panel-heading">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="ModuleTrustOceanRevocationSSLLabel">您确定吊销此证书吗?</h4>
+            </div>
+            <div id="modalModuleTrustOceanRevocationSSLBody" class="modal-body panel-body">
+                <p>吊销原因: </p>
+                <select class="form-control" name="revocationReason">
+                    <option value="Domain name(s) is suspected of infringement or counterfeiting.">域名或网站涉嫌侵权和伪造</option>
+                    <option value="Fish or fake site found, need to revoke.">此证书包含了钓鱼或假冒网站的域名</option>
+                    <option value="Spread virus software found on these site(s).">网站传播病毒软件或存在非法内容</option>
+                    <option value="Issuing error.">由于操作失误导致的错误签发</option>
+                </select>
+                <p style="margin-top: 10px;">此操作不会请求退款，仅吊销证书, 吊销请求将会实时发送至证书颁发机构. 吊销状态最快可以在1-15个自然日内在公开的CRL、OCSP服务器或公开数据库中查询到。</p>
+            </div>
+            <div id="modalModuleTrustOceanRevocationSSLFooter" class="modal-footer panel-footer">
+                <button type="button" id="ModuleTrustOceanRevocationSSL-Yes" class="btn btn-primary" onclick="TRUSTOCEANSSLModelApp.revokeSSL()">
+                    Yes
+                </button><button type="button" id="ModuleTrustOceanRevocationSSL-No" class="btn btn-default" data-dismiss="modal">
+                    No
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     // 初始化应用参数
     TRUSTOCEANSSLModelApp.userId = "{$smarty.session.uid}";

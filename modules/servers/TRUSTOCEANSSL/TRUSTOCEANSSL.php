@@ -73,6 +73,26 @@ function TRUSTOCEANSSL_syncOrderInformation($vars){
     $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
     return $adminController->syncOrderInformation();
 }
+
+/**
+ * 申请吊销证书、取消订单、从签发系统中退款
+ * @param $vars
+ * @return string
+ */
+function TRUSTOCEANSSL_cancelAndRefundOrder($vars){
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
+    return $adminController->cancelAndRefundOrder();
+}
+
+/**
+ * 直接从颁发机构吊销证书, 不申请退款
+ * @param $vars
+ * @return string
+ */
+function TRUSTOCEANSSL_revokeSSLWithReason($vars){
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
+    return $adminController->revokeSSLWithReason($_POST['revocationReason']);
+}
 /**
  * 客户端异步获取域名验证状态
  * @param $vars
