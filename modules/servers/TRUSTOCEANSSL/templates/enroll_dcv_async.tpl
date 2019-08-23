@@ -8,7 +8,7 @@
 </style>
 
 <div class="section" style="text-align: left;">
-    <div class="section-header">
+    <div class="section-header" style="padding-left: 15px;">
         <p>{$MODLANG.trustoceanssl.enroll.setup3.desc}</p>
         {if $vars.error}
             {include file="$template/includes/alert.tpl" type="error" msg=$vars.error textcenter=false idname="alertModuleCustomButtonFailed"}
@@ -23,7 +23,7 @@
             <p>{$MODLANG.trustoceanssl.enroll.organization.info2desc}{$vars.trustoceanid}</p>
         </div>
     {/if}
-    <ul class="tabul list-group list-group-tab-nav">
+    <ul class="tabul list-group list-group-tab-nav" style="padding-left: 15px;">
         <button onclick="$('.dnd-info').toggle();" data-dcv class="btn btn-sm btn-default btn-se1" data-toggle="tab" style="margin-right: 10px;margin-top: 10px;">{$MODLANG.trustoceanssl.enroll.setup3.dndinfo}</button>
         {if $vars.ismultidomain === "on"}
             <button onclick="syncMDCDomainStatus();" data-fetch-dcvstatus data-loading-text="{$MODLANG.trustoceanssl.enroll.btn.loadingtext}..." class="btn btn-sm btn-primary" style="margin-right: 10px;margin-top: 10px;">{$MODLANG.trustoceanssl.enroll.btn.updatedcv}</button>
@@ -49,20 +49,21 @@
             {$MODLANG.trustoceanssl.enroll.setup3.dcvhttps2}</p>
     </div>
     <div class="section-body">
-        <div class="panel panel-default ssl-container" data-inputs-container="">
+        <div class="" data-inputs-container="">
             <div class="panel-body">
                 <div class="table-container clearfix" style="border:none;max-height: none;">
-                    <table id="tableDCVDomainList" data-serviceid="{$serviceid}" class="table table-list">
+                    <table id="tableDCVDomainList" data-serviceid="{$serviceid}" class="table to-dcv-table">
                         <thead>
                             <tr>
                                 <th data-priority="1" style="text-align: left;"><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.domain}</span><span class="sorting-arrows"></span></span></th>
                                 <th data-priority="2" style="text-align: left;"><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.status}</span><span class="sorting-arrows"></span></span></th>
                                 <th data-priority="3" style="text-align: left;"><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.method}</span><span class="sorting-arrows"></span></span></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                         {foreach from=$vars.dcvinfo key=domain item=info}
-                            <tr data-ramoval-div="{$domain|md5}">
+                            <tr data-ramoval-div="{$domain|md5}" class="domaininfo">
                                 <td>{$domain}</td>
                                 <td data-ca-status-td="{$domain|md5}">
                                     {if $info.status eq 'needverification'}
@@ -90,11 +91,12 @@
                                         {/foreach}
                                     {/if}
                                  </select>
-                                    {if $vars.ismultidomain === "on"}
-                                        {if $domain === $vars.domains.0}
-                                        <input type="button" onclick="selectAllDcvMethod()" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.setup3.table.selectalldesc}" data-original-title="" title="" class="btn btn-xs btn-default" value="{$MODLANG.trustoceanssl.enroll.setup3.table.selectall}">
-                                        {/if}
-                                    {/if}
+                                    {* 部分服务器可能会设置CC防护，为了避免触发防御，同时降低单个操作的多个请求，暂时禁用提交到签发系统之后的批量化修改DCV操作 *}
+                                    {*{if $vars.ismultidomain === "on"}*}
+                                        {*{if $domain === $vars.domains.0}*}
+                                        {*<input type="button" onclick="selectAllDcvMethod()" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.setup3.table.selectalldesc}" data-original-title="" title="" class="btn btn-xs btn-default" value="{$MODLANG.trustoceanssl.enroll.setup3.table.selectall}">*}
+                                        {*{/if}*}
+                                    {*{/if}*}
                                     {*</form>*}
                                     </div>
                                 </td>

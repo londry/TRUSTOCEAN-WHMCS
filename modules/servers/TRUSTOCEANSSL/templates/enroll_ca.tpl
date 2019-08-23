@@ -6,7 +6,7 @@
         display: none;
     }
 </style>
-<div class="panel panel-default panel-product-details ssl-container">
+<div class="">
     <div class="panel-body">
         <div class="section">
             <div class="section-header" style="text-align: left;">

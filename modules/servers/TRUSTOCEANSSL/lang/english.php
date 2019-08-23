@@ -55,9 +55,9 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['status'] = "Stat
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['method'] = "Method";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['selectall'] = "Select For All";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['selectalldesc'] = "Use the selected method for all domains";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['dns'] = "CNAME_CSR_HASH";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['http'] = "HTTP_CSR_HASH";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['https'] = "HTTPS_CSR_HASH";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['dns'] = "CNAME";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['http'] = "HTTP";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['https'] = "HTTPS";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['remove'] = "Remove";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['setup3']['table']['removedesc'] = "You can remove this domain if you cannot verifiy now.";
 

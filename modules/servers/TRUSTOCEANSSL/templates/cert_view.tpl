@@ -12,7 +12,15 @@
 <script type="application/javascript">
 
 </script>
-
+<style>
+    .tab-content.product-details-tab-container{
+        background-color: whitesmoke;
+    }
+</style>
+<div style="text-align: left !important;background: #fff;border: 1px solid #eee;padding: 10px;">
+    <div style="background-color: black; padding: 10px;margin-left: -10px; margin-right: -10px; margin-top: -10px;">
+        <img src="/modules/servers/TRUSTOCEANSSL/assets/img/trustocean-seal.svg" height="20px;">
+    </div>
 {if $status==='configuration'}
     {include file="./enroll_csr.tpl"}
 {/if}
@@ -40,6 +48,7 @@
 {if $status==='enroll_caprocessing'}
     {include file="./enroll_ca.tpl"}
 {/if}
+</div>
 
 
 {*证书已经签发*}

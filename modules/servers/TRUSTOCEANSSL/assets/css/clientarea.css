@@ -236,3 +236,21 @@ transform: rotate(359deg);
 
 }
 /* page loading dal*/
+.table.to-dcv-table>tbody>tr.domaininfo{
+    background-color: whitesmoke;
+}
+.table.to-dcv-table>thead>tr>th{
+    border-bottom: none;
+}
+.table.to-dcv-table{
+    border: 1px solid whitesmoke;
+}
+.table.to-dcv-table>tbody>tr>td, .table.to-dcv-table>tbody>tr>th, .table.to-dcv-table>tfoot>tr>td, .table.to-dcv-table>tfoot>tr>th, .table.to-dcv-table>thead>tr>td, .table.to-dcv-table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #e4e4e4;
+}
+.table.to-dcv-table>tbody>tr>td,.table.to-dcv-table>tbody>tr>th{
+    vertical-align: middle;
+}
