@@ -46,6 +46,12 @@
                     <td width="150px;">状态</td>
                     <td>{$certModel->getStatus()}</td>
                 </tr>
+                {if $certModel->getIsRequestedRefund() eq 1}
+                <tr>
+                    <td>退款状态</td>
+                    <td>{$certModel->getRefundStatus()}</td>
+                </tr>
+                {/if}
                 <tr>
                     <td>订单号</td>
                     <td>{if $certModel->getTrustoceanId() eq ""}----{else}{$certModel->getTrustoceanId()}{/if}</td>

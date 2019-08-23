@@ -192,10 +192,17 @@ class AdminController
         if($this->serviceModel->getTrustoceanId() == ""){
             return "同步信息失败, 当前订单并未提交至签发系统";
         }
+
         try{
             // 取回远端签发系统中的订单
             $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
             $remoteOrder->callCancelAndRevokeCertificate();
+            // 本地WHMCS订单
+            $localOrder = $this->serviceModel;
+            $localOrder->setIsRequestedRefund(1);
+            $localOrder->setRefundStatus('processing');
+            $localOrder->flush();
+
             return "success";
         }catch(\Exception $e){
             return $e->getMessage();
