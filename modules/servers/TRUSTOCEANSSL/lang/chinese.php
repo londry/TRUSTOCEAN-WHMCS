@@ -97,8 +97,8 @@ $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['btn']['reissue'] = "吊�
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['btn']['subticket'] = "提交工单";
 $TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['btn']['techdocs'] = "技术文档";
 
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['info']['cert'] = "证书内容";
-$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['info']['chaincert'] = "证书链内容";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['info']['cert'] = "证书";
+$TRUSTOCEAN_LANG['trustoceanssl']['enroll']['issued']['info']['chaincert'] = "证书链";
 
 
 

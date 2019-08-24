@@ -73,8 +73,8 @@
     display: flex;
 }
 .cert-info-tb > li> span.list-info-title{
-    width: 50%;
-    flex-basis: 50%;
+    width: 150px;
+    /*flex-basis: 50%;*/
     box-sizing: border-box;
     color: #7c8088;
 
@@ -253,4 +253,31 @@ transform: rotate(359deg);
 }
 .table.to-dcv-table>tbody>tr>td,.table.to-dcv-table>tbody>tr>th{
     vertical-align: middle;
+}
+.nav-tabs>li>a,.nav-tabs>li>a:hover,.nav-tabs>li.active>a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border-radius: 4px 4px 0 0;
+    border: none;
+    background: none;
+    padding: 0px;
+    color: #ffffff !important;
+}
+.nav-tabs>li{
+    padding: 0px 10px;
+}
+.nav-tabs>li.active>a,.nav-tabs>li.active>a:hover,.nav-tabs>li.active>a:focus{
+    background: none;
+    border: none;
+    border-bottom: 1px solid #ffffff !important;
+}
+.nav-tabs>li.active>a{
+    text-decoration: solid #ffffff;
+}
+
+.nav.nav-tabs.admin-tabs{
+    border: none;
+}
+.list-info-title{
+    width: 150px;
 }

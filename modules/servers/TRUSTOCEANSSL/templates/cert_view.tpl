@@ -18,8 +18,30 @@
     }
 </style>
 <div style="text-align: left !important;background: #fff;border: 1px solid #eee;padding: 10px;">
-    <div style="background-color: black; padding: 10px;margin-left: -10px; margin-right: -10px; margin-top: -10px;">
-        <img src="/modules/servers/TRUSTOCEANSSL/assets/img/trustocean-seal.svg" height="20px;">
+    <div style="margin-bottom:15px;background-color: black; padding: 10px;margin-left: -10px; margin-right: -10px; margin-top: -10px;">
+        <ul class="nav nav-tabs admin-tabs" style="padding: 5px 10px; background-color: #000000; border-radius: 3px;">
+                <li>
+                    <img src="/modules/servers/TRUSTOCEANSSL/assets/img/trustocean-seal.svg" height="20px;">
+                </li>
+                <li class="active">
+                    <a href="#certdetails" data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.certinfo}</a>
+                </li>
+                <li>
+                    <a href="#certificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.cert}</a>
+                </li>
+                <li>
+                    <a href="#chaincertificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
+                </li>
+                <li>
+                    <a href="#domains"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>域名</a>
+                </li>
+                <li>
+                    <a href="#csrcode"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>CSR</a>
+                </li>
+                <li>
+                    <a href="#securesiteseal"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>网站签章</a>
+                </li>
+            </ul>
     </div>
 {if $status==='configuration'}
     {include file="./enroll_csr.tpl"}
@@ -52,47 +74,9 @@
 
 {*证书已经签发*}
 {if $status === 'issued_active'}
-<div class="panel-product-details" style="text-align: left;">
-    <div class="panel-body">
-    <div class="module-client-area">
-        <div class="section">
-            <div class="section-header">
-                <h3 class="text-success"><span class="fa fa-check" style="margin-right: 5px;"></span> {$MODLANG.trustoceanssl.enroll.issued.title}</h3>
-                <p>{$MODLANG.trustoceanssl.enroll.issued.desc}</p>
-                {if $vars.error}
-                    {include file="$template/includes/alert.tpl" type="error" msg=$vars.error textcenter=false idname="alertModuleCustomButtonFailed"}
-                {/if}
-                {if $vars.info}
-                    {include file="$template/includes/alert.tpl" type="success" msg=$vars.info textcenter=false idname="alertModuleCustomButtonFailed"}
-                {/if}
-                <a style="margin-top:10px;margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=downloadcertificate" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia1}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.downloadcert}</a>
-                {*<a style="margin-top:10px;margin-right: 12px;" href="javascript:;" onclick="$('a[data-convertssl]').click();" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia2}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.convertcert}</a>*}
-                <a style="margin-top:10px;margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=prepareForReissue" class="btn btn-info btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia3}"><i class="fas fa-ticket ls ls-refresh"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.reissue}</a>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
 <div class="section" style="text-align: left;" >
-    <div class="panel panel-default ">
-        <div class="panel-nav">
-            <ul class="nav nav-tabs">
-                <li class="active">
-                    <a href="#certdetails" data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.certinfo}</a>
-                </li>
-                <li>
-                    <a href="#certificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.cert}</a>
-                </li>
-                <li>
-                    <a href="#chaincertificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
-                </li>
-                <li>
-                    <a href="#csrcode"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
-                </li>
-                <li>
-                    <a href="#securesiteseal"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>网站签章</a>
-                </li>
-            </ul>
+    <div class="">
+        <div class="">
         </div>
         <div class="tab-content">
             <div class="tab-pane" id="certificate">
@@ -116,11 +100,19 @@
             <div class="tab-pane" id="csrcode">
                 <ul class="list-info list-info-50 list-info-bordered cert-info-tb">
                     <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</span>
                         <textarea class="form-control" rows="25" style="width: 80%;">{$vars.csr}</textarea>
                     </li>
                 </ul>
             </div>
+
+            <div class="tab-pane" id="domains">
+                <ul class="list-info list-info-50 list-info-bordered cert-info-tb">
+                    <li>
+                        <pre style="width: 100%; min-height: 250px;">{$x509.extensions.subjectAltName}</pre>
+                    </li>
+                </ul>
+            </div>
+
             <div class="tab-pane" id="securesiteseal">
                 <div class="panel-body">
                     <p>请您将下列网站安全签章代码 复制安装到您网站的 <code>< /body ></code> 标签之前需要展示安全签章的位置: </p>
@@ -137,6 +129,19 @@
             </div>
 
             <div class="tab-pane active" id="certdetails">
+                <div class="section">
+                    <div class="section-header">
+                        {if $vars.error}
+                            {include file="$template/includes/alert.tpl" type="error" msg=$vars.error textcenter=false idname="alertModuleCustomButtonFailed"}
+                        {/if}
+                        {if $vars.info}
+                            {include file="$template/includes/alert.tpl" type="success" msg=$vars.info textcenter=false idname="alertModuleCustomButtonFailed"}
+                        {/if}
+                        <a style="margin-top:10px;margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=downloadcertificate" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia1}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.downloadcert}</a>
+                        {*<a style="margin-top:10px;margin-right: 12px;" href="javascript:;" onclick="$('a[data-convertssl]').click();" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia2}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.convertcert}</a>*}
+                        <a style="margin-top:10px;margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=prepareForReissue" class="btn btn-info btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia3}"><i class="fas fa-ticket ls ls-refresh"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.reissue}</a>
+                    </div>
+                </div>
                 <ul class="list-info list-info-50 list-info-bordered cert-info-tb">
                     <li>
                         <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.certno}</span>
@@ -167,14 +172,6 @@
                     <li>
                         <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.valid}</span>
                         <span class="list-info-text">{$MODLANG.trustoceanssl.enroll.issued.info.from}: {$x509.validFrom}<br>{$MODLANG.trustoceanssl.enroll.issued.info.to}: {$x509.validTo}</span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.sanname}</span>
-                        <span class="list-info-text">{$x509.extensions.subjectAltName}</span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.ct}</span>
-                        <span class="list-info-text"><i class="text-success" style="font-style: normal;"><span class="fa fa-check" style="margin-right: 5px;"></span></i>{$x509.extensions.ct_precert_scts}</span>
                     </li>
                 </ul>
             </div>
