@@ -89,6 +89,9 @@
                 <li>
                     <a href="#csrcode"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
                 </li>
+                <li>
+                    <a href="#securesiteseal"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>网站签章</a>
+                </li>
             </ul>
         </div>
         <div class="tab-content">
@@ -117,6 +120,20 @@
                         <textarea class="form-control" rows="25" style="width: 80%;">{$vars.csr}</textarea>
                     </li>
                 </ul>
+            </div>
+            <div class="tab-pane" id="securesiteseal">
+                <div class="panel-body">
+                    <p>请您将下列网站安全签章代码 复制安装到您网站的 <code>< /body ></code> 标签之前需要展示安全签章的位置: </p>
+                    <textarea style="width: 100%;background-color: whitesmoke;">{if $vars.isseal eq true}{$vars.sealid|escape:''}{else}您的证书还未签发, 签发后才可获取安全签章代码{/if}</textarea>
+                    <p>如果您想通过CSS来控制安全签章图片的展示位置和样式，您可以在CSS样式文件中增加选择器定义如下:</p>
+                    <pre>
+#trustoceanseal{
+/* 然后在此开始编写CSS代码*/
+    max-width: 100%;
+    height:37px;
+}</pre>
+                    <p class="text-danger">签章提醒: <ul><li>重签和续费证书将需要重新安装新的安全签章代码，原有的安全签章将会失效。</li><li>通配符证书无法安装和使用安全签章。</li></ul></p>
+                </div>
             </div>
 
             <div class="tab-pane active" id="certdetails">

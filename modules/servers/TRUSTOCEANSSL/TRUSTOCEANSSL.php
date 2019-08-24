@@ -1673,6 +1673,8 @@ function TRUSTOCEANSSL_ClientArea($vars) {
         $returnvars['csr'] = $service->csr_code;
         $returnvars['cert'] = $service->cert_code;
         $returnvars['chainscert'] = $service->ca_code;
+        $returnvars['isseal'] = true;
+        $returnvars['sealid'] = '<script data-sealid="'.$service->certificate_id.'" id="trustoceansealapp" type="text/javascript" src="https://www.trustocean.com/app/seal.min.js?version=1.0.1"></script>';
         $returnvars['csrobj'] = openssl_csr_get_subject($service->csr_code, false);
     }
 

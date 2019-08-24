@@ -178,6 +178,7 @@ class AdminController
         $localOrder->setCaCode($remoteOrder->getCaCode());
         $localOrder->setContactEmail($remoteOrder->getContactEmail());
         $localOrder->setRefundStatus($remoteOrder->getRefundStatus());
+        $localOrder->setCertificateId($remoteOrder->getCertificateId());
         $localOrder->flush();
 
         return "success";
