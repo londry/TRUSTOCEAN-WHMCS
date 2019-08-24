@@ -1,7 +1,7 @@
 <?php
 namespace WHMCS\Module\Server\TRUSTOCEANSSL\Controller;
-use Londry\TrustOceanSSL\api\SslOrder;
 use WHMCS\Module\Server\TRUSTOCEANSSL\Model\CertificateModel;
+use WHMCS\Module\Server\TRUSTOCEANSSL\ServiceProvider\TrustOceanSSL\RemoteService;
 use WHMCS\Module\Server\TRUSTOCEANSSL\TrustOceanAPI;
 use WHMCS\Database\Capsule;
 
@@ -14,6 +14,10 @@ class AdminController
 
     private $serviceModel;
 
+    private $remoteService_apiusername;
+
+    private $remoteService_apipassword;
+
     function __construct($serviceid = "")
     {
         // 加载本地证书服务模型
@@ -23,17 +27,17 @@ class AdminController
 
         // 初始化 API 服务
         $this->apiService = new TrustOceanAPI();
-        $api_username = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apiusername')->value('value');
-        $api_password = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apipassword')->value('value');
-        $this->initApiApplication($api_username, $api_password);
+        $this->remoteService_apiusername = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apiusername')->value('value');
+        $this->remoteService_apipassword = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apipassword')->value('value');
     }
 
     /**
      * @param $userName
      * @param $apiToken
+     * @return RemoteService
      */
-    private function initApiApplication($userName, $apiToken){
-        $this->apiApplication = new SslOrder($userName, $apiToken);
+    private function getRemoteService(){
+        return new RemoteService($this->remoteService_apiusername, $this->remoteService_apipassword);
     }
 
     /**
@@ -87,10 +91,10 @@ class AdminController
      * @return string
      */
     public function removeDomainName($requestParams){
-        $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
         $domainName = trim($requestParams['domain']);
         try{
-            $result = $this->apiApplication->callRemoveDomainName($domainName);
+
+            $result = $this->getRemoteService()->getService($this->serviceModel->getTrustoceanId())->removeDomainName($domainName);
 
             if($result === TRUE){
                 $dcvInfo = $this->serviceModel->getDcvInfo();
@@ -165,23 +169,31 @@ class AdminController
         if($this->serviceModel->getTrustoceanId() == ""){
             return "同步信息失败, 当前订单并未提交至签发系统";
         }
-        // 本地WHMCS订单
-        $localOrder = $this->serviceModel;
-        // 取回远端签发系统中的订单
-        $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
-        // 更新本地订单
-        $localOrder->setDomains($remoteOrder->getDomains());
-        $localOrder->setDcvInfo($remoteOrder->getDcvInfo());
-        $localOrder->setCsrCode($remoteOrder->getCsrCode());
-        $localOrder->setStatus($remoteOrder->getOrderStatus());
-        $localOrder->setCertCode($remoteOrder->getCertCode());
-        $localOrder->setCaCode($remoteOrder->getCaCode());
-        $localOrder->setContactEmail($remoteOrder->getContactEmail());
-        $localOrder->setRefundStatus($remoteOrder->getRefundStatus());
-        $localOrder->setCertificateId($remoteOrder->getCertificateId());
-        $localOrder->flush();
 
-        return "success";
+        try{
+            // 本地WHMCS订单
+            $localOrder = $this->serviceModel;
+            // 取回远端签发系统中的订单
+            $remoteOrder = $this->getRemoteService()->getService($this->serviceModel->getTrustoceanId());
+            // 更新本地订单
+            $localOrder->setDomains($remoteOrder->getDomains());
+            $localOrder->setDcvInfo($remoteOrder->getDcvInfo());
+            $localOrder->setCsrCode($remoteOrder->getCsrCode());
+            $localOrder->setStatus($remoteOrder->getOrderStatus());
+            $localOrder->setCertCode($remoteOrder->getCertCode());
+            $localOrder->setCaCode($remoteOrder->getCaCode());
+            $localOrder->setContactEmail($remoteOrder->getContactEmail());
+            $localOrder->setRefundStatus($remoteOrder->getRefundStatus());
+            $localOrder->setCertificateId($remoteOrder->getCertificateId());
+
+            return "获得ID: ".$remoteOrder->getCertificateId();
+            $localOrder->flush();
+
+            return "success";
+        }catch(\Exception $exception){
+            return $exception->getMessage();
+        }
+
     }
 
     /**
@@ -196,8 +208,8 @@ class AdminController
 
         try{
             // 取回远端签发系统中的订单
-            $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
-            $remoteOrder->callCancelAndRevokeCertificate();
+            $this->getRemoteService()->getService($this->serviceModel->getTrustoceanId())->cancelAndRefund();
+
             // 本地WHMCS订单
             $localOrder = $this->serviceModel;
             $localOrder->setIsRequestedRefund(1);
@@ -222,8 +234,7 @@ class AdminController
         }
         try {
             // 取回远端签发系统中的订单
-            $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
-            $remoteOrder->callRevokeCertificate($revocationReason);
+            $this->getRemoteService()->getService($this->serviceModel->getTrustoceanId())->revoke($revocationReason);
             return "success";
         }catch(\Exception $exception){
             return $exception->getMessage();
@@ -241,8 +252,7 @@ class AdminController
         }
         try {
             // 取回远端签发系统中的订单
-            $remoteOrder = $this->apiApplication->callInit($this->serviceModel->getTrustoceanId());
-            $remoteOrder->callRetryDcvProcess();
+            $this->getRemoteService()->getService($this->serviceModel->getTrustoceanId())->retryDcvProcess();
             return "success";
         }catch(\Exception $exception){
             return $exception->getMessage();
