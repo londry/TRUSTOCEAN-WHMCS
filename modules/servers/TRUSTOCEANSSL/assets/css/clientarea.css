@@ -254,7 +254,7 @@ transform: rotate(359deg);
 .table.to-dcv-table>tbody>tr>td,.table.to-dcv-table>tbody>tr>th{
     vertical-align: middle;
 }
-.nav-tabs>li>a,.nav-tabs>li>a:hover,.nav-tabs>li.active>a {
+.admin-tabs>li>a,.admin-tabs>li>a:hover,.admin-tabs>li.active>a {
     margin-right: 2px;
     line-height: 1.42857143;
     border-radius: 4px 4px 0 0;
@@ -263,15 +263,15 @@ transform: rotate(359deg);
     padding: 0px;
     color: #ffffff !important;
 }
-.nav-tabs>li{
+.admin-tabs>li{
     padding: 0px 10px;
 }
-.nav-tabs>li.active>a,.nav-tabs>li.active>a:hover,.nav-tabs>li.active>a:focus{
+.admin-tabs>li.active>a,.nav-tabs>li.active>a:hover,.nav-tabs>li.active>a:focus{
     background: none;
     border: none;
     border-bottom: 1px solid #ffffff !important;
 }
-.nav-tabs>li.active>a{
+.admin-tabs>li.active>a{
     text-decoration: solid #ffffff;
 }
 
