@@ -281,3 +281,17 @@ transform: rotate(359deg);
 .list-info-title{
     width: 150px;
 }
+table.datatable td {
+    padding: 3px;
+    background-color: #fff;
+    border-bottom: 1px solid #ebebeb;
+}
+table.datatable>tbody>tr>td:nth-child(1) {
+    border-bottom: 1px solid #ffffff;
+}
+.datatable.to-table>tbody>tr>td:nth-child(1){
+    background-color: #efefef;
+}
+.datatable.to-table>tbody>tr>td{
+    padding: 5px 10px;
+}

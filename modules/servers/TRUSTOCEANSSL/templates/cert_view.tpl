@@ -137,43 +137,49 @@
                         {if $vars.info}
                             {include file="$template/includes/alert.tpl" type="success" msg=$vars.info textcenter=false idname="alertModuleCustomButtonFailed"}
                         {/if}
-                        <a style="margin-top:10px;margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=downloadcertificate" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia1}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.downloadcert}</a>
-                        {*<a style="margin-top:10px;margin-right: 12px;" href="javascript:;" onclick="$('a[data-convertssl]').click();" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia2}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.convertcert}</a>*}
-                        <a style="margin-top:10px;margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=prepareForReissue" class="btn btn-info btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia3}"><i class="fas fa-ticket ls ls-refresh"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.reissue}</a>
                     </div>
                 </div>
-                <ul class="list-info list-info-50 list-info-bordered cert-info-tb">
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.certno}</span>
-                        <span class="list-info-text">{$x509.serialNumber}</span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.cnname}</span>
-                        <span class="list-info-text">{$x509.subject.CN}</span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.status}</span>
-                        <span class="list-info-text">
-                            <i class="text-success" style="font-style: normal;"><span class="fa fa-check" style="margin-right: 5px;"></span> Valid</i>
-                        </span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.ca}</span>
-                        <span class="list-info-text">{$x509.issuer.O}</span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.subca}</span>
-                        <span class="list-info-text">{$x509.issuer.CN}</span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.signaglor}</span>
-                        <span class="list-info-text">SN: {$x509.signatureTypeSN}<br>LN: {$x509.signatureTypeLN}</span>
-                    </li>
-                    <li>
-                        <span class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.valid}</span>
-                        <span class="list-info-text">{$MODLANG.trustoceanssl.enroll.issued.info.from}: {$x509.validFrom}<br>{$MODLANG.trustoceanssl.enroll.issued.info.to}: {$x509.validTo}</span>
-                    </li>
-                </ul>
+                <table class="datatable to-table" width="100%">
+                    <tbody>
+                        <tr>
+                            <td colspan="2">
+                                <a style="margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=downloadcertificate" class="btn btn-success btn-sm" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia1}">{$MODLANG.trustoceanssl.enroll.issued.btn.downloadcert}</a>
+                                {*<a style="margin-top:10px;margin-right: 12px;" href="javascript:;" onclick="$('a[data-convertssl]').click();" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia2}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.convertcert}</a>*}
+                                <a href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=prepareForReissue" class="btn btn-success btn-sm" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia3}">{$MODLANG.trustoceanssl.enroll.issued.btn.reissue}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{$MODLANG.trustoceanssl.enroll.issued.info.certno}</td>
+                            <td class="list-info-text">{$x509.serialNumber}</td>
+                        </tr>
+                        <tr>
+                            <td class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.cnname}</td>
+                            <td class="list-info-text">{$x509.subject.CN}</td>
+                        </tr>
+                        <tr>
+                            <td class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.status}</td>
+                            <td class="list-info-text">
+                                <i class="text-success" style="font-style: normal;"><span class="fa fa-check" style="margin-right: 5px;"></span> Valid</i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.ca}</td>
+                            <td class="list-info-text">{$x509.issuer.O}</td>
+                        </tr>
+                        <tr>
+                            <td class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.subca}</td>
+                            <td class="list-info-text">{$x509.issuer.CN}</td>
+                        </tr>
+                        <tr>
+                            <td class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.signaglor}</td>
+                            <td class="list-info-text">SN: {$x509.signatureTypeSN}<br>LN: {$x509.signatureTypeLN}</td>
+                        </tr>
+                        <tr>
+                            <td class="list-info-title">{$MODLANG.trustoceanssl.enroll.issued.info.valid}</td>
+                            <td class="list-info-text">{$MODLANG.trustoceanssl.enroll.issued.info.from}: {$x509.validFrom}<br>{$MODLANG.trustoceanssl.enroll.issued.info.to}: {$x509.validTo}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="tab-pane" id="convertssl">
                 <div class="panel-body">
