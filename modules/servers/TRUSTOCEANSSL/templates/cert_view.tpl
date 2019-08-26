@@ -18,11 +18,13 @@
     }
 </style>
 <div style="text-align: left !important;background: #fff;border: 1px solid #eee;padding: 10px;">
+
     <div style="margin-bottom:15px;background-color: black; padding: 10px;margin-left: -10px; margin-right: -10px; margin-top: -10px;">
         <ul class="nav nav-tabs admin-tabs" style="padding: 5px 10px; background-color: #000000; border-radius: 3px;">
                 <li style="padding-left: 0px;">
                     <img src="/modules/servers/TRUSTOCEANSSL/assets/img/sslmanagement.svg" height="25px;">
                 </li>
+            {if $status==='issued_active'}
                 <li class="active">
                     <a href="#certdetails" data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.certinfo}</a>
                 </li>
@@ -41,8 +43,10 @@
                 <li>
                     <a href="#securesiteseal"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>网站签章</a>
                 </li>
+            {/if}
             </ul>
     </div>
+
 {if $status==='configuration'}
     {include file="./enroll_csr.tpl"}
 {/if}

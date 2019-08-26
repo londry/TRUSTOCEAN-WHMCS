@@ -258,4 +258,13 @@ class AdminController
             return $exception->getMessage();
         }
     }
+
+    /**
+     * 升级 SAN 域名额度
+     * @param $vars
+     * @return string
+     */
+    public function upgradeSanCount($vars){
+        return "success";
+    }
 }

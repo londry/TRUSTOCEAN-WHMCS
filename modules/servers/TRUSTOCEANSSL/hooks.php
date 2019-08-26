@@ -17,87 +17,7 @@ add_hook('ClientAreaHomepage', 1, function ()
  * @param $vars
  * @return mixed|void
  */
-function trustoceansslUnableDowngradeConfigOption($vars)
-{
-    # 语言文件
-    GLOBAL $MODLANG;
-    require_once __DIR__.'/libary/languageLoader.php';
-    $langLoader = new lanaguageLoader($_SESSION);
-    $MODLANG = $langLoader->loading();
 
-    if (isset($vars['filename'], $vars['templatefile'], $_REQUEST['type']) && $vars['filename'] == 'upgrade' && $_REQUEST['type'] == 'configoptions')
-    {
-        if(isset($_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError']) && $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] != '')
-        {
-            //diplay downgrade error message
-            global $smarty;
-            $error = $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'];
-            $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] = '';
-            unset($_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError']);
-
-            $smarty->assign("errormessage", $error);
-        }
-
-        if(!isset($_REQUEST['step']) ||  $_REQUEST['step'] != '2')
-            return;
-
-        $serviceID = NULL;
-        if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id']))
-            $serviceID = $_REQUEST['id'];
-
-        if ($serviceID === NULL)
-            return;
-
-        $sslService        = Capsule::table('tbltrustocean_certificate')->where('serviceid', $serviceID)->first();
-
-        //check if service id goget product
-        if (empty($sslService))
-            return;
-
-        //get config option id
-        // 获取ORDER信息 参考 WHMCS数据库 tblhosting
-        // Define parameters
-        $command = 'GetClientsProducts';
-        $values = array(
-            'serviceid' => $serviceID,
-        );
-
-        // Call the localAPI function
-        $results = localAPI($command, $values);
-        $hosting = $results['products']['product'][0];
-
-        // 找到当前的配置
-        foreach ($hosting['configoptions']['configoption'] as $opt){
-            if($opt['option'] === "DomainCount" && $opt['type'] === "quantity"){
-                $domaincount = $opt;
-            }
-        }
-        $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $serviceID)->where('configid', $domaincount['id'])->value('optionid');
-
-        $whmcs = WHMCS\Application::getInstance();
-        $configoption = $whmcs->get_req_var("configoption");
-
-        // todo:: 检查是不是降级
-        if((int)$configoption["$optionId"] < $domaincount['value']){
-            $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] = $MODLANG['trustoceanssl']['enroll']['upgrade']['cannotdowngrade'];
-            redir('type=configoptions&id=' . $serviceID);
-        }
-
-
-        // todo:: 检查订单状态
-        if ($sslService->status !== 'issued_active' AND $sslService->status !== 'configuration' AND $sslService->status !== 'enroll_domains')
-        {
-            $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] = $MODLANG['trustoceanssl']['enroll']['upgrade']['cannotupgrade'];
-            redir('type=configoptions&id=' . $serviceID);
-        }
-
-        return trustoceanSslAddSanToCertOrderAndGetInvoice(array(
-            'serviceid'=>$serviceID,
-            'newSan' => (int)$configoption["$optionId"] - $domaincount['value'],
-            'sanTotal' => (int)$configoption["$optionId"],
-        ));
-    }
-}
 
 /**
  * 添加SAN订单 并且生成SAN账单
@@ -135,7 +55,7 @@ function trustoceanSslAddSanToCertOrderAndGetInvoice($vars){
 
         // 找到当前的配置
         foreach ($hosting['configoptions']['configoption'] as $opt){
-            if($opt['option'] === "DomainCount" && $opt['type'] === "quantity"){
+            if($opt['type'] === "quantity"){
                 $domaincount = $opt;
             }
         }
@@ -217,7 +137,89 @@ function trustoceanSslAddSanToCertOrderAndGetInvoice($vars){
 /**
  * 处理SAN升级业务
  */
-add_hook('ClientAreaPageUpgrade', 1, 'trustoceansslUnableDowngradeConfigOption');
+add_hook('ClientAreaPageUpgrade', 1, function($vars)
+{
+    # 语言文件
+    GLOBAL $MODLANG;
+    require_once __DIR__.'/libary/languageLoader.php';
+    $langLoader = new lanaguageLoader($_SESSION);
+    $MODLANG = $langLoader->loading();
+
+    if (isset($vars['filename'], $vars['templatefile'], $_REQUEST['type']) && $vars['filename'] == 'upgrade' && $_REQUEST['type'] == 'configoptions')
+    {
+        if(isset($_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError']) && $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] != '')
+        {
+            //diplay downgrade error message
+            global $smarty;
+            $error = $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'];
+            $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] = '';
+            unset($_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError']);
+
+            $smarty->assign("errormessage", $error);
+        }
+
+        if(!isset($_REQUEST['step']) ||  $_REQUEST['step'] != '2')
+            return;
+
+        $serviceID = NULL;
+        if (isset($_REQUEST['id']) && is_numeric($_REQUEST['id']))
+            $serviceID = $_REQUEST['id'];
+
+        if ($serviceID === NULL)
+            return;
+
+        $sslService        = Capsule::table('tbltrustocean_certificate')->where('serviceid', $serviceID)->first();
+
+        //check if service id goget product
+        if (empty($sslService))
+            return;
+        //get config option id
+        // 获取ORDER信息 参考 WHMCS数据库 tblhosting
+        // Define parameters
+        $command = 'GetClientsProducts';
+        $values = array(
+            'serviceid' => $serviceID,
+        );
+
+        // Call the localAPI function
+        $results = localAPI($command, $values);
+        $hosting = $results['products']['product'][0];
+
+        // 找到当前的配置
+        foreach ($hosting['configoptions']['configoption'] as $opt){
+            if($opt['type'] === "quantity"){
+                $domaincount = $opt;
+            }
+        }
+
+        $whmcs = WHMCS\Application::getInstance();
+        $configoption = $whmcs->get_req_var("configoption");
+
+        $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $serviceID)->where('configid', $domaincount['id'])->value('optionid');
+
+        // todo:: 检查是不是降级
+        if((int)$configoption["$optionId"] < $domaincount['value']){
+            $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] = $MODLANG['trustoceanssl']['enroll']['upgrade']['cannotdowngrade'];
+            redir('type=configoptions&id=' . $serviceID);
+        }
+
+        // todo:: 检查订单状态
+        if ($sslService->status !== 'issued_active' AND $sslService->status !== 'configuration' AND $sslService->status !== 'enroll_domains')
+        {
+            $_SESSION['TRUSTOCEANSSL_configOpsCustomValidateError'] = $MODLANG['trustoceanssl']['enroll']['upgrade']['cannotupgrade'];
+            redir('type=configoptions&id=' . $serviceID);
+        }
+
+
+        $requestParams = array(
+            'serviceid'=>$serviceID,
+            'newSan' => (int)$configoption["$optionId"] - $domaincount['value'],
+            'sanTotal' => (int)$configoption["$optionId"],
+        );
+
+        return trustoceanSslAddSanToCertOrderAndGetInvoice($requestParams);
+    }
+});
 
 /**
  * 检查SAN账单支付情况并且新增额度到现在的数据库
@@ -246,7 +248,7 @@ add_hook('InvoicePaid', 1, function($vars) {
 
     // 找到当前的配置
     foreach ($hosting['configoptions']['configoption'] as $opt){
-        if($opt['option'] === "DomainCount" && $opt['type'] === "quantity"){
+        if($opt['type'] === "quantity"){
             $domaincount = $opt;
         }
     }

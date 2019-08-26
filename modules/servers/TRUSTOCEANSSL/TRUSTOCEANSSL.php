@@ -103,6 +103,17 @@ function TRUSTOCEANSSL_retryDcvProcess($vars){
     $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
     return $adminController->retryDcvProcess();
 }
+
+/**
+ * 升级证书的 SAN 域名额度
+ * @param $vars
+ * @return string
+ */
+function TRUSTOCEANSSL_ChangePackage($vars){
+    $adminController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController($vars['serviceid']);
+    $adminController->upgradeSanCount($vars);
+}
+
 /**
  * 客户端异步获取域名验证状态
  * @param $vars
