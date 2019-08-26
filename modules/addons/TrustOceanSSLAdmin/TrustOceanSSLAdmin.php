@@ -157,7 +157,7 @@ function TrustOceanSSLAdmin_getProductSANValue($vars){
     $hosting = $results['products']['product'][0];
     // 找到当前的配置
     foreach ($hosting['configoptions']['configoption'] as $opt){
-        if($opt['option'] === "DomainCount" && $opt['type'] === "quantity"){
+        if($opt['type'] === "quantity"){
             $domaincount = $opt;
         }
     }
@@ -178,4 +178,15 @@ function TrustOceanSSLAdmin_getProductSANValue($vars){
 function checkExpireDate($cert_code){
     $info = openssl_x509_parse($cert_code, TRUE);
     return $info;
+}
+
+/**
+ * 客户区域 证书管理详情页
+ * @param $vars
+ * @return array
+ */
+function TrustOceanSSLAdmin_clientarea($vars){
+    require_once __DIR__.'/lib/Controller/ClientController.php';
+    $clientController = new \WHMCS\Module\Addon\TrustOceanAdmin\Controller\ClientController();
+    return $clientController->clientArea($vars);
 }
