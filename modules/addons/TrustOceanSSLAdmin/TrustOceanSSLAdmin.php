@@ -1,6 +1,7 @@
 <?php
 
 use WHMCS\Database\Capsule;
+use WHMCS\Module\Addon\TrustOceanSSLAdmin\Dispatcher\ClientDispatcher;
 
 /**
  * Function for installation activate
@@ -186,7 +187,7 @@ function checkExpireDate($cert_code){
  * @return array
  */
 function TrustOceanSSLAdmin_clientarea($vars){
-    require_once __DIR__.'/lib/Controller/ClientController.php';
-    $clientController = new \WHMCS\Module\Addon\TrustOceanAdmin\Controller\ClientController();
-    return $clientController->clientArea($vars);
+    $action = isset($_REQUEST['action']) ? $_REQUEST['action']:'';
+    $dispatcher = new ClientDispatcher();
+    return $dispatcher->dispatch($action, $vars);
 }
