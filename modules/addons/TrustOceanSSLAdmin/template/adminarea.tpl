@@ -40,6 +40,56 @@
         {include file="./includes/adminOrderList.tpl"}
     </div>
     <div class="tab-pane" id="tabApis">
-        asdfsad
+        <form action="addonmodules.php?module=TrustOceanSSLAdmin&action=updateApiConfig" method="post">
+            <table class="datatable to-table" style="width: 100%;">
+                <tbody>
+                    <tr>
+                        <td style="width: 150px;">
+                            API 账户
+                        </td>
+                        <td>
+                            <input name="apiusername" value="{$moduleSetting.username}" class="form-control input-300" placeholder="someone.api@trustocean.com">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">
+                            API Token
+                        </td>
+                        <td>
+                            <input name="apipassword" value="{$moduleSetting.password}" class="form-control input-500" placeholder="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">
+                            API Salt
+                        </td>
+                        <td>
+                            <input name="apiunicodesalt" value="{$moduleSetting.salt}" class="form-control input-300" placeholder="">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 150px;">
+                            API 接入点
+                        </td>
+                        <td>
+                            <select name="apiservertype" class="form-control select-inline">
+                                <option value="CN-Beijing" {if $moduleSetting.servertype eq "CN-Beijing"}selected="selected"{/if}>CN-Beijing</option>
+                                <option value="UK-London" {if $moduleSetting.servertype eq "UK-London"}selected="selected"{/if}>UK-London</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <button type="submit" class="btn btn-success btn-sm">保 存</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                提示: 请您访问 经销商账户的 <a target="_blank" href="https://console.trustocean.com/partner/api-setting">API设置页面</a> 查询相关配置信息.
+            </p>
+        </form>
     </div>
 </div>

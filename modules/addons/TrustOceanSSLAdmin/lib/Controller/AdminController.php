@@ -6,6 +6,26 @@ class AdminController
 {
     public function index($vars){
         $smarty = new \Smarty();
+
+        // 查询模块的API设置
+        $apiusername = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apiusername')->first();
+
+        $apipassword = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apipassword')->first();
+
+        $apisalt = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apiunicodesalt')->first();
+
+        $servertype = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apiservertype')->first();
+        $moduleApiSetting = [
+            "username"   => $apiusername->value,
+            "password"   => $apipassword->value,
+            "salt"       => $apisalt->value,
+            "servertype" => $servertype->value
+        ];
+        $smarty->assign('moduleSetting', $moduleApiSetting);
         $smarty->display(__DIR__."/../../template/adminarea.tpl");
     }
 
@@ -293,5 +313,31 @@ class AdminController
         }
 
         return $sslArray;
+    }
+
+    /**
+     * 保存 API 设置
+     * @param $vars
+     */
+    public function updateApiConfig($vars){
+
+        Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apiusername')->update(array(
+                'value' => $_REQUEST['apiusername']
+            ));
+        Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apipassword')->update(array(
+                'value' => $_REQUEST['apipassword']
+            ));
+        Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apiunicodesalt')->update(array(
+                'value' => $_REQUEST['apiunicodesalt']
+            ));
+        Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','apiservertype')->update(array(
+                'value' => $_REQUEST['apiservertype']
+            ));
+
+        header('Location: addonmodules.php?module=TrustOceanSSLAdmin');
     }
 }
