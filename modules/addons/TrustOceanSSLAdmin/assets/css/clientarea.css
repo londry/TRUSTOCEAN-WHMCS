@@ -24,3 +24,35 @@
     color: #FF9800;
     margin-left: 5px;
 }
+.dataTables_wrapper .dataTables_info{
+    background: #f6f7f8;
+    border-bottom: 1px solid #e6e8ec;
+    color: #7c8088;
+    border-top: 1px solid #e6e8ec;
+    border-left: 1px solid #e6e8ec;
+    border-right: 1px solid #e6e8ec;
+}
+table.dataTable{
+    border: 1px solid #e6e8ec;
+    margin-top: 0 !important;
+    border-top: none;
+    margin-bottom: 0 !important;
+    border-bottom: none;
+}
+.dataTables_wrapper .dataTables_length{
+    border: 1px solid #e6e8ec;
+}
+.dataTables_wrapper .dataTables_filter label .form-control{
+    border: 1px solid #e6e8ec;
+}
+.table>tbody>tr>th, .table>thead>tr>th, table>tbody>tr>th, table>thead>tr>th{
+    height: 40px;
+    padding: 10px 16px;
+    position: relative;
+    vertical-align: middle;
+    font-size: 12px;
+    line-height: 16px;
+    color: #7c8088;
+    font-weight: 400;
+    background: #fff;
+}
