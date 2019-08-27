@@ -1,0 +1,24 @@
+.dataTables_filter{
+    background: #1a4d80;
+    border-bottom: 1px solid #1a4d80;
+    color: #7c8088;
+    border-top: 1px solid #1a4d80;
+    border-left: 1px solid #1a4d80;
+    border-right: 1px solid #1a4d80;
+    padding: 10px;
+}
+.dataTables_info,.dataTables_length{
+    display: none;
+}
+.dataTables_paginate.paging_simple_numbers{
+    background: #1a4d80;
+    border-bottom: 1px solid #1a4d80;
+    color: #7c8088;
+    border-top: 1px solid #1a4d80;
+    border-left: 1px solid #1a4d80;
+    border-right: 1px solid #1a4d80;
+    padding: 10px;
+}
+.to-ssl-management-table>thead>tr>th {
+    padding: 0 10px;
+}

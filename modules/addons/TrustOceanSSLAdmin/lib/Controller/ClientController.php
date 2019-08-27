@@ -38,7 +38,7 @@ class ClientController
 
         // 默认的分页查询参数 起始页
         if(!$_REQUEST['start']){
-            $pageStart = 1;
+            $pageStart = 0;
         }else{
             $pageStart = (int)$_REQUEST['start'];
         }
@@ -97,7 +97,7 @@ class ClientController
 
         // 默认的分页查询参数 起始页
         if(!$_REQUEST['start']){
-            $pageStart = 1;
+            $pageStart = 0;
         }else{
             $pageStart = (int)$_REQUEST['start'];
         }
