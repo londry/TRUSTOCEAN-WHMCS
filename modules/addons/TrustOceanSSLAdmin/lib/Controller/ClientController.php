@@ -140,6 +140,17 @@ class ClientController
         ]));
     }
 
+    /**
+     * 获取 WHMCS 内配置的 SAN COUNT
+     * @param $serviceid
+     * @return mixed
+     */
+    private function getSanCount($serviceid){
+        $hostingConfiguration = Capsule::table('tblhostingconfigoptions')
+            ->where('relid', $serviceid)->first();
+        return $hostingConfiguration->qty;
+    }
+
     private function formatOutputAndClean($certificateObject){
         $sslArray = json_decode(json_encode($certificateObject, 1, 10), 1, 10);
         foreach ($sslArray as $key=>$sslitem){
@@ -240,6 +251,7 @@ class ClientController
             }
 
             if($sslitem['multidomain'] === 1){
+                $sslitem['domain_count'] = $this->getSanCount($sslitem['serviceid']);
                 $sanitem = '<span class="tag-w5">'.$sslitem['domain_count'].' SAN</span>';
             }else{
                 $sanitem = '';
@@ -247,9 +259,7 @@ class ClientController
 
             $sslArray[$key]['name'] = '<div>'.$sslArray[$key]['name'].'</div><span style="font-weight: 500; font-size: 16px;">'.$sslArray[$key]['domains'][0].'</span><div>'.$periodItem.$sanitem.'</div>';
 
-            $sslArray[$key]['manage'] = '<a href="/clientarea.php?action=productdetails&amp;id='.$sslitem['serviceid'].'" target="_blank" class="btn btn-sm btn-primary">管理</a>';
-
-
+            $sslArray[$key]['manage'] = '<a href="clientarea.php?action=productdetails&amp;id='.$sslitem['serviceid'].'" target="_blank" class="btn btn-sm btn-primary">管理</a>';
 
             $domainString = "";
             if(strlen($sslitem['domains']) > 2){
@@ -257,7 +267,7 @@ class ClientController
                 foreach ($domainsArray as $domain){
                     $domainString = $domainString.$domain."\r\n";
                 }
-                $sslArray[$key]['domain_string'] = '<button class="btn btn-sm btn-info" data-toggle="modal" data-target="#myDomainModal'.md5($sslitem['serviceid']).'">查看域名</button><div class="modal fade" id="myDomainModal'.md5($sslitem['serviceid']).'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                $sslArray[$key]['domain_string'] = '<button class="btn btn-xs btn-info" data-toggle="modal" data-target="#myDomainModal'.md5($sslitem['serviceid']).'">查看域名</button><div class="modal fade" id="myDomainModal'.md5($sslitem['serviceid']).'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

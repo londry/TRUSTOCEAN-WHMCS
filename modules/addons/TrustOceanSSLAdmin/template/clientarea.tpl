@@ -75,7 +75,7 @@
             //"filter": false,{/if}
             //"bProcessing": true,
             "ajax":{
-                'url':"/index.php?m=TrustOceanSSLAdmin&action=getMyCertificateList&status={$smarty.get.cat}",
+                'url':"index.php?m=TrustOceanSSLAdmin&action=getMyCertificateList&status={$smarty.get.cat}",
                 'type':'POST'
             },
             "oLanguage": {ldelim}
