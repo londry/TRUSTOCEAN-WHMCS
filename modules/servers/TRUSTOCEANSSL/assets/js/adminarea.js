@@ -49,10 +49,20 @@ var TRUSTOCEANSSLModelApp = {
                 if (data.success && data.redirect) {
                     data = data.redirect;
                 }
-                $("#servicecontent").html(data);
+                if(data.body !== undefined){
+                    // WHMCS 7.7.x 后端响应格式为 json Object
+                    $("#servicecontent").html(data.body);
                     $('html, body').animate({
                         scrollTop: $('.client-tabs').offset().top - 10
                     }, 500);
-                });
+                }else{
+                    // WHMCS 7.7.x 之前 响应格式为 html string
+                    $("#servicecontent").html(data);
+                    $('html, body').animate({
+                        scrollTop: $('.client-tabs').offset().top - 10
+                    }, 500);
+                }
+
+            });
     }
 };
