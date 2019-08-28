@@ -112,6 +112,13 @@ class AdminController
                 // 保存修改到数据库
                 $this->serviceModel->flush();
 
+                // 保存新的主域名至数据库字段 tblhosting.domain
+                Capsule::table('tblhosting')->where('userid', $this->serviceModel->getUid())
+                    ->where('id', $this->serviceModel->getServiceid())
+                    ->update([
+                        'domain' => $newDomains[0]
+                    ]);
+
                 return "success";
 
             }else{
@@ -186,8 +193,15 @@ class AdminController
             $localOrder->setContactEmail($remoteOrder->getContactEmail());
             $localOrder->setRefundStatus($remoteOrder->getRefundStatus());
             $localOrder->setCertificateId($remoteOrder->getCertificateId());
-
             $localOrder->flush();
+
+            // 保存新的主域名至数据库字段 tblhosting.domain
+            $newDomains = $remoteOrder->getDomains();
+            Capsule::table('tblhosting')->where('userid', $this->serviceModel->getUid())
+                ->where('id', $this->serviceModel->getServiceid())
+                ->update([
+                    'domain' => $newDomains[0]
+                ]);
 
             return "success";
         }catch(\Exception $exception){

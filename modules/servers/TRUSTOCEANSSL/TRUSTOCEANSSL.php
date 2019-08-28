@@ -836,6 +836,13 @@ function TRUSTOCEANSSL_ajaxTryToReissueSSL($vars){
         $caprams['domains'] = $domainString;
     }
 
+    // 更新主域名至数据库字段 tblhosting.domain
+    Capsule::table('tblhosting')->where('userid', $_SESSION['uid'])
+        ->where('id', $vars['serviceid'])
+        ->update([
+            'domain' => $domains['domains'][0]
+        ]);
+
     # todo:: DCV信息列表
     $dcvString = "";
     foreach (TRUSTOCEANSSL_findDcvDomains($domains['domains']) as $domain => $info){
@@ -1820,6 +1827,13 @@ function TRUSTOCEANSSL_ajaxUploadCertInfo($vars){
         $csr_code = $requestParams['csrcode'];
         $key_code  = NULL;
     }
+
+    // 更新主域名至数据库字段 tblhosting.domain
+    Capsule::table('tblhosting')->where('userid', $_SESSION['uid'])
+        ->where('id', $vars['serviceid'])
+        ->update([
+            'domain' => $domains['domains'][0]
+        ]);
 
     // 更新数据库信息
     $updateParams = array(
