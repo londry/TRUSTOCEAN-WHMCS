@@ -137,7 +137,8 @@ function TrustOceanSSLAdmin_config() {
         "apiunicodesalt" => array ("FriendlyName" => "API Salt", "Type" => "text", "Size" => "35",
                               "Description" => "Check your API Salt at <a target='_blank' href='https://console.trustocean.com/partner/api-setting'>Partner API Setting Page</a>." ),
         "apiservertype" => array("FriendlyName" => "API Server Location", "Type" => "dropdown", "Options" =>
-                              "CN-Beijing,UK-London", "Description" => "Choose the best API access point based on your server location.", "Default" => "CN-Beijin",)
+                              "CN-Beijing,UK-London", "Description" => "Choose the best API access point based on your server location.", "Default" => "CN-Beijin",),
+        "privatekey" => array("FriendlyName" => "PUSH Private Key", "Type" => "textarea", "Description" => "1024 bit RSA Private Key in PEM format.")
     ));
     return $configarray;
 }

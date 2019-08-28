@@ -19,11 +19,16 @@ class AdminController
 
         $servertype = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
             ->where('setting','apiservertype')->first();
+
+        $privatekey = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','privatekey')->first();
+
         $moduleApiSetting = [
             "username"   => $apiusername->value,
             "password"   => $apipassword->value,
             "salt"       => $apisalt->value,
-            "servertype" => $servertype->value
+            "servertype" => $servertype->value,
+            "privateKey" => $privatekey->value
         ];
         $smarty->assign('moduleSetting', $moduleApiSetting);
         $smarty->display(__DIR__."/../../template/adminarea.tpl");
@@ -336,6 +341,10 @@ class AdminController
         Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
             ->where('setting','apiservertype')->update(array(
                 'value' => $_REQUEST['apiservertype']
+            ));
+        Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','privatekey')->update(array(
+                'value' => $_REQUEST['privatekey']
             ));
 
         header('Location: addonmodules.php?module=TrustOceanSSLAdmin');

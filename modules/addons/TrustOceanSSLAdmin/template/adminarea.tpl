@@ -79,6 +79,15 @@
                         </td>
                     </tr>
                     <tr>
+                        <td style="width: 150px;">
+                            API PUSH 私钥
+                        </td>
+                        <td>
+                            <textarea name="privatekey" class="form-control input-500" style="min-height: 250px;" placeholder="">{$moduleSetting.privateKey}</textarea>
+                            <p>提示: 用于验证 PUSH 通知的 1024位 RSA Private Key, 要想使用PUSH加密功能, 您还需要同时在 <a target="_blank" href="https://console.trustocean.com/partner/api-setting">API配置页面</a> 填写此私钥对应的RSA公钥。</p>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
                         </td>
                         <td>
