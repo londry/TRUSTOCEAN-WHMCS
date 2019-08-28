@@ -17,12 +17,12 @@
 </div>
 <div class="panel-footer clearfix">
 <div class="col-xs-6 col-button-left">
-<a class="btn btn-success btn-md btn-block" href="/clientarea.php?action=productdetails&id={$smarty.session.service_id}">
+<a class="btn btn-success btn-md btn-block" href="clientarea.php?action=productdetails&id={$smarty.session.service_id}">
 <span class="fa fa-book" style='margin-right: 5px;'></span> {$MODLANG.trustoceanssl.enroll.sider.certinfo}
 </a>
 </div>
 <div class="col-xs-6 col-button-right">
-<a class="btn btn-info btn-md btn-block" href="/clientarea.php?action=services">
+<a class="btn btn-info btn-md btn-block" href="index.php?m=TrustOceanSSLAdmin">
 <span class="fa fa-reply" style='margin-right: 5px;'></span> {$MODLANG.trustoceanssl.enroll.sider.certlist}
 </a>
 </div>

@@ -316,7 +316,7 @@ class RemoteService extends Order
         $params['password'] =  $this->password;
         $postVars = http_build_query($params);
 
-        $apiURL = "https://api.trustocean.com/ssl/v2/$method"; // API Endpoint located in Beijing CN
+        $apiURL = "https://api.trustocean.com/ssl/v5/$method"; // API Endpoint located in Beijing CN
         // $apiURL = "https://sapi.trustocean.com/ssl/v3/$method"; // API Endpoint located in London UK
 
         $curlHandle = curl_init ();
@@ -329,7 +329,6 @@ class RemoteService extends Order
         if (!curl_error ($curlHandle)) {
             curl_close ($curlHandle);
             $result = json_decode($callResult, 1, 10);
-            //var_dump($result);die();
             if($result['status'] === 'error'){
                 throw new TrustoceanException($result['message'], 25000);
             }else{

@@ -211,7 +211,11 @@
                     <td style="padding: 10px;width: 100px;">{$info.method|upper}</td>
                     <td style="padding: 10px;width: 100px;">{$info.status}</td>
                     <td style="padding: 10px;width: 100px;">
-                        <button type="button" onclick="TRUSTOCEANSSLModelApp.removeDomainModel('{$domainName}')" class="btn btn-xs btn-danger">删除</button>
+                        {if $info.status neq "verified"}
+                            <button type="button" onclick="TRUSTOCEANSSLModelApp.removeDomainModel('{$domainName}')" class="btn btn-xs btn-danger">删除</button>
+                        {else}
+                            ----
+                        {/if}
                     </td>
                 </tr>
             {/foreach}

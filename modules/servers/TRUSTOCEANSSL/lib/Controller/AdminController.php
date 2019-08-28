@@ -175,6 +175,7 @@ class AdminController
             $localOrder = $this->serviceModel;
             // 取回远端签发系统中的订单
             $remoteOrder = $this->getRemoteService()->getService($this->serviceModel->getTrustoceanId());
+
             // 更新本地订单
             $localOrder->setDomains($remoteOrder->getDomains());
             $localOrder->setDcvInfo($remoteOrder->getDcvInfo());
@@ -186,7 +187,6 @@ class AdminController
             $localOrder->setRefundStatus($remoteOrder->getRefundStatus());
             $localOrder->setCertificateId($remoteOrder->getCertificateId());
 
-            return "获得ID: ".$remoteOrder->getCertificateId();
             $localOrder->flush();
 
             return "success";

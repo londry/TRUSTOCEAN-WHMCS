@@ -49,22 +49,10 @@ var TRUSTOCEANSSLModelApp = {
                 if (data.success && data.redirect) {
                     data = data.redirect;
                 }
-                if (data.substr(0, 9) == "redirect|") {
-                    window.location = data.substr(9);
-                } else if (data.substr(0, 7) == "window|") {
-                    window.open(data.substr(7), '_blank');
-                    commandButtons.css("filter", "alpha(opacity=100)");
-                    commandButtons.css("-moz-opacity", "1");
-                    commandButtons.css("-khtml-opacity", "1");
-                    commandButtons.css("opacity", "1");
-                    commandWorking.fadeOut();
-                    commandWorkingTrustOceanSSL.fadeOut();
-                } else {
-                    $("#servicecontent").html(data);
+                $("#servicecontent").html(data);
                     $('html, body').animate({
                         scrollTop: $('.client-tabs').offset().top - 10
                     }, 500);
-                }
-            });
+                });
     }
 };
