@@ -107,7 +107,7 @@
                                 {/if}
                                 <div class="form-group">
                                     <label for="inputNs1" class="control-label">{$MODLANG.trustoceanssl.enroll.setupone.emailaddress}</label>
-                                    <input type="text" name="email" autocomplete="new-password" class="form-control domnsinputs" placeholder="{$MODLANG.trustoceanssl.enroll.setupone.emailaddressplaceholder}" value="">
+                                    <input type="text" name="email" autocomplete="new-password" class="form-control domnsinputs" placeholder="{$MODLANG.trustoceanssl.enroll.setupone.emailaddressplaceholder}" value="{$vars.email}">
                                 </div>
                             </div>
                         </div>

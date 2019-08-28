@@ -1703,6 +1703,9 @@ function TRUSTOCEANSSL_ClientArea($vars) {
 
     }
 
+    $user = Capsule::table('tblclients')->where('id', $_SESSION['uid'])->first();
+    $returnvars['email'] = $user->email;
+
     return array(
         'templatefile' => 'templates/cert_view',
         'vars' => array(

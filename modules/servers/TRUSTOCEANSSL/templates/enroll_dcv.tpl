@@ -40,7 +40,9 @@
             {$MODLANG.trustoceanssl.enroll.setup3.dcvhttps2}</p>
     </div>
     <div class="section-body">
-        <form action="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=trySubmittoca" method="post">
+        <form action="clientarea.php?action=productdetails&id={$serviceid}" method="post">
+            <input name="modop" value="custom" hidden>
+            <input name="a" value="trySubmittoca" hidden>
         <div class="" data-inputs-container="">
             <div class="panel-body">
                 <div class="table-container clearfix" style="border:none;max-height: none;">
