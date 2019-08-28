@@ -282,5 +282,5 @@
 <script type="text/javascript">
     // 初始化应用参数
     TRUSTOCEANSSLModelApp.userId = "{$smarty.session.uid}";
-    TRUSTOCEANSSLModelApp.serviceId = "{$smarty.get.id}";
+    TRUSTOCEANSSLModelApp.serviceId = "{if $smarty.get.productselect neq ""}{$smarty.get.productselect}{else}{$smarty.get.id}{/if}";
 </script>
