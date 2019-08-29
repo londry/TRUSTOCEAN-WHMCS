@@ -286,10 +286,10 @@ table.datatable td {
     background-color: #fff;
     border-bottom: 1px solid #ebebeb;
 }
-table.datatable>tbody>tr>td:nth-child(1) {
+table.datatable>tbody>tr>td:nth-child(1),table.datatable>tbody>tr>td:nth-child(3) {
     border-bottom: 1px solid #ffffff;
 }
-.datatable.to-table>tbody>tr>td:nth-child(1){
+.datatable.to-table>tbody>tr>td:nth-child(1),.datatable.to-table>tbody>tr>td:nth-child(3){
     background-color: #efefef;
 }
 .datatable.to-table>tbody>tr>td{

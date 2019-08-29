@@ -52,6 +52,76 @@
             </ul>
     </div>
 
+    {* 证书订单信息面板 *}
+    <table class="datatable to-table" width="100%">
+        <tbody>
+            <tr>
+                <td>
+                    证书类型
+                </td>
+                <td>
+                    {$localOrder->getName()}
+                </td>
+                <td>
+                    订购周期
+                </td>
+                <td>
+                {if $localOrder->getPeriod() eq "Quarterly"}
+                    3个月
+                    {elseif $localOrder->getPeriod() eq "Annually"}
+                    12个月
+                    {elseif $localOrder->getPeriod() eq  "Biennially"}
+                    24个月
+                    {else}
+                        其他订购周期
+                    {/if}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    订单状态
+                </td>
+                <td>
+                    {$localOrder->getStatus()}
+                </td>
+                <td>
+                    证书编号
+                </td>
+                <td>
+                    {$localOrder->getTrustoceanId()}
+                </td>
+            </tr>
+        <tr>
+                <td>
+                    验证类型
+                </td>
+                <td>
+                    {$localOrder->getClass()|upper}
+                </td>
+                <td>
+                    域名额度
+                </td>
+                <td>
+                    {$vars.domaintotal}
+                </td>
+            </tr>
+        <tr>
+                <td>
+                    创建日期
+                </td>
+                <td>
+                    {$localOrder->getCreatedAt()}
+                </td>
+                <td>
+                    签发编号
+                </td>
+                <td>
+                    {$localOrder->getVendorId()}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
 {if $status==='configuration'}
     {include file="./enroll_csr.tpl"}
 {/if}
@@ -79,7 +149,6 @@
 {if $status==='enroll_caprocessing'}
     {include file="./enroll_ca.tpl"}
 {/if}
-
 
 {*证书已经签发*}
 {if $status === 'issued_active'}

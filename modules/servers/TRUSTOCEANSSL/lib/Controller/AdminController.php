@@ -289,4 +289,184 @@ class AdminController
     public function upgradeSanCount($vars){
         return "success";
     }
+
+    /**
+     * 用户区域输出
+     * @param $vars
+     * @return array
+     */
+    public function clientArea($vars){
+        GLOBAL $MODLANG;
+        $localOrder = $this->serviceModel;
+        // 是否为多域名证书
+        $isMultiDomain = $vars['configoption4'] === "on"?true:false;
+        // 域名额度
+        $domainCount = $vars['configoptions']['DomainCount'];
+
+        $x509 = openssl_x509_parse($localOrder->getCertCode(), TRUE);
+        $x509['extensions']['subjectAltName'] = str_replace(' ',"<br/>",str_replace(',',"", trim(str_replace('IP_ADDRESS:',',', str_replace('DNS:',',', $x509['extensions']['subjectAltName'])))));
+        $x509['validFrom'] = date('Y-m-d H:i:s', $x509['validFrom_time_t']);
+        $x509['validTo'] = date('Y-m-d H:i:s', $x509['validTo_time_t']);
+        $returnvars = array();
+        $returnvars['x509'] = $x509;
+
+        $returnvars['orginfo'] = $localOrder->getOrgInfo();
+        $returnvars['domains'] = $localOrder->getDomains();
+        $returnvars['status'] = $localOrder->getStatus();
+        $dcvInfo = $localOrder->getDcvInfo();
+        $returnvars['hasemail'] = false;
+        foreach ($dcvInfo as $key => $info){
+            if($info['method'] === 'email'){
+                $returnvars['hasemail'] = true;
+            }
+        }
+        //添加 DCVEMAIL 地址
+        foreach ($dcvInfo as $key => $info){
+            $dcvInfo[$key]['dcvemails'] = $this->generateDcvEmails($key);
+        }
+        $returnvars['serviceid'] = $localOrder->getServiceid();
+        $returnvars['domaintotal'] = $domainCount == ""?0:$domainCount;
+
+        if($localOrder->getReissue() === 1){
+            $returnvars['reissue'] = true;
+            $returnvars['csr'] = $localOrder->getCsrCode();
+            $domains = "";
+            foreach ($localOrder->getDomains() as $domain){
+                $domains .= $domain."\r\n";
+            }
+            $returnvars['domains'] = $domains;
+        }
+
+        if($localOrder->getStatus() === "issued_active"){
+            $returnvars['domains'] = $localOrder->getDomains();
+            $returnvars['csr'] = $localOrder->getCsrCode();
+            $returnvars['cert'] = $localOrder->getCertCode();
+            $returnvars['chainscert'] = $localOrder->getCaCode();
+            $returnvars['isseal'] = true;
+            $returnvars['sealid'] = '<script data-sealid="'.$localOrder->getCertificateId().'" id="trustoceansealapp" type="text/javascript" src="https://www.trustocean.com/app/seal.min.js?version=1.0.1"></script>';
+            $returnvars['csrobj'] = openssl_csr_get_subject($localOrder->getCsrCode(), false);
+        }
+
+        $returnvars['ismultidomain'] = $vars['configoption4'];
+        $returnvars['trustoceanid'] = $localOrder->getTrustoceanId();
+        $returnvars['configoption2'] = $vars['configoption2'];
+
+        #todo:: 提交到CA后 使用async方式查看域名验证信息
+        if($localOrder->getStatus() === "enroll_dcv" || $localOrder->getStatus() === "enroll_ca" || $localOrder->getStatus() === "submit_hand" || $localOrder->getStatus() === "check_hand" || $localOrder->getStatus() === "enroll_caprocessing"){
+            $returnvars['domains'] = $localOrder->getDomains();
+            $returnvars['dcvinfo'] = $dcvInfo;
+            $returnvars['csrhash'] = TRUSTOCEANSSL_getCsrHash($localOrder->getCsrCode());
+            $returnvars['uniqueid'] = $localOrder->getUniqueId();
+            $returnvars['ismultidomain'] = $vars['configoption4'];
+        }
+
+        $user = Capsule::table('tblclients')->where('id', $_SESSION['uid'])->first();
+        $returnvars['email'] = $user->email;
+
+        // 站点签章设置
+        $siteSeal = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first();
+        $returnvars['show_siteseal'] = $siteSeal->value === "hidden"?false:true;
+
+        return array(
+            'templatefile' => 'templates/cert_view',
+            'vars' => array(
+                'status'=>$localOrder->getStatus(),
+                'assetsPath'=>__DIR__.'/../../assets',
+                'x509' => $x509,
+                'vars' => $returnvars,
+                'MODLANG' => $MODLANG,
+                'TOLANG'  => $vars['_lang'],
+                "localOrder"=>$localOrder,
+            ),
+        );
+    }
+
+    /**
+     * 计算csr hash
+     * @param $csrCode
+     * @return array
+     */
+    private function getCsrHash($csrCode){
+        #convert to .der code type
+        $stringBegin    =   "CERTIFICATE REQUEST-----";
+        $stringEnd      =   "-----END";
+        $pureCsrData    =   substr($csrCode, strpos($csrCode, $stringBegin)+strlen($stringBegin));
+        $pureCsr        =   substr($pureCsrData, 0, strpos($pureCsrData, $stringEnd));
+        $csrDer         =   base64_decode($pureCsr);
+
+        $md5 = md5($csrDer);
+        $hash256 = hash('sha256', $csrDer);
+
+        #return the encode hash value
+        return array(
+            'md5'       =>  $md5,
+            'sha256'      =>  $hash256,
+            'dns'   =>  array(
+                'purehost'  =>  "_".strtolower($md5),
+                'purevalue' =>  strtolower(substr($hash256, 0,32).'.'.substr($hash256, 32,32))
+            ),
+            'http'   =>  array(
+                'filename'  =>  strtoupper($md5).'.txt',
+                'firstline' =>  strtolower($hash256)
+            ),
+        );
+    }
+
+    /**
+     * 生成 DCV emails 地址
+     * @param $domain
+     * @return array
+     */
+    private function generateDcvEmails($domain){
+        // 创建域名对象
+        $domain = new \blobfolio\domain\domain(str_replace('*.', '', $domain));
+        //判断是否是IP地址
+        if($domain->is_ip()){
+            return [];
+        }
+        // 找出顶级域名
+        $topLevelDomain = $domain->get_domain().'.'.$domain->get_suffix();
+        // 找到level1 domain
+        $lastLevelDomain = $domain->get_host();
+        // 找出其他level domain
+        $otherLevelDomains = [];
+        $subString = explode('.', $domain->get_subdomain());
+        // 去除空格
+        foreach ($subString as $key => $st){
+            if($st == ""){
+                unset($subString[$key]);
+            }
+        }
+        //组成其他级别的子域名字符
+        foreach ( $subString as $x => $subdomain){
+            // 计算每次的值
+            // www.my.staff.center
+            $m = count($subString);
+            $st2 = "";
+            for($n = $x; $n < $m; $n++){
+                $st2 .= $subString[$n].'.';
+            }
+            $st2 = substr($st2, 0, strlen($st2)-1);
+            // 添加子域名前缀到数组
+            array_push($otherLevelDomains, $st2);
+
+        }
+        // 组织预验证的邮箱地址
+        $supportAddress = [
+            'admin@','administrator@','hostmaster@','postmaster@','webmaster@'
+        ];
+        $emails = [];
+        //添加顶级域名的邮箱
+        foreach ($supportAddress as $address){
+            array_push($emails, $address.$topLevelDomain);
+        }
+        //添加其他级别的域名邮箱地址
+        foreach ($otherLevelDomains as $subdomain){
+            foreach ($supportAddress as $address){
+                array_push($emails, $address.$subdomain.'.'.$topLevelDomain);
+            }
+        }
+
+        return $emails;
+    }
 }
