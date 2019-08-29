@@ -865,6 +865,7 @@ function TRUSTOCEANSSL_ajaxTryToReissueSSL($vars){
             'status'=>$result['cert_status'],
             'domains'=>json_encode($domains['domains']),
             'dcv_info'=>json_encode(TRUSTOCEANSSL_findDcvDomains($domains['domains'])),
+            'certificate_id'=>$result['certificate_id']
         ));
         TRUSTOCEANSSL_APIRESPONSE(['status'=>'success']);
     }else{
@@ -948,6 +949,7 @@ function TRUSTOCEANSSL_ajaxTrySubmittoca($vars){
         'reissue'=>$result['reissue'],
         'renew'=>$result['renew'],
         'trustocean_id'=>$result['trustocean_id'],
+        'certificate_id'=>$result['certificate_id']
     ));
     TRUSTOCEANSSL_APIRESPONSE(['status'=>'success']);
 }
@@ -1021,6 +1023,7 @@ function TRUSTOCEANSSL_trySubmittoca($vars){
         'reissue'=>$result['reissue'],
         'renew'=>$result['renew'],
         'trustocean_id'=>$result['trustocean_id'],
+        'certificate_id'=>$result['certificate_id']
     ));
 
     // 提交成功 返回至详情页面
