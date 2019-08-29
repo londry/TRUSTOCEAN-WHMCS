@@ -63,7 +63,9 @@ function trustoceanSslAddSanToCertOrderAndGetInvoice($vars){
         $whmcsClient = Capsule::table('tblclients')->where('id', $service->uid)->first();
 
         // 获取产品的optionID
-        $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $vars['serviceid'])->where('configid', $domaincount['id'])->value('optionid');
+        // $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $vars['serviceid'])->where('configid', $domaincount['id'])->value('optionid');
+        $optionId = $domaincount["id"];
+
         // 获取period内的单个SAN价格
         $netPrice = Capsule::table('tblpricing')->where('type','configoptions')
             ->where('relid', $optionId)
@@ -254,7 +256,8 @@ add_hook('InvoicePaid', 1, function($vars) {
         }
     }
     // 获取产品的optionID
-    $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $check->service_id)->where('configid', $domaincount['id'])->value('optionid');
+    // $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $check->service_id)->where('configid', $domaincount['id'])->value('optionid');
+    $optionId = $domaincount["id"];
 
     if(!empty($check)){
         // 更新产品配置
