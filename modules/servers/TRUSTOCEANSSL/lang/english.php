@@ -235,7 +235,7 @@ $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['notmdcorder'] = "This is not a
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['unpaidInvoice'] = "Before You try this upgrade, you must pay the Invocie#";
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['internalApiError'] = "Something error found when we try to process your request, please contact us by ticket to report this error.";
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceDesc'] = "Cutomer upgrade the SAN count by client area upgrade page.";
-$TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceNotes'] = "This is an TrustOcean SSL SAN invoice, please do not mark as paid by your hand.";
+$TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceNotes'] = "This is an SSL SAN invoice, after your paid, we will upgrade your SAN domain count.";
 
 
 

@@ -233,7 +233,7 @@ $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['notmdcorder'] = "当前证书�
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['unpaidInvoice'] = "无法进行升级, 请您先支付之前的升级账单 #";
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['internalApiError'] = "无法创建账单, 请提交工单联系我们检查您的账户";
 $TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceDesc'] = "通过API修改了域名SAN数量额度";
-$TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceNotes'] = "这是一个TrustOcean SAN订单, 手动标记支付将不会进行SAN升级";
+$TRUSTOCEAN_LANG['trustoceanssl']['hookupgrade']['invoiceNotes'] = "这是一个 SSL SAN 订单, 请您完成支付, 对应的域名额度将会自动升级";
 
 // 组织信息预验证页面
 $TRUSTOCEAN_LANG['trustoceanssl']['certview']['orgpre']['title'] = "等待我们完成审核";
