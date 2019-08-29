@@ -29,7 +29,7 @@ class TrustOceanAPI
         // todo:: 检查设置的API版本
         $location  = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apiservertype')->value('value');
         if($location === "CN-Beijing"){
-            $this->endPointUrl = "https://api.trustocean.com/ssl/v5"; // API located in Beijing CN
+            $this->endPointUrl = "https://api.trustocean.com/ssl/v2"; // API located in Beijing CN
         }else{
             $this->endPointUrl = "https://sapi.trustocean.com/ssl/v2"; // API located in London UK
         }

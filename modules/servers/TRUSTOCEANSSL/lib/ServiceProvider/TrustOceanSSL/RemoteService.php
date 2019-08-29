@@ -316,7 +316,7 @@ class RemoteService extends Order
         $params['password'] =  $this->password;
         $postVars = http_build_query($params);
 
-        $apiURL = "https://api.trustocean.com/ssl/v5/$method"; // API Endpoint located in Beijing CN
+        $apiURL = "https://api.trustocean.com/ssl/v2/$method"; // API Endpoint located in Beijing CN
         // $apiURL = "https://sapi.trustocean.com/ssl/v3/$method"; // API Endpoint located in London UK
 
         $curlHandle = curl_init ();
