@@ -73,7 +73,7 @@ class PublicController
      */
     protected function processForIssued($params){
         // 获取本地的Certificate Capsule对象
-        $certificate = Capsule::table('tbltrustocean_certificate')->where('trustocean_id',$params['trustocean_id'])->where('status','enroll_caprocessing')->first();
+        $certificate = Capsule::table('tbltrustocean_certificate')->where('trustocean_id',$params['trustocean_id'])->first();
         // 如果不存在证书对象, 停止执行
         if(empty($certificate)){
           throw new TrustoceanException("对应的证书不存在");
@@ -88,6 +88,7 @@ class PublicController
         foreach($dcvInfo as $domain => $info){
           $dcvInfo[$domain]['status'] = 'verified';
         }
+
 
         // 更新证书对象
         Capsule::table('tbltrustocean_certificate')->where('id', $certificate->id)->update(array(

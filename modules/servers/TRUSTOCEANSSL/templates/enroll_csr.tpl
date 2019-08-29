@@ -26,7 +26,6 @@
                                 <div class="form-group">
                                     <label for="inputCsr" class="control-label">{$MODLANG.trustoceanssl.enroll.choosecsr}</label>
                                     <select name="csroption" class="form-control" onclick="csrchecker2('{$vars.ismultidomain}');">
-                                        <option value="generate">{$MODLANG.trustoceanssl.enroll.generatenewcsr}</option>
                                         <option value="upload">{$MODLANG.trustoceanssl.enroll.uploadnewcsr}</option>
                                     </select>
                                 </div>

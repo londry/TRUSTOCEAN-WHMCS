@@ -36,7 +36,6 @@
                                     <label for="inputCsr" class="control-label">{$MODLANG.trustoceanssl.enroll.choosecsr}</label>
                                     <select name="csroption" class="form-control" onclick="reissueCsrFunction('{$ismultidomain}');">
                                         <option value="seamcsr">{$MODLANG.trustoceanssl.enroll.useoldcsr}</option>
-                                        <option value="generate">{$MODLANG.trustoceanssl.enroll.generatenewcsr}</option>
                                         <option value="upload">{$MODLANG.trustoceanssl.enroll.uploadnewcsr}</option>
                                     </select>
                                 </div>
