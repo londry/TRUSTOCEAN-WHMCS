@@ -23,12 +23,15 @@ class AdminController
         $privatekey = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
             ->where('setting','privatekey')->first();
 
+        $siteSeal = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first();
+
         $moduleApiSetting = [
             "username"   => $apiusername->value,
             "password"   => $apipassword->value,
             "salt"       => $apisalt->value,
             "servertype" => $servertype->value,
-            "privateKey" => $privatekey->value
+            "privateKey" => $privatekey->value,
+            "siteseal"   => $siteSeal->value
         ];
         $smarty->assign('moduleSetting', $moduleApiSetting);
         $smarty->display(__DIR__."/../../template/adminarea.tpl");
@@ -320,6 +323,26 @@ class AdminController
         return $sslArray;
     }
 
+    /**
+     * 站点签章显示、隐藏配置项目
+     * @param $vars
+     */
+    public function updateInterfaceConfig($vars){
+        $checkSetting = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')
+            ->first();
+        if(!$checkSetting){
+            Capsule::table('tbltrustocean_configuration')->insert([
+                'setting' => 'siteseal',
+                'value'   => $_REQUEST['siteseal']
+            ]);
+        }else{
+            Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')
+                ->update([
+                    'value' => $_REQUEST['siteseal']
+                ]);
+        }
+        header('Location: addonmodules.php?module=TrustOceanSSLAdmin');
+    }
     /**
      * 保存 API 设置
      * @param $vars

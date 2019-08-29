@@ -1714,6 +1714,10 @@ function TRUSTOCEANSSL_ClientArea($vars) {
     $user = Capsule::table('tblclients')->where('id', $_SESSION['uid'])->first();
     $returnvars['email'] = $user->email;
 
+    // 站点签章设置
+    $siteSeal = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first();
+    $returnvars['show_siteseal'] = $siteSeal->value === "hidden"?false:true;
+
     return array(
         'templatefile' => 'templates/cert_view',
         'vars' => array(

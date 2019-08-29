@@ -43,9 +43,11 @@
                 <li>
                     <a href="#csrcode" data-toggle="tab"><i class="ls ls-configure"></i>CSR</a>
                 </li>
+                {if $vars.show_siteseal eq true}
                 <li>
                     <a href="#securesiteseal" data-toggle="tab"><i class="ls ls-configure"></i>网站签章</a>
                 </li>
+                {/if}
             {/if}
             </ul>
     </div>

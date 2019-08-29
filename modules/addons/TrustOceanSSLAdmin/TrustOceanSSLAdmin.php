@@ -91,10 +91,12 @@ function TrustOceanSSLAdmin_activate(){
   `value` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
     $query08 = "INSERT INTO `tbltrustocean_configuration` VALUES ('expiration-cronjob-status', 'finished');";
+    $query13 = "INSERT INTO `tbltrustocean_configuration` VALUES ('siteseal', 'show');";
 
     #query for configuration
     full_query($query07);
     full_query($query08);
+    full_query($query13);
 
     #todo:: custom email templates query insert to
     if(empty(Capsule::table('tblemailtemplates')->where('name', 'TrustOcean SSL Expiration Notification')->get())){

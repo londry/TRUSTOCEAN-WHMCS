@@ -20,6 +20,9 @@
     <li>
         <a style="border-radius: 0px; background-color: black; border: none; color: #ffffff;" class="tab-top" href="#tabApis" role="tab" data-toggle="tab" id="tabLink3" data-tab-id="3" aria-expanded="true">API 设置</a>
     </li>
+    <li>
+        <a style="border-radius: 0px; background-color: black; border: none; color: #ffffff;" class="tab-top" href="#tabInterface" role="tab" data-toggle="tab" id="tabLink4" data-tab-id="4" aria-expanded="true">功能设置</a>
+    </li>
 </ul>
 <div class="tab-content admin-tabs" style="background-color: #ffffff;">
     <div class="tab-pane" id="tabSystem">
@@ -34,6 +37,30 @@
                     <td>正常</td>
                 </tr>
             </tbody>
+        </table>
+    </div>
+    <div class="tab-pane" id="tabInterface">
+        <table class="datatable to-table" width="100%">
+            <form action="addonmodules.php?module=TrustOceanSSLAdmin&action=updateInterfaceConfig" method="post">
+            <tbody>
+                <tr>
+                    <td width="150px;">网站签章</td>
+                    <td>
+                        <select name="siteseal" class="form-control select-inline">
+                            <option value="show" {if $moduleSetting.siteseal eq "show"}selected="selected"{/if}>开启</option>
+                            <option value="hidden" {if $moduleSetting.siteseal eq "hidden"}selected="selected"{/if}>关闭</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success btn-sm">保 存</button>
+                    </td>
+                </tr>
+            </tbody>
+            </form>
         </table>
     </div>
     <div class="tab-pane active" id="tabOrders">
