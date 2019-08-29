@@ -195,7 +195,8 @@ add_hook('ClientAreaPageUpgrade', 1, function($vars)
         $whmcs = WHMCS\Application::getInstance();
         $configoption = $whmcs->get_req_var("configoption");
 
-        $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $serviceID)->where('configid', $domaincount['id'])->value('optionid');
+        //$optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $serviceID)->where('configid', $domaincount['id'])->value('optionid');
+        $optionId = $domaincount["id"];
 
         // todo:: 检查是不是降级
         if((int)$configoption["$optionId"] < $domaincount['value']){
