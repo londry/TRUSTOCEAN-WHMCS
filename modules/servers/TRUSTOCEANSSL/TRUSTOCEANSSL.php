@@ -1250,7 +1250,7 @@ function TRUSTOCEANSSL_convertssl($param){
     mkdir($filepath.$filename.'/CDN',0777,TRUE);
     mkdir($filepath.$filename.'/IIS',0777,TRUE);
 
-    $IISFile2 = fopen($filepath.$filename.'/IIS/'."TRUSTOCEAN-CAChains.crt", "w+");
+    $IISFile2 = fopen($filepath.$filename.'/IIS/'."CAChains.crt", "w+");
     fwrite($IISFile2, $cert->ca_code);
     fclose($IISFile2);
 
@@ -1258,14 +1258,14 @@ function TRUSTOCEANSSL_convertssl($param){
     $apacheFile1 = fopen($filepath.$filename.'/Apache/'.$certfilename.".crt", "w+");
     fwrite($apacheFile1, $cert->cert_code);
     fclose($apacheFile1);
-    $apacheFile2 = fopen($filepath.$filename.'/Apache/'."TRUSTOCEAN-CAChains.crt", "w+");
+    $apacheFile2 = fopen($filepath.$filename.'/Apache/'."CAChains.crt", "w+");
     fwrite($apacheFile2, $cert->ca_code);
     fclose($apacheFile2);
     // 新建CDN 证书文件
     $cdnFile1 = fopen($filepath.$filename.'/CDN/[1]'.$certfilename.".crt", "w+");
     fwrite($cdnFile1, $cert->cert_code);
     fclose($cdnFile1);
-    $cdnFile2 = fopen($filepath.$filename.'/CDN/[2]'."TRUSTOCEAN-CAChains.crt", "w+");
+    $cdnFile2 = fopen($filepath.$filename.'/CDN/[2]'."CAChains.crt", "w+");
     fwrite($cdnFile2, $cert->ca_code);
     fclose($cdnFile2);
     // 新建Nginx 证书文件 合并证书链
@@ -1303,17 +1303,14 @@ function TRUSTOCEANSSL_convertssl($param){
         $re = openssl_pkcs12_export(
             file_get_contents($filepath.$filename.'/Apache/'.$certfilename.".crt"),
             $pfx_content,
-            $dkey,
+            trim($_POST['keycode']),
             $_POST['ktoken'],
             array(
-                'extracerts'=>file_get_contents($filepath.$filename.'/Apache/'."TRUSTOCEAN-CAChains.crt")
+                'extracerts'=>file_get_contents($filepath.$filename.'/Apache/'."CAChains.crt")
             )
         );
         if(!$re){
-            global $MODLANG;
-
-            return $MODLANG['trustoceanssl']['apierror']['privatekeyincorrect'];
-
+            return '私钥不正确，或私钥保护密码不正确, 请您检查后重试！';
         }
         $pfx = fopen($filepath.$filename.'/IIS/'.$certfilename.".pfx", "w+");
         fwrite($pfx, $pfx_content);
@@ -1324,22 +1321,23 @@ function TRUSTOCEANSSL_convertssl($param){
     if ($zip->open($filepath.$filename.'.zip',\ZIPARCHIVE::CREATE) === TRUE) {
         $zip->addEmptyDir('Apache');
         $zip->addEmptyDir('Nginx');
-        $zip->addEmptyDir('CDN');
+
         $zip->addFile($filepath.$filename.'/Apache/'.$certfilename.".crt", 'Apache/'.$certfilename.".crt");
         $zip->addFile($filepath.$filename.'/Apache/'.$certfilename.".key", 'Apache/'.$certfilename.".key");
-        $zip->addFile($filepath.$filename.'/Apache/'."TRUSTOCEAN-CAChains.crt",'Apache/'."TRUSTOCEAN-CAChains.crt");
-        $zip->addFile($filepath.$filename.'/CDN/[1]'.$certfilename.".crt", 'CDN/[1]'.$certfilename.".crt");
-        $zip->addFile($filepath.$filename.'/CDN/[2]'."TRUSTOCEAN-CAChains.crt",'CDN/[2]'."TRUSTOCEAN-CAChains.crt");
-        $zip->addFile($filepath.$filename.'/CDN/'.$certfilename.".key", 'CDN/'.$certfilename.".key");
+        $zip->addFile($filepath.$filename.'/Apache/'."CAChains.crt",'Apache/'."CAChains.crt");
+
         $zip->addFile($filepath.$filename.'/Nginx/'.$certfilename.".pem", 'Nginx/'.$certfilename.".pem");
         $zip->addFile($filepath.$filename.'/Nginx/'.$certfilename.".key", 'Nginx/'.$certfilename.".key");
         $zip->addFile($filepath.$filename.'/IIS/'.$certfilename.".pfx", 'IIS/'.$certfilename.".pfx");
-        $zip->addFile($filepath.$filename.'/IIS/TRUSTOCEAN-CAChains.crt', 'IIS/TRUSTOCEAN-CAChains.crt');
+        $zip->addFile($filepath.$filename.'/IIS/CAChains.crt', 'IIS/CAChains.crt');
         $zip->close();
         header('Content-type: application/force-download');
         header('Content-Disposition: attachment; filename="'.$certfilename.'.zip"');
-        @readfile($filepath.$filename.'.zip');
-        TRUSTOCEANSSL_deldir($filepath.$filename); #删除临时文件夹
+        // @readfile($filepath.$filename.'.zip');
+        if(TRUSTOCEANSSL_readFileForDownload($filepath.$filename.'.zip') === true){
+            fastcgi_finish_request();
+            TRUSTOCEANSSL_massDeletePathAndFiles($filepath.$filename);
+        }
         unlink($filepath.$filename.'.zip'); #删除临时压缩包文件
     } else {
         return 'Failed To Download Certificate,Please Contact Us For Help!';
@@ -2148,8 +2146,11 @@ function TRUSTOCEANSSL_downloadcertificate($param){
 
             header('Content-type: application/force-download');
             header('Content-Disposition: attachment; filename="'.$certfilename.'.zip"');
-            @readfile($filepath.$filename.'.zip');
-            TRUSTOCEANSSL_deldir($filepath.$filename); #删除临时文件夹
+            // @readfile();
+            if(TRUSTOCEANSSL_readFileForDownload($filepath.$filename.'.zip') === true){
+                fastcgi_finish_request();
+                TRUSTOCEANSSL_massDeletePathAndFiles($filepath.$filename);
+            }
             unlink($filepath.$filename.'.zip'); #删除临时压缩包文件
         } else {
             return 'Failed To Download Certificate,Please Contact Us For Help!';
@@ -2157,31 +2158,89 @@ function TRUSTOCEANSSL_downloadcertificate($param){
 }
 
 /**
-     * 删除文件夹
-     * @param array $files
-     * @param string $destination
-     * @param bool $overwrite
-     * @return bool
-     */
-function TRUSTOCEANSSL_deldir($dir) {
-    //先删除目录下的文件：
-    $dh=opendir($dir);
-    while ($file=readdir($dh)) {
-        if($file!="." && $file!="..") {
-            $fullpath=$dir."/".$file;
-            if(!is_dir($fullpath)) {
-                unlink($fullpath);
-            } else {
-                $this->deldir($fullpath);
+ * 删除临时文件夹
+ * @param $path
+ */
+function TRUSTOCEANSSL_massDeletePathAndFiles($path){
+    $pathTotal = TRUSTOCEANSSL_scanDir($path);
+    $pathToDelete = [];
+    foreach ($pathTotal as $paths){
+        if(!empty($paths)){
+            foreach ($paths as $path1){
+                if(is_array($path1)){
+                    foreach ($path1 as $path2){
+                        if(is_array($path2)){
+                            foreach ($path2 as $path3){
+                               $pathToDelete[] = $path3;
+                            }
+                        }else{
+                            $pathToDelete[] = $path2;
+                        }
+                    }
+                }else{
+                    $pathToDelete[] = $path1;
+                }
+
             }
         }
     }
-    closedir($dh);
-    //删除当前文件夹：
-    if(rmdir($dir)) {
+    foreach ($pathToDelete as $path){
+        if(is_file($path)){
+            unlink($path);
+        }
+    }
+    foreach ($pathToDelete as $path){
+        if(is_dir($path)){
+            rmdir($path);
+        }
+    }
+}
+
+/**
+ * 扫描获取文件夹下的所有路径和文件
+ * @param $basePath
+ * @return array
+ */
+function TRUSTOCEANSSL_scanDir($basePath){
+    $paths = [];
+    $files = [];
+    $first = scandir($basePath);
+    foreach ($first as $path){
+        if($path !== "." && $path !== ".."){
+            $currentPath = $basePath."/".$path."";
+            if(is_dir($currentPath)){
+                $paths[] = $currentPath;
+                $paths[] = TRUSTOCEANSSL_scanDir($currentPath);
+            }
+            if(is_file($currentPath)){
+                $files[] = $currentPath;
+            }
+        }
+    }
+    return [
+        "paths" => $paths,
+        "files" => $files
+    ];
+}
+
+/**
+ * 读取文件下载
+ * @param $filePath
+ */
+function TRUSTOCEANSSL_readFileForDownload($filePath){
+    $fp=fopen($filePath,"r");
+    $file_size=filesize($filePath);
+    $buffer=1024;
+    $file_count=0;
+    while(!feof($fp) && $file_count<$file_size) {
+        $file_con = fread($fp, $buffer);
+        $file_count += $buffer;
+        echo $file_con;
+    }
+    fclose($fp);
+    if($file_count >= $file_size){
+        unlink($filePath);
         return true;
-    } else {
-        return false;
     }
 }
 

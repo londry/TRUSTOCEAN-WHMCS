@@ -29,19 +29,22 @@
                     <a href="#certdetails" data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.certinfo}</a>
                 </li>
                 <li>
-                    <a href="#certificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.cert}</a>
+                    <a href="#convertssl" data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>证书转换</a>
                 </li>
                 <li>
-                    <a href="#chaincertificate"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
+                    <a href="#certificate" data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.cert}</a>
                 </li>
                 <li>
-                    <a href="#domains"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>域名</a>
+                    <a href="#chaincertificate" data-toggle="tab"><i class="ls ls-configure"></i>{$MODLANG.trustoceanssl.enroll.issued.info.chaincert}</a>
                 </li>
                 <li>
-                    <a href="#csrcode"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>CSR</a>
+                    <a href="#domains" data-toggle="tab"><i class="ls ls-configure"></i>域名</a>
                 </li>
                 <li>
-                    <a href="#securesiteseal"  data-convertssl data-toggle="tab"><i class="ls ls-configure"></i>网站签章</a>
+                    <a href="#csrcode" data-toggle="tab"><i class="ls ls-configure"></i>CSR</a>
+                </li>
+                <li>
+                    <a href="#securesiteseal" data-toggle="tab"><i class="ls ls-configure"></i>网站签章</a>
                 </li>
             {/if}
             </ul>
@@ -148,7 +151,7 @@
                         <tr>
                             <td colspan="2">
                                 <a style="margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=downloadcertificate" class="btn btn-success btn-sm" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia1}">{$MODLANG.trustoceanssl.enroll.issued.btn.downloadcert}</a>
-                                {*<a style="margin-top:10px;margin-right: 12px;" href="javascript:;" onclick="$('a[data-convertssl]').click();" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia2}"><i class="fas fa-ticket ls ls-download"></i> {$MODLANG.trustoceanssl.enroll.issued.btn.convertcert}</a>*}
+                                <a style="margin-right: 12px;" href="#" onclick="$('a[data-convertssl]').click();" data-toggle="tab" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia2}"> {$MODLANG.trustoceanssl.enroll.issued.btn.convertcert}</a>
                                 <a href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=prepareForReissue" class="btn btn-success btn-sm" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia3}">{$MODLANG.trustoceanssl.enroll.issued.btn.reissue}</a>
                             </td>
                         </tr>
@@ -187,9 +190,11 @@
             </div>
             <div class="tab-pane" id="convertssl">
                 <div class="panel-body">
-                    <form action="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=convertssl" method="post">
+                    <form action="/clientarea.php?action=productdetails&id={$serviceid}" method="post">
+                        <input name="modop" value="custom" hidden>
+                        <input name="a" value="convertssl" hidden>
                         <div class="form-group">
-                            <label class="text-success">{lang key="trustoceanssl.enroll.issued.convert.desc" email=$client.email }</label>
+                            <label class="text-success">粘贴您保存的私钥内容, 点击转换下载适用于各类环境的SSL证书格式。</label>
                         </div>
                         <div class="m-w-416">
                             <div class="form-group">
@@ -197,7 +202,7 @@
                                 <textarea type="text" name="keycode" autocomplete="new-password" class="form-control domnsinputs" placeholder="{$MODLANG.trustoceanssl.enroll.issued.convert.privatekeydesc}" style="min-height: 250px;"></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="inputNs1" class="control-label">{$MODLANG.trustoceanssl.enroll.issued.convert.keytoken}</label>
+                                <label for="inputNs1" class="control-label">{$MODLANG.trustoceanssl.enroll.issued.convert.keytoken}(设置 .pfx 密码)</label>
                                 <input type="password" name="ktoken" autocomplete="new-password" class="form-control domnsinputs" placeholder="{$MODLANG.trustoceanssl.enroll.issued.convert.keytokendesc}" value="">
                             </div>
                             <div class="form-group">
