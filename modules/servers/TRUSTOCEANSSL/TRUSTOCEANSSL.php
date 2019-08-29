@@ -2104,7 +2104,7 @@ function TRUSTOCEANSSL_downloadcertificate($param){
         }
 
         // 生成IIS .pfx 证书文件
-        if($cert->key_code !== ""){
+        if($cert->key_code !== "" && openssl_get_privatekey($cert->key_code) !== false){
                  mkdir($filepath.$filename.'/IIS',0777,TRUE);
                 $pfx_content = "";
                 $re = openssl_pkcs12_export(
