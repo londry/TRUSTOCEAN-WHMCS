@@ -43,6 +43,10 @@
                     </td>
                 </tr>
                 <tr>
+                    <td width="150px;">证书类型</td>
+                    <td>{$certModel->getName()}</td>
+                </tr>
+                <tr>
                     <td width="150px;">状态</td>
                     <td>{$certModel->getStatus()}</td>
                 </tr>
@@ -71,6 +75,10 @@
                 <tr>
                     <td>提交时间</td>
                     <td>{if $certModel->getSubmittedAt() eq ""}----{else}{$certModel->getSubmittedAt()}{/if}</td>
+                </tr>
+                <tr>
+                    <td>过期时间</td>
+                    <td>{$validTo}</td>
                 </tr>
                 <tr>
                     <td>颁发机构订单号</td>

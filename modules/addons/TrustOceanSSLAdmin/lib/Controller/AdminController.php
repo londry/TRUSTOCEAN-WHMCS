@@ -152,6 +152,14 @@ class AdminController
     private function formatOutputAndClean($certificateObject){
         $sslArray = json_decode(json_encode($certificateObject, 1, 10), 1, 10);
         foreach ($sslArray as $key=>$sslitem){
+
+            $certInfo = openssl_x509_parse($sslitem['cert_code']);
+            if(!$certInfo){
+                $sslArray[$key]['expire_at'] = '---- --:--:--';
+            }else{
+                $sslArray[$key]['expire_at'] = date('Y-m-d H:i:s', $certInfo['validTo_time_t']);
+            }
+
             unset($sslArray[$key]['key_code']);
             unset($sslArray[$key]['trustocean_id']);
             unset($sslArray[$key]['ca_code']);
@@ -163,7 +171,6 @@ class AdminController
             unset($sslArray[$key]['unique_id']);
             unset($sslArray[$key]['vendor_id']);
 
-            $sslArray[$key]['expire_at'] = '---- --:--:--';
             $sslArray[$key]['domains'] = json_decode($sslArray[$key]['domains'], 1);
             switch ($sslitem['class']){
                 case 'dv':

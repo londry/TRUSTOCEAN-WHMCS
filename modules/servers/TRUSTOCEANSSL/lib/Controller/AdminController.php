@@ -141,6 +141,14 @@ class AdminController
         $smarty->assign('service', $service);
 
         $serviceModel = new CertificateModel($service->serviceid);
+
+        $certInfo = openssl_x509_parse($serviceModel->getCertCode());
+        if(!$certInfo){
+            $expireAt = "----";
+        }else{
+            $expireAt = date('Y-m-d H:i:s', $certInfo['validTo_time_t']);
+        }
+        $smarty->assign('validTo', $expireAt);
         $smarty->assign('dcvInformation', $serviceModel->getDcvInfo());
         $smarty->assign('certCode', $serviceModel->getCertCode());
         $smarty->assign('certModel', $serviceModel);
