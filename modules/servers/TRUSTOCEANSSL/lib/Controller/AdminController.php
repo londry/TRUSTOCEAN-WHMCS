@@ -325,7 +325,7 @@ class AdminController
             $dcvInfo[$key]['dcvemails'] = $this->generateDcvEmails($key);
         }
         $returnvars['serviceid'] = $localOrder->getServiceid();
-        $returnvars['domaintotal'] = $domainCount == ""?0:$domainCount;
+        $returnvars['domaintotal'] = $domainCount == ""?1:$domainCount;
 
         if($localOrder->getReissue() === 1){
             $returnvars['reissue'] = true;
