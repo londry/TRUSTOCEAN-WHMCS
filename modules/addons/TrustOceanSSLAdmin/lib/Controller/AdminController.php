@@ -5,6 +5,10 @@ use WHMCS\Module\Server\TRUSTOCEANSSL\TrustOceanAPI;
 
 class AdminController
 {
+    /**
+     * 后台模块首页
+     * @param $vars
+     */
     public function index($vars){
         $smarty = new \Smarty();
 
@@ -24,17 +28,7 @@ class AdminController
         $privatekey = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
             ->where('setting','privatekey')->first();
 
-        $moduleVersion = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
-            ->where('setting','version')->first();
-
         $siteSeal = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first();
-
-        // 从 TrustOcean 查询模块更新和最新的经销商通知
-        $fetchVersion = $this->makeCurlCall("https://console.trustocean.com/TrustOceanSSLModuleSyncInformation.php");
-
-        // 测试连接到API服务器的连接状态
-        $serverController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController();
-        $connectionStatus = $serverController->testConnection();
 
         $moduleApiSetting = [
             "username"   => $apiusername->value,
@@ -43,12 +37,34 @@ class AdminController
             "servertype" => $servertype->value,
             "privateKey" => $privatekey->value,
             "siteseal"   => $siteSeal->value,
+        ];
+        $smarty->assign('moduleSetting', $moduleApiSetting);
+        $smarty->display(__DIR__."/../../template/adminarea.tpl");
+    }
+
+    /**
+     * 查询系统版本信息和远端同步的模块更新信息
+     * @param $vars
+     */
+    public function getSystemStatus($vars){
+        $smarty = new \Smarty();
+        $moduleVersion = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','version')->first();
+        // 从 TrustOcean 查询模块更新和最新的经销商通知
+        $fetchVersion = $this->makeCurlCall("https://console.trustocean.com/TrustOceanSSLModuleSyncInformation.php");
+
+        // 测试连接到API服务器的连接状态
+        $serverController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController();
+        $connectionStatus = $serverController->testConnection();
+
+        $moduleApiSetting = [
             "modVersion" => $moduleVersion->value,
             "connected"  => $connectionStatus,
         ];
         $smarty->assign('moduleSetting', $moduleApiSetting);
         $smarty->assign('remoteMSE', $fetchVersion);
-        $smarty->display(__DIR__."/../../template/adminarea.tpl");
+        $smarty->display(__DIR__."/../../template/includes/systemStatus.tpl");
+        die(); // 防止 WHMCS 加载主框架
     }
 
     /**
