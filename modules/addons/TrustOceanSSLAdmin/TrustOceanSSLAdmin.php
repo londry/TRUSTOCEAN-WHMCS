@@ -128,7 +128,7 @@ function TrustOceanSSLAdmin_config() {
     $configarray = array(
     "name" => "TRUSTOCEAN SSL Admin",
     "description" => "This is a WHMCS Admin module for TrustOcean SSL Partner",
-    "version" => "1.0.1",
+    "version" => "1.1.0",
     "language" => "chinese",
     "author" => "QiaoKr Corporation Limited",
     "fields" => array(

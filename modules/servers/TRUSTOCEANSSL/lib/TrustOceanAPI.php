@@ -48,6 +48,18 @@ class TrustOceanAPI
     }
 
     /**
+     * 测试到API服务器的连接
+     * @return bool
+     */
+    public function testApiConnect(){
+        $connecting = $this->makeCurlCall("ping");
+        if($connecting['status'] === "success"){
+            return true;
+        }else{
+            false;
+        }
+    }
+    /**
      * 使用CURL模拟提交请求信息
      * @param $method
      * @param array $params

@@ -19,6 +19,39 @@
     border-right: 1px solid #1a4d80;
     padding: 10px;
 }
+.versionTagSafe{
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.versionTagunSafe{
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 2px;
+    color: #fff;
+    background-color: #f0ad4e;
+    border-color: #eea236;
+}
 .to-ssl-management-table>thead>tr>th {
     padding: 0 10px;
+}
+.mse-message{
+    padding: 10px;
+}
+.to-module-mse{
+    border: 1px solid #dddddd;
+    margin-bottom: 10px;
+}
+.to-module-mse>h3{
+    background: #efefef;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.to-module-mse>div.msebody{
+    padding:10px;
 }

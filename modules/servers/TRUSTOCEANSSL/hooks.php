@@ -11,7 +11,6 @@ add_hook('ClientAreaHomepage', 1, function ()
      $_SESSION['ssl_count'] = $servicesTotal;
 });
 
-
 /**
  * 检查SAN增加的条件 并从新生成价格
  * @param $vars

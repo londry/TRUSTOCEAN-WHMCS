@@ -1,6 +1,7 @@
 <?php
 namespace WHMCS\Module\Addon\TrustOceanSSLAdmin\Controller;
 use WHMCS\Database\Capsule;
+use WHMCS\Module\Server\TRUSTOCEANSSL\TrustOceanAPI;
 
 class AdminController
 {
@@ -23,7 +24,17 @@ class AdminController
         $privatekey = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
             ->where('setting','privatekey')->first();
 
+        $moduleVersion = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')
+            ->where('setting','version')->first();
+
         $siteSeal = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first();
+
+        // 从 TrustOcean 查询模块更新和最新的经销商通知
+        $fetchVersion = $this->makeCurlCall("https://console.trustocean.com/TrustOceanSSLModuleSyncInformation.php");
+
+        // 测试连接到API服务器的连接状态
+        $serverController = new \WHMCS\Module\Server\TRUSTOCEANSSL\Controller\AdminController();
+        $connectionStatus = $serverController->testConnection();
 
         $moduleApiSetting = [
             "username"   => $apiusername->value,
@@ -31,9 +42,12 @@ class AdminController
             "salt"       => $apisalt->value,
             "servertype" => $servertype->value,
             "privateKey" => $privatekey->value,
-            "siteseal"   => $siteSeal->value
+            "siteseal"   => $siteSeal->value,
+            "modVersion" => $moduleVersion->value,
+            "connected"  => $connectionStatus,
         ];
         $smarty->assign('moduleSetting', $moduleApiSetting);
+        $smarty->assign('remoteMSE', $fetchVersion);
         $smarty->display(__DIR__."/../../template/adminarea.tpl");
     }
 
@@ -378,5 +392,29 @@ class AdminController
             ));
 
         header('Location: addonmodules.php?module=TrustOceanSSLAdmin');
+    }
+
+    /**
+     * @param $url
+     * @param array $params
+     * @return mixed
+     */
+    private function makeCurlCall($urliEndpoint, array $params = [])
+    {
+        $authParams = $params;
+        $curl = curl_init($urliEndpoint);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        $header = array();
+        $header[] = 'User-Agent: Mozilla/5.0 (X11; Linux i686) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/14.0.835.186 Safari/535.1';
+        $header[] = 'Cache-Control:max-age=0';
+        $header[] = 'Content-Type:application/x-www-form-urlencoded';
+        curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1 );
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query(array_merge($authParams, $params)));
+        $result = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($result, 1, 10);
     }
 }

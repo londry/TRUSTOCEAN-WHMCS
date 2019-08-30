@@ -32,6 +32,14 @@ class AdminController
     }
 
     /**
+     * 测试 API 连接
+     * @return bool
+     */
+    public function testConnection(){
+        return $this->apiService->testApiConnect();
+    }
+
+    /**
      * @param $userName
      * @param $apiToken
      * @return RemoteService
