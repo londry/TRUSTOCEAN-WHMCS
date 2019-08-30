@@ -1251,27 +1251,27 @@ function TRUSTOCEANSSL_convertssl($param){
     mkdir($filepath.$filename.'/IIS',0777,TRUE);
 
     $IISFile2 = fopen($filepath.$filename.'/IIS/'."CAChains.crt", "w+");
-    fwrite($IISFile2, $cert->ca_code);
+    fwrite($IISFile2, trim($cert->ca_code));
     fclose($IISFile2);
 
     // 新建Apache 证书文件
     $apacheFile1 = fopen($filepath.$filename.'/Apache/'.$certfilename.".crt", "w+");
-    fwrite($apacheFile1, $cert->cert_code);
+    fwrite($apacheFile1, trim($cert->cert_code));
     fclose($apacheFile1);
     $apacheFile2 = fopen($filepath.$filename.'/Apache/'."CAChains.crt", "w+");
-    fwrite($apacheFile2, $cert->ca_code);
+    fwrite($apacheFile2, trim($cert->ca_code));
     fclose($apacheFile2);
     // 新建CDN 证书文件
     $cdnFile1 = fopen($filepath.$filename.'/CDN/[1]'.$certfilename.".crt", "w+");
-    fwrite($cdnFile1, $cert->cert_code);
+    fwrite($cdnFile1, trim($cert->cert_code));
     fclose($cdnFile1);
     $cdnFile2 = fopen($filepath.$filename.'/CDN/[2]'."CAChains.crt", "w+");
-    fwrite($cdnFile2, $cert->ca_code);
+    fwrite($cdnFile2, trim($cert->ca_code));
     fclose($cdnFile2);
     // 新建Nginx 证书文件 合并证书链
     $nginxFile1 = fopen($filepath.$filename.'/Nginx/'.$certfilename.".pem", "w+");
-    fwrite($nginxFile1, $cert->cert_code."\r\n");
-    fwrite($nginxFile1, $cert->ca_code);
+    fwrite($nginxFile1, trim($cert->cert_code).PHP_EOL);
+    fwrite($nginxFile1, trim($cert->ca_code));
     fclose($nginxFile1);
 
     // todo::解密 密码保护的私钥
@@ -1286,15 +1286,15 @@ function TRUSTOCEANSSL_convertssl($param){
         openssl_pkey_export($decrypt_key,$dkey); # 输出KEY资源到字符串
         // 新建Apache KEY文件
         $apacheKEY = fopen($filepath.$filename.'/Apache/'.$certfilename.".key", "w+");
-        fwrite($apacheKEY, $dkey);
+        fwrite($apacheKEY, trim($dkey));
         fclose($apacheKEY);
         // 新建Nginx KEY文件
         $nginxKEY = fopen($filepath.$filename.'/Nginx/'.$certfilename.".key", "w+");
-        fwrite($nginxKEY, $dkey);
+        fwrite($nginxKEY, trim($dkey));
         fclose($nginxKEY);
         // 新建Nginx KEY文件
         $cdnKEY = fopen($filepath.$filename.'/CDN/'.$certfilename.".key", "w+");
-        fwrite($cdnKEY, $dkey);
+        fwrite($cdnKEY, trim($dkey));
         fclose($cdnKEY);
 
         // 生成IIS .pfx 证书文件
@@ -1896,39 +1896,39 @@ function TRUSTOCEANSSL_downloadcertificate($param){
 
         // 新建Apache 证书文件
         $apacheFile1 = fopen($filepath.$filename.'/Apache/'.$certfilename.".crt", "w+");
-        fwrite($apacheFile1, $cert->cert_code);
+        fwrite($apacheFile1, trim($cert->cert_code));
         fclose($apacheFile1);
         $apacheFile2 = fopen($filepath.$filename.'/Apache/'."MustInstallThis-CAChains.crt", "w+");
-        fwrite($apacheFile2, $cert->ca_code);
+        fwrite($apacheFile2, trim($cert->ca_code));
         fclose($apacheFile2);
         if($cert->key_code !== ""){
             $apacheKey1 = fopen($filepath.$filename.'/Apache/'.$certfilename."-privatekey.pem", "w+");
-            fwrite($apacheKey1, $cert->key_code);
+            fwrite($apacheKey1, trim($cert->key_code));
             fclose($apacheKey1);
         }
 
         // 新建CDN 证书文件
         $cdnFile1 = fopen($filepath.$filename.'/CDN/[1]'.$certfilename.".crt", "w+");
-        fwrite($cdnFile1, $cert->cert_code);
+        fwrite($cdnFile1, trim($cert->cert_code));
         fclose($cdnFile1);
         $cdnFile2 = fopen($filepath.$filename.'/CDN/[2]'."MustInstallThis-CAChains.crt", "w+");
-        fwrite($cdnFile2, $cert->ca_code);
+        fwrite($cdnFile2, trim($cert->ca_code));
         fclose($cdnFile2);
         if($cert->key_code !== ""){
             $cdnKey1 = fopen($filepath.$filename.'/CDN/'.$certfilename."-privatekey.pem", "w+");
-            fwrite($cdnKey1, $cert->key_code);
+            fwrite($cdnKey1, trim($cert->key_code));
             fclose($cdnKey1);
         }
 
         // 新建Nginx 证书文件 合并证书链
         $nginxFile1 = fopen($filepath.$filename.'/Nginx/'.$certfilename.".pem", "w+");
-        fwrite($nginxFile1, $cert->cert_code);
+        fwrite($nginxFile1, trim($cert->cert_code));
         fwrite($nginxFile1, PHP_EOL);
-        fwrite($nginxFile1, $cert->ca_code);
+        fwrite($nginxFile1, trim($cert->ca_code));
         fclose($nginxFile1);
         if($cert->key_code !== ""){
             $nginxKey1 = fopen($filepath.$filename.'/Nginx/'.$certfilename."-privatekey.pem", "w+");
-            fwrite($nginxKey1, $cert->key_code);
+            fwrite($nginxKey1, trim($cert->key_code));
             fclose($nginxKey1);
         }
 
