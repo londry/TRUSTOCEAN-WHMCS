@@ -47,9 +47,9 @@
 - 转换获取 适用于 Apache IIS Nginx 格式的证书压缩包
 - 查看和获取网站安全签章代码
 
-## 集成的 web hook 功能
-使用 web hook 可以更加实时的通知和更新您的证书签发状态，避免因 WHMCS 轮询而导致的签发延迟、用户体验度下降。
-- 通过 web hook 自动更新证书签发状态
+## 集成的 webhook 功能
+使用 webhook 可以更加实时的通知和更新您的证书签发状态，避免因 WHMCS 轮询而导致的签发延迟、用户体验度下降。
+- 通过 webhook 自动更新证书签发状态
 - 自动更新退款状态(finished,reject)
 - 自动同步证书状态更新(revoked,cancelled,issued)
 
