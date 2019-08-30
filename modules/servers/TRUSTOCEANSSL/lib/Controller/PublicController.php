@@ -60,6 +60,15 @@ class PublicController
             if($request['type'] === 'cert_issued'){
                 return $this->processForIssued($request);
             }
+            if($request['type'] === 'refund_processed'){
+                return $this->processForRefund($request);
+            }
+            if($request['type'] === 'cert_cancelled'){
+                return $this->processForCancelled($request);
+            }
+            if($request['type'] === 'cert_revoked'){
+                return $this->processForRevoked($request);
+            }
         }else{
             throw new TrustoceanException("找不到对应的证书订单");
         }
@@ -104,6 +113,64 @@ class PublicController
         // 发送电子邮件通知给用户
         $this->sendEmailNotificationForCertIssuance($certificate, $params['cert_code'], $params['ca_code']);
 
+        return true;
+    }
+
+    /**
+     * @param $params
+     * @return bool
+     * @throws TrustoceanException
+     */
+    protected function processForRefund($params){
+        // 获取本地的Certificate Capsule对象
+        $certificate = Capsule::table('tbltrustocean_certificate')->where('trustocean_id',$params['trustocean_id'])->first();
+        // 如果不存在证书对象, 停止执行
+        if(empty($certificate)){
+          throw new TrustoceanException("对应的证书不存在");
+        }
+        // 更新证书对象
+        Capsule::table('tbltrustocean_certificate')->where('id', $certificate->id)->update(array(
+            "status"              =>  $params['certificate_status'],
+            "refund_status"       =>  $params['refund_status']
+        ));
+        return true;
+    }
+
+    /**
+     * @param $params
+     * @return bool
+     * @throws TrustoceanException
+     */
+    protected function processForCancelled($params){
+        // 获取本地的Certificate Capsule对象
+        $certificate = Capsule::table('tbltrustocean_certificate')->where('trustocean_id',$params['trustocean_id'])->first();
+        // 如果不存在证书对象, 停止执行
+        if(empty($certificate)){
+          throw new TrustoceanException("对应的证书不存在");
+        }
+        // 更新证书对象
+        Capsule::table('tbltrustocean_certificate')->where('id', $certificate->id)->update(array(
+          "status"                =>  "cancelled",
+        ));
+        return true;
+    }
+
+    /**
+     * @param $params
+     * @return bool
+     * @throws TrustoceanException
+     */
+    protected function processForRevoked($params){
+        // 获取本地的Certificate Capsule对象
+        $certificate = Capsule::table('tbltrustocean_certificate')->where('trustocean_id',$params['trustocean_id'])->first();
+        // 如果不存在证书对象, 停止执行
+        if(empty($certificate)){
+          throw new TrustoceanException("对应的证书不存在");
+        }
+        // 更新证书对象
+        Capsule::table('tbltrustocean_certificate')->where('id', $certificate->id)->update(array(
+          "status"                =>  "revoked",
+        ));
         return true;
     }
 
