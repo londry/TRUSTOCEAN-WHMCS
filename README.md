@@ -46,3 +46,48 @@
 - 下载证书和证书链
 - 转换获取 适用于 Apache IIS Nginx 格式的证书压缩包
 - 查看和获取网站安全签章代码
+
+## 集成的 web hook 功能
+使用 web hook 可以更加实时的通知和更新您的证书签发状态，避免因 WHMCS 轮询而导致的签发延迟、用户体验度下降。
+- 通过 web hook 自动更新证书签发状态
+- 自动更新退款状态(finished,reject)
+- 自动同步证书状态更新(revoked,cancelled,issued)
+
+## 如何开始使用
+- 通过 TrustOcean 经销商计划免费获取经销商账户: [提交经销商申请](https://www.trustocean.com/partner-program)
+- 前往 经销商 [API账户页面](https://console.trustocean.com/partner/api-setting) 配置 PUSH_URL 和 PUSH公钥，以及获取 API Username 和 API Token
+- 下载此模块的最新版本, 上传至您的WHMCS安装目录，解压并前往 WHMCS 后台激活模块，并配置对应的 API 账户信息进行保存激活
+- 参考已发布的 [《TRUSTOCEAN SSL WHMCS 模块配置/对接/手册》](https://www.trustocean.com/repository/TRUSTOCEAN-WHMCS-MODULE-USERGUID.pdf) 配置您的SSL产品和价格，特别注意多域名产品的价格配置方式。
+
+## 获取使用和账户申请帮助
+- 客服QQ: 2852368244
+- 发帖至 [TrustOcean 开发者社区](https://developer.trustocean.com)
+- TrustOceanSSL开发者交流QQ群: 941598653
+
+## BUG 反馈和功能建议
+我们期望您能够将使用中遇到的问题和一些功能建议及时的告诉我们，以便于我们及时更近和处理。欢迎您发帖至 [TrustOcean 开发者社区](https://developer.trustocean.com)
+
+## 授权方式 MIT License
+
+[百度百科解释](https://baike.baidu.com/item/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81)
+[英文解释 MIT License](https://choosealicense.com/licenses/mit/#)
+
+Copyright (c) 2019 TrustOcean Limited
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
