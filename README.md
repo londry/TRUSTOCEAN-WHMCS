@@ -65,7 +65,7 @@
 - TrustOceanSSL开发者交流QQ群: 941598653
 
 ## BUG 反馈和功能建议
-我们期望您能够将使用中遇到的问题和一些功能建议及时的告诉我们，以便于我们及时更近和处理。欢迎您发帖至 [TrustOcean 开发者社区](https://developer.trustocean.com)
+我们期望您能够将使用中遇到的问题和一些功能建议及时的告诉我们，以便于我们及时跟进和处理。欢迎您发帖至 [TrustOcean 开发者社区](https://developer.trustocean.com)
 
 ## 授权方式 MIT License
 
