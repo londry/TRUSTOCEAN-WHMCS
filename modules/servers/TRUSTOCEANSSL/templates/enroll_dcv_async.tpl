@@ -57,8 +57,7 @@
                             <tr>
                                 <th data-priority="1" style="text-align: left;"><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.domain}</span><span class="sorting-arrows"></span></span></th>
                                 <th data-priority="2" style="text-align: left;"><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.status}</span><span class="sorting-arrows"></span></span></th>
-                                <th data-priority="3" style="text-align: left;"><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.method}</span><span class="sorting-arrows"></span></span></th>
-                                <th></th>
+                                <th data-priority="3" colspan="2" style="text-align: left;"><span><span>{$MODLANG.trustoceanssl.enroll.setup3.table.method}</span><span class="sorting-arrows"></span></span></th>
                             </tr>
                         </thead>
                         <tbody>
