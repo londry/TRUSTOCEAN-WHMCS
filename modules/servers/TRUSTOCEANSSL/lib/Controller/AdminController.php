@@ -306,8 +306,6 @@ class AdminController
     public function clientArea($vars){
         GLOBAL $MODLANG;
         $localOrder = $this->serviceModel;
-        // 是否为多域名证书
-        $isMultiDomain = $vars['configoption4'] === "on"?true:false;
         // 域名额度
         $domainCount = $vars['configoptions']['DomainCount'];
 
@@ -365,7 +363,6 @@ class AdminController
             $returnvars['dcvinfo'] = $dcvInfo;
             $returnvars['csrhash'] = TRUSTOCEANSSL_getCsrHash($localOrder->getCsrCode());
             $returnvars['uniqueid'] = $localOrder->getUniqueId();
-            $returnvars['ismultidomain'] = $vars['configoption4'];
         }
 
         $user = Capsule::table('tblclients')->where('id', $_SESSION['uid'])->first();
@@ -374,7 +371,6 @@ class AdminController
         // 站点签章设置
         $siteSeal = Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first();
         $returnvars['show_siteseal'] = $siteSeal->value === "hidden"?false:true;
-        $returnvars['ismultidomain'] = $isMultiDomain;
 
         return array(
             'templatefile' => 'templates/cert_view',

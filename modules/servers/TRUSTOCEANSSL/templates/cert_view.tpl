@@ -224,7 +224,7 @@
                                 <a style="margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=downloadcertificate" class="btn btn-success btn-sm" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia1}">{$MODLANG.trustoceanssl.enroll.issued.btn.downloadcert}</a>
                                 <a style="margin-right: 12px;" href="#" onclick="$('a[data-convertssl]').click();" data-toggle="tab" class="btn btn-success btn-sm btn-checkout" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia2}"> {$MODLANG.trustoceanssl.enroll.issued.btn.convertcert}</a>
                                 <a style="margin-right: 12px;" href="/clientarea.php?action=productdetails&id={$serviceid}&modop=custom&a=prepareForReissue" class="btn btn-success btn-sm" data-toggle="tooltip" data-title="{$MODLANG.trustoceanssl.enroll.issued.btn.dia3}">更换域名 / 私钥</a>
-                                {if $vars.ismultidomain}
+                                {if $vars.ismultidomain === "on"}
                                     <a style="margin-right: 12px;" href="upgrade.php?type=configoptions&id={$serviceid}" class="btn btn-success btn-sm">购买域名额度</a>
                                 {/if}
                             </td>
