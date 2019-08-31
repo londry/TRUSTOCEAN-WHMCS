@@ -1,3 +1,8 @@
+<script src="/modules/servers/TRUSTOCEANSSL/assets/js/pkijs/common.js"></script>
+<script src="/modules/servers/TRUSTOCEANSSL/assets/js/pkijs/asn1.js"></script>
+<script src="/modules/servers/TRUSTOCEANSSL/assets/js/pkijs/x509_schema.js"></script>
+<script src="/modules/servers/TRUSTOCEANSSL/assets/js/pkijs/x509_simpl.js"></script>
+<script src="/modules/servers/TRUSTOCEANSSL/assets/js/pkijs/csrapp.js"></script>
 <style type="text/css">
     .tohide{
         display: none;
@@ -29,9 +34,10 @@
                                         <option value="upload">{$MODLANG.trustoceanssl.enroll.uploadnewcsr}</option>
                                     </select>
                                 </div>
+                                <p class="text-info"><a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#myCsrModal">使用CSR离线生成器</a> 创建CSR代码，浏览器将会自动下载私钥, 请您务必妥善保存。(请允许浏览器进行多文件下载)</p>
                                 <div class="form-group" data-input-csr  style="display: none;">
                                     <label for="inputNs1" class="control-label">{$MODLANG.trustoceanssl.enroll.issued.inputcsr}</label>
-                                    <textarea type="text" name="csrcode" autocomplete="new-password" class="form-control domnsinputs" placeholder="{$MODLANG.trustoceanssl.enroll.issued.inputcsrplaceholder}" value="" style="min-height: 200px;"></textarea>
+                                    <textarea id="x509_csrcode" type="text" name="csrcode" autocomplete="new-password" class="form-control domnsinputs" placeholder="{$MODLANG.trustoceanssl.enroll.issued.inputcsrplaceholder}" value="" style="min-height: 200px;"></textarea>
                                 </div>
                                 {if $vars.ismultidomain !== "on"}
                                 <div class="form-group" data-sinledomaininput>
@@ -140,3 +146,4 @@
             </div>
     </div>
 </div>
+{include file="./enroll_csrgenerator.tpl"}
