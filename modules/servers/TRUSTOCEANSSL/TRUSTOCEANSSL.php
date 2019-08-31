@@ -1810,34 +1810,11 @@ function TRUSTOCEANSSL_TerminateAccount($vars){
     global $MODLANG;
 
     $service = Capsule::table('tbltrustocean_certificate')->where('serviceid', $vars['serviceid'])->first();
-    //检查是否超过了30天退款周期
-    $isRefund = time() - strtotime($service->created_at);
-    if($isRefund >= 60*60*24*30){
-        return $MODLANG['trustoceanssl']['apierror']['cannotrefundfor30days'];
-    }
-    // 检查是否已经提交到CA
-    if(!empty($service->vendor_id)){
-        Capsule::table('tbltrustocean_certificate')->where('id', $service->id)->update(array(
+
+    Capsule::table('tbltrustocean_certificate')->where('id', $service->id)->update(array(
             'status'=>'cancelled',
         ));
-        // 写入人工退款流程
-        Capsule::table('tbltrustocean_rejecthistory')->insert(array(
-            'orderNumber'=>$service->vendor_id,
-            'needRefund'=>'yes',
-            'rejected'=>'no',
-            'refundfinished'=>'no',
-            'api_result'=>" ",
-            'created_at'=>date('Y-m-d H:i:s', time()),
-            'trustocean_id'=>$service->id,
-            'uid'=>$service->uid,
-        ));
-        return "success";
-    }else{
-        Capsule::table('tbltrustocean_certificate')->where('id', $service->id)->update(array(
-            'status'=>'cancelled',
-        ));
-        return "success";
-    }
+    return "success";
 }
 
 /**
