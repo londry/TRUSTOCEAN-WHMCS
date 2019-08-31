@@ -50,13 +50,12 @@ class PublicController
      * @throws TrustoceanException
      */
     public function processPushEvent($vars){
-        if (isset($_REQUEST['trustocean_id'])){
-            if(isset($_REQUEST['encrypted_data'])){
-                $request = $this->verifyAndGetRsaEncodedContent($_REQUEST['encrypted_data']);
-            }else{
-                $request = $_REQUEST;
-            }
-
+        if(isset($vars['encrypted_data'])){
+            $request = $this->verifyAndGetRsaEncodedContent($vars['encrypted_data']);
+        }else{
+            $request = $vars;
+        }
+        if (isset($request['trustocean_id'])){
             if($request['type'] === 'cert_issued'){
                 return $this->processForIssued($request);
             }
