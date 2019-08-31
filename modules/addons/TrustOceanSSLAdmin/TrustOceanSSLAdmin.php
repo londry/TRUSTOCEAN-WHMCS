@@ -119,6 +119,20 @@ function TrustOceanSSLAdmin_activate(){
 
 }
 
+/**版本升级导致的数据库变动
+ * @param $vars
+ */
+function TrustOceanSSLAdmin_upgrade($vars){
+    $version = $vars['version'];
+
+    # 为 v1.1.0 版本和之前版本修复数据库字段
+    if($version < 1.2){
+        $query = "ALTER table `tbltrustocean_certificate` ADD `is_requested_refund` int(11) NOT NULL;
+        ALTER table `tbltrustocean_certificate` ADD `refund_status` text NOT NULL;";
+        $result = full_query($query);
+    }
+}
+
 /**
  * 配置模块
  * @return array
