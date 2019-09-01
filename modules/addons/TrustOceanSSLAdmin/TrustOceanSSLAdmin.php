@@ -9,110 +9,126 @@ use WHMCS\Module\Addon\TrustOceanSSLAdmin\Dispatcher\AdminDispatcher;
  */
 function TrustOceanSSLAdmin_activate(){
     # create database table for TRUSTOCEANSSL server module, all the cert data will stored in that table
-    $query01 = "CREATE TABLE IF NOT EXISTS `tbltrustocean_certificate` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uid` int(11) NOT NULL,
-  `serviceid` int(11) NOT NULL,
-  `status` varchar(200) NOT NULL,
-  `class` varchar(200) NOT NULL,
-  `multidomain` int(11) NOT NULL,
-  `csr_code` text,
-  `cert_code` text NOT NULL,
-  `ca_code` text,
-  `key_code` text,
-  `domains` text NOT NULL,
-  `contact_email` varchar(200) DEFAULT NULL,
-  `admin_info` text,
-  `tech_info` text,
-  `org_info` text,
-  `dcv_info` text NOT NULL,
-  `name` text,
-  `vendor_id` text NOT NULL,
-  `submitted_at` timestamp NULL DEFAULT NULL,
-  `paidcertificate_status` varchar(200) DEFAULT NULL,
-  `paidcertificate_delivery_time` varchar(200) DEFAULT NULL,
-  `unique_id` text NOT NULL,
-  `reissue` int(11) NOT NULL,
-  `renew` int(11) NOT NULL,
-  `certificate_id` text NOT NULL,
-  `trustocean_id` int(11) NOT NULL COMMENT 'TRUSTOCEAN_ORDER_ID',
-  `period` text NOT NULL,
-  `issued_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `reissued_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `dcvredo_clicked` timestamp NOT NULL COMMENT 'DCV点击时间',
-  `checkcert_clicked` timestamp NOT NULL COMMENT 'checkCert点击时间',
-  `expiration90_sent_at` timestamp NULL DEFAULT NULL,
-  `expiration30_sent_at` timestamp NULL DEFAULT NULL,
-  `expiration7_sent_at` timestamp NULL DEFAULT NULL,
-  `expiration1_sent_at` timestamp NULL DEFAULT NULL,
-  `expired_sent_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;";
+    $schema = Capsule::schema();
+    // 创建 tbltrustocean_certificate 数据表
+    if(!$schema->hasTable("tbltrustocean_certificate")){
+        $schema->create("tbltrustocean_certificate", function($table){
+            // 基本字段
+            $table->increments('id');
+            $table->integer('uid');
+            $table->integer('serviceid');
+            $table->char('status', 200);
+            $table->char('class', 200);
+            $table->integer('multidomain');
+            $table->longText('csr_code')->nullable();
+            $table->longText('cert_code')->nullable();
+            $table->longText('ca_code')->nullable();
+            $table->longText('key_code')->nullable();
+            $table->longText('domains')->nullable();
+            $table->char('contact_email', 200)->nullable();
+            $table->longText('admin_info')->nullable();
+            $table->longText('tech_info')->nullable();
+            $table->longText('org_info')->nullable();
+            $table->longText('dcv_info')->nullable();
+            $table->text('name');
+            $table->text('vendor_id')->nullable();
+            $table->timestamp('submitted_at')->nullable();
+            $table->char('paidcertificate_status', 200)->nullable();
+            $table->char('paidcertificate_delivery_time', 200)->nullable();
+            $table->text('unique_id');
+            $table->integer('reissue')->default(0);
+            $table->integer('renew')->default(0);
+            $table->text('certificate_id')->nullable();
+            $table->integer('trustocean_id')->nullable();
+            $table->text('period');
+            $table->timestamp('issued_at')->default('0000-00-00 00:00:00');
+            $table->timestamp('created_at');
+            $table->timestamp('dcvredo_clicked')->nullable();
+            $table->timestamp('checkcert_cliecked')->nullable();
+            $table->timestamp('expiration90_sent_at')->nullable();
+            $table->timestamp('expiration30_sent_at')->nullable();
+            $table->timestamp('expiration7_sent_at')->nullable();
+            $table->timestamp('expiration1_sent_at')->nullable();
+            $table->timestamp('expired_sent_at')->nullable();
+            $table->integer("is_requested_refund")->default(0);
+            $table->text("refund_status")->nullable();
 
-    # set primary key
-    $query02 = "ALTER TABLE `tbltrustocean_certificate`
-  ADD PRIMARY KEY (`id`);";
-
-    # auto increment for table
-    $query03 = "ALTER TABLE `tbltrustocean_certificate`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
-
-    # query the database
-    full_query($query01);
-    full_query($query02);
-    full_query($query03);
-
-    # todo:: add san upgradeInvoice function to here
-    $query04 = "CREATE TABLE IF NOT EXISTS `tbltrustocean_upgradeinvoice` (
-  `id` int(11) NOT NULL,
-  `invoice_id` int(11) NOT NULL,
-  `type` varchar(200) NOT NULL,
-  `service_id` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
-  `status` varchar(200) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-    $query05 = "ALTER TABLE `tbltrustocean_upgradeinvoice`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_2` (`id`),
-  ADD KEY `id` (`id`);";
-    $query06 = "ALTER TABLE `tbltrustocean_upgradeinvoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
-
-    # query for upgradeinvoice
-    full_query($query04);
-    full_query($query05);
-    full_query($query06);
-
-    #todo:: add configuration table
-    $query07 = "CREATE TABLE IF NOT EXISTS`tbltrustocean_configuration` (
-  `setting` varchar(255) DEFAULT NULL,
-  `value` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-    $query08 = "INSERT INTO `tbltrustocean_configuration` VALUES ('expiration-cronjob-status', 'finished');";
-    $query13 = "INSERT INTO `tbltrustocean_configuration` VALUES ('siteseal', 'show');";
-
-    #query for configuration
-    full_query($query07);
-    full_query($query08);
-    full_query($query13);
-
-    #todo:: custom email templates query insert to
-    if(empty(Capsule::table('tblemailtemplates')->where('name', 'TrustOcean SSL Expiration Notification')->get())){
-        $query09 = 'INSERT INTO `tblemailtemplates` (`id`, `type`, `name`, `subject`, `message`, `attachments`, `fromname`, `fromemail`, `disabled`, `custom`, `language`, `copyto`, `blind_copy_to`, `plaintext`, `created_at`, `updated_at`) VALUES (NULL, \'general\', \'TrustOcean SSL Expiration Notification\', \'[#{$trustocean_cert_serviceid}]SSL证书过期提醒({$trustocean_cert_commonname})\', \'<p>亲爱的  {$client_name},</p>\r\n<p>我们正式的通知您, 您在 <span style=\"background-color: #ffffff; color: #626262;\"> </span><span style=\"background-color: #ffffff; color: #626262;\">{$company_name} 申购的一本SSL安全加密证书即将到期</span>. 请您尽快点击下列续定链接更新您的SSL安全证书.</p>\r\n<p>续订链接:  {$whmcs_link}</p>\r\n<hr />\r\n<p>证书类型:  {$trustocean_cert_type}</p>\r\n<p>签发日期: {$trustocean_cert_issue_date}</p>\r\n<p>过期日期: {$trustocean_expire_date}</p>\r\n<p>证书过期后可能会影响下列这些域名, 过期后这些域名也可能会无法正常访问:</p>\r\n<p>{$trustocean_domain_string}</p>\r\n<hr />\r\n<p>{$signature}</p>\', \'\', \'\', \'\', \'0\', \'0\', \'chinese\', \'\', \'\', \'0\', \'2018-12-22 16:36:20\', \'2018-12-24 13:23:23\');';
-        $query10 = 'INSERT INTO `tblemailtemplates` (`id`, `type`, `name`, `subject`, `message`, `attachments`, `fromname`, `fromemail`, `disabled`, `custom`, `language`, `copyto`, `blind_copy_to`, `plaintext`, `created_at`, `updated_at`) VALUES (NULL, \'general\', \'TrustOcean SSL Expiration Notification\', \'[#{$trustocean_cert_serviceid}]SSL Expiration Reminder{$trustocean_cert_commonname})\', \'<p>Dear  {$client_name} ,</p>\r\n<p>We hereby inform you that one SSL certificate you purchased from us ( {$company_name} ) is about to expire. Please log in to our website as soon as possible to renew your SSL Certificate.</p>\r\n<p>Renewal URL:  {$whmcs_link}</p>\r\n<hr />\r\n<p>Certificate type:  {$trustocean_cert_type}</p>\r\n<p>Date of issue: {$trustocean_cert_issue_date}</p>\r\n<p>Expiration date: {$trustocean_expire_date}</p>\r\n<p>These domains will be affected or not accessible after expiration:</p>\r\n<p>{$trustocean_domain_string}</p>\r\n<hr />\r\n<p>{$signature}</p>\', \'\', \'\', \'\', \'0\', \'1\', \'\', \'\', \'\', \'0\', \'2018-12-22 16:27:41\', \'2018-12-24 13:23:23\');';
-        #query for email templates
-        full_query($query09);
-        full_query($query10);
+            // 添加唯一索引
+            $table->unique('serviceid');
+        });
     }
 
+    # todo:: add san upgradeInvoice function to here
+    if(!$schema->hasTable("tbltrustocean_upgradeinvoice")){
+        $schema->create('tbltrustocean_upgradeinvoice', function($table){
+            // 基本字段
+            $table->increments('id');
+            $table->integer('invoice_id');
+            $table->char('type',200);
+            $table->integer('service_id');
+            $table->integer('qty');
+            $table->char('status', 200);
+            $table->timestamp('created_at');
+
+            // 添加唯一索引
+            $table->unique('invoice_id');
+        });
+    }
+
+    #todo:: add configuration table
+    if(!$schema->hasTable('tbltrustocean_configuration')){
+        $schema->create('tbltrustocean_configuration', function($table){
+            // 基本字段
+            $table->char('setting', 200);
+            $table->text('value');
+
+            // 添加唯一索引
+            $table->unique('setting');
+        });
+        // 插入默认的配置信息
+        Capsule::table('tbltrustocean_configuration')->insert([
+            ["setting"=>"expiration-cronjob-status", "value"=>"finished"],
+            ["setting"=>"siteseal", "value"=>"show"]
+        ]);
+    }
+
+    // SSL 证书到期通知
+    if(empty(Capsule::table('tblemailtemplates')->where('name', 'TrustOcean SSL Expiration Notification')->get())){
+        Capsule::table('tblemailtemplates')->insert([
+            [
+                "type"      =>"general",
+                "name"      =>"TrustOcean SSL Expiration Notification",
+                "subject"   =>'[#{$trustocean_cert_serviceid}]SSL证书过期提醒({$trustocean_cert_commonname})',
+                "message"   =>'<p>亲爱的  {$client_name},</p>\r\n<p>我们正式的通知您, 您在 <span style=\"background-color: #ffffff; color: #626262;\"> </span><span style=\"background-color: #ffffff; color: #626262;\">{$company_name} 申购的一本SSL安全加密证书即将到期</span>. 请您尽快点击下列续定链接更新您的SSL安全证书.</p>\r\n<p>续订链接:  {$whmcs_link}</p>\r\n<hr />\r\n<p>证书类型:  {$trustocean_cert_type}</p>\r\n<p>签发日期: {$trustocean_cert_issue_date}</p>\r\n<p>过期日期: {$trustocean_expire_date}</p>\r\n<p>证书过期后可能会影响下列这些域名, 过期后这些域名也可能会无法正常访问:</p>\r\n<p>{$trustocean_domain_string}</p>\r\n<hr />\r\n<p>{$signature}</p>',
+                "language"  =>"chinese",
+            ],
+            [
+                "type"      =>"general",
+                "name"      =>"TrustOcean SSL Expiration Notification",
+                "subject"   =>'[#{$trustocean_cert_serviceid}]SSL Expiration Reminder{$trustocean_cert_commonname})',
+                "message"   =>'<p>Dear  {$client_name} ,</p>\r\n<p>We hereby inform you that one SSL certificate you purchased from us ( {$company_name} ) is about to expire. Please log in to our website as soon as possible to renew your SSL Certificate.</p>\r\n<p>Renewal URL:  {$whmcs_link}</p>\r\n<hr />\r\n<p>Certificate type:  {$trustocean_cert_type}</p>\r\n<p>Date of issue: {$trustocean_cert_issue_date}</p>\r\n<p>Expiration date: {$trustocean_expire_date}</p>\r\n<p>These domains will be affected or not accessible after expiration:</p>\r\n<p>{$trustocean_domain_string}</p>\r\n<hr />\r\n<p>{$signature}</p>',
+                "language"  => ""
+            ]
+        ]);
+    }
+    // 证书订单开通 配置通知
     if(empty(Capsule::table('tblemailtemplates')->where('name', 'TrustOcean SSL Configuration')->get())){
-        $query11 = 'INSERT INTO `tblemailtemplates` (`id`, `type`, `name`, `subject`, `message`, `attachments`, `fromname`, `fromemail`, `disabled`, `custom`, `language`, `copyto`, `blind_copy_to`, `plaintext`, `created_at`, `updated_at`) VALUES (NULL, \'product\', \'TrustOcean SSL Configuration\', \'[#{$service_order_id}]SSL Certificate Configuration\', \'<p>Dear {$client_name} ,</p>\r\n<p>It is our pleasure to provide  high secure SSL certificate service to you, we have setup your SSL order, and now, please access this configuration link to get start:</p>\r\n<p>Configuration URL:  {$whmcs_url}clientarea.php?action=productdetails&amp;id={$service_order_id}</p>\r\n<p>Please feel free to contact us by open one new ticket if you get any trouble.</p>\r\n<p><span style=\"color: #000000;font-size: 13.3px; background-color: #ffffff;\">{$signature}</span></p>\', \'\', \'\', \'\', \'0\', \'1\', \'\', \'\', \'\', \'0\', \'2018-12-22 16:55:59\', \'2018-12-24 14:40:43\');';
-        $query12 = 'INSERT INTO `tblemailtemplates` (`id`, `type`, `name`, `subject`, `message`, `attachments`, `fromname`, `fromemail`, `disabled`, `custom`, `language`, `copyto`, `blind_copy_to`, `plaintext`, `created_at`, `updated_at`) VALUES (NULL, \'product\', \'TrustOcean SSL Configuration\', \'[#{$service_order_id}]请配置您的SSL证书\', \'<p style=\"color: #626262;\">亲爱的 {$client_name} ,</p>\r\n<p style=\"color: #626262;\">非常荣幸您能够选择使用由我们提供的全球信任安全加密SSL证书服务, 现在, 请您登陆下列配置链接开始配置您的SSL证书申请:</p>\r\n<p style=\"color: #626262;\">SSL证书配置链接:  {$whmcs_url}clientarea.php?action=productdetails&amp;id={$service_order_id}</p>\r\n<p style=\"color: #626262;\">配置过程中遇到任何问题, 请通过在线客服或提交工单联系我们获取帮助。</p>\r\n<p style=\"color: #626262;\"><span style=\"background-color: #ffffff; color: #000000; font-size: 13.3px;\">{$signature}</span></p>\', \'\', \'\', \'\', \'0\', \'0\', \'chinese\', \'\', \'\', \'0\', \'2018-12-22 16:55:59\', \'2018-12-24 14:40:43\');';
-        #query for email templates
-        full_query($query11);
-        full_query($query12);
+        Capsule::table('tblemailtemplates')->insert([
+            [
+                "type"      =>"product",
+                "name"      =>"TrustOcean SSL Configuration",
+                "subject"   =>'[#{$service_order_id}]SSL Certificate Configuration',
+                "message"   =>'<p>Dear {$client_name} ,</p>\r\n<p>It is our pleasure to provide  high secure SSL certificate service to you, we have setup your SSL order, and now, please access this configuration link to get start:</p>\r\n<p>Configuration URL:  {$whmcs_url}clientarea.php?action=productdetails&amp;id={$service_order_id}</p>\r\n<p>Please feel free to contact us by open one new ticket if you get any trouble.</p>\r\n<p><span style=\"color: #000000;font-size: 13.3px; background-color: #ffffff;\">{$signature}</span></p>',
+                "language"  => ""
+            ],
+            [
+                "type"      =>"product",
+                "name"      =>"TrustOcean SSL Configuration",
+                "subject"   =>'[#{$service_order_id}]请配置您的SSL证书',
+                "message"   =>'<p style=\"color: #626262;\">亲爱的 {$client_name} ,</p>\r\n<p style=\"color: #626262;\">非常荣幸您能够选择使用由我们提供的全球信任安全加密SSL证书服务, 现在, 请您登陆下列配置链接开始配置您的SSL证书申请:</p>\r\n<p style=\"color: #626262;\">SSL证书配置链接:  {$whmcs_url}clientarea.php?action=productdetails&amp;id={$service_order_id}</p>\r\n<p style=\"color: #626262;\">配置过程中遇到任何问题, 请通过在线客服或提交工单联系我们获取帮助。</p>\r\n<p style=\"color: #626262;\"><span style=\"background-color: #ffffff; color: #000000; font-size: 13.3px;\">{$signature}</span></p>',
+                "language"  =>"chinese",
+            ]
+        ]);
     }
 
     return array('status'=>'success','description'=>'Module Actived successfully, we have create one database table `tbltrustocean_certificate` for you , to store the customer ssl certificate. Next, you need config your API username and password etc.');
@@ -125,11 +141,27 @@ function TrustOceanSSLAdmin_activate(){
 function TrustOceanSSLAdmin_upgrade($vars){
     $version = $vars['version'];
 
-    # 为 v1.1.0 版本和之前版本修复数据库字段
-    if($version < 1.2){
-        $query = "ALTER table `tbltrustocean_certificate` ADD `is_requested_refund` int(11) NOT NULL;
-        ALTER table `tbltrustocean_certificate` ADD `refund_status` text NOT NULL;";
-        $result = full_query($query);
+    # 为小于 v1.1.1 版本的之前模块修复数据库字段
+    if($version < "1.1.1"){
+        $schema = Capsule::schema();
+
+        if($schema->hashTable("tbltrustocean_certificate")){
+            $schema->table("tbltrustocean_certificate", function($table){
+                if(!$table->hashColumn('is_requested_refund')){
+                    $table->integer("is_requested_refund");
+                }
+                if(!$table->hashColumn('refund_status')){
+                    $table->text("refund_status");
+                }
+            });
+        }
+
+        // 检查是否存在 siteseal 的配置项
+        if(empty(Capsule::table('tbltrustocean_configuration')->where('setting','siteseal')->first())){
+            Capsule::table('tbltrustocean_configuration')->insert(
+                ["setting"=>"siteseal", "value"=>"show"]
+            );
+        }
     }
 }
 
@@ -142,7 +174,7 @@ function TrustOceanSSLAdmin_config() {
     $configarray = array(
     "name" => "TRUSTOCEAN SSL Admin",
     "description" => "This is a WHMCS Admin module for TrustOcean SSL Partner",
-    "version" => "1.1.0",
+    "version" => "1.1.1",
     "language" => "chinese",
     "author" => "QiaoKr Corporation Limited",
     "fields" => array(
