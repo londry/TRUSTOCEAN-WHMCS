@@ -40,7 +40,7 @@ class PublicController
             $decodedString .= $temp;
         }
         openssl_free_key($privateKey);
-        return $decodedString; // 返回解密后的 array
+        return json_decode($decodedString, 1, 10); // 返回解密后的 array
     }
 
     /**
@@ -50,26 +50,30 @@ class PublicController
      * @throws TrustoceanException
      */
     public function processPushEvent($vars){
-        if(isset($vars['encrypted_data'])){
-            $request = $this->verifyAndGetRsaEncodedContent($vars['encrypted_data']);
-        }else{
-            $request = $vars;
-        }
-        if (isset($request['trustocean_id'])){
-            if($request['type'] === 'cert_issued'){
-                return $this->processForIssued($request);
+        try {
+            if (isset($vars['encrypted_data'])) {
+                $request = $this->verifyAndGetRsaEncodedContent($vars['encrypted_data']);
+            } else {
+                $request = $vars;
             }
-            if($request['type'] === 'refund_processed'){
-                return $this->processForRefund($request);
+            if (isset($request['trustocean_id'])) {
+                if ($request['type'] === 'cert_issued') {
+                    return $this->processForIssued($request);
+                }
+                if ($request['type'] === 'refund_processed') {
+                    return $this->processForRefund($request);
+                }
+                if ($request['type'] === 'cert_cancelled') {
+                    return $this->processForCancelled($request);
+                }
+                if ($request['type'] === 'cert_revoked') {
+                    return $this->processForRevoked($request);
+                }
+            } else {
+                throw new TrustoceanException("找不到对应的证书订单");
             }
-            if($request['type'] === 'cert_cancelled'){
-                return $this->processForCancelled($request);
-            }
-            if($request['type'] === 'cert_revoked'){
-                return $this->processForRevoked($request);
-            }
-        }else{
-            throw new TrustoceanException("找不到对应的证书订单");
+        }catch(\Exception $exception){
+            throw new \Exception($exception->getMessage());
         }
     }
 
