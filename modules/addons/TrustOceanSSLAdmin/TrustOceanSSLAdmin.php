@@ -145,12 +145,12 @@ function TrustOceanSSLAdmin_upgrade($vars){
     if($version < "1.1.1"){
         $schema = Capsule::schema();
 
-        if($schema->hashTable("tbltrustocean_certificate")){
+        if($schema->hasTable("tbltrustocean_certificate")){
             $schema->table("tbltrustocean_certificate", function($table){
-                if(!$table->hashColumn('is_requested_refund')){
+                if(!$table->hasColumn('is_requested_refund')){
                     $table->integer("is_requested_refund");
                 }
-                if(!$table->hashColumn('refund_status')){
+                if(!$table->hasColumn('refund_status')){
                     $table->text("refund_status");
                 }
             });
