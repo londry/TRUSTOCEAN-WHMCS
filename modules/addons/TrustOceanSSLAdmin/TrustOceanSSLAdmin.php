@@ -146,14 +146,16 @@ function TrustOceanSSLAdmin_upgrade($vars){
         $schema = Capsule::schema();
 
         if($schema->hasTable("tbltrustocean_certificate")){
-            $schema->table("tbltrustocean_certificate", function($table){
-                if(!$table->hasColumn('is_requested_refund')){
+            if(!$schema->hasColumn('tbltrustocean_certificate','is_requested_refund')){
+                $schema->table("tbltrustocean_certificate", function($table){
                     $table->integer("is_requested_refund");
-                }
-                if(!$table->hasColumn('refund_status')){
+                });
+            }
+            if(!$schema->hasColumn('tbltrustocean_certificate','refund_status')){
+                $schema->table("tbltrustocean_certificate", function($table){
                     $table->text("refund_status");
-                }
-            });
+                });
+            }
         }
 
         // 检查是否存在 siteseal 的配置项
