@@ -101,13 +101,15 @@ function TrustOceanSSLAdmin_activate(){
                 "subject"   =>'[#{$trustocean_cert_serviceid}]SSL证书过期提醒({$trustocean_cert_commonname})',
                 "message"   =>'<p>亲爱的  {$client_name},</p>\r\n<p>我们正式的通知您, 您在 <span style=\"background-color: #ffffff; color: #626262;\"> </span><span style=\"background-color: #ffffff; color: #626262;\">{$company_name} 申购的一本SSL安全加密证书即将到期</span>. 请您尽快点击下列续定链接更新您的SSL安全证书.</p>\r\n<p>续订链接:  {$whmcs_link}</p>\r\n<hr />\r\n<p>证书类型:  {$trustocean_cert_type}</p>\r\n<p>签发日期: {$trustocean_cert_issue_date}</p>\r\n<p>过期日期: {$trustocean_expire_date}</p>\r\n<p>证书过期后可能会影响下列这些域名, 过期后这些域名也可能会无法正常访问:</p>\r\n<p>{$trustocean_domain_string}</p>\r\n<hr />\r\n<p>{$signature}</p>',
                 "language"  =>"chinese",
+                "custom"    =>1
             ],
             [
                 "type"      =>"general",
                 "name"      =>"TrustOcean SSL Expiration Notification",
                 "subject"   =>'[#{$trustocean_cert_serviceid}]SSL Expiration Reminder{$trustocean_cert_commonname})',
                 "message"   =>'<p>Dear  {$client_name} ,</p>\r\n<p>We hereby inform you that one SSL certificate you purchased from us ( {$company_name} ) is about to expire. Please log in to our website as soon as possible to renew your SSL Certificate.</p>\r\n<p>Renewal URL:  {$whmcs_link}</p>\r\n<hr />\r\n<p>Certificate type:  {$trustocean_cert_type}</p>\r\n<p>Date of issue: {$trustocean_cert_issue_date}</p>\r\n<p>Expiration date: {$trustocean_expire_date}</p>\r\n<p>These domains will be affected or not accessible after expiration:</p>\r\n<p>{$trustocean_domain_string}</p>\r\n<hr />\r\n<p>{$signature}</p>',
-                "language"  => ""
+                "language"  => "",
+                "custom"    =>1
             ]
         ]);
     }
@@ -119,7 +121,8 @@ function TrustOceanSSLAdmin_activate(){
                 "name"      =>"TrustOcean SSL Configuration",
                 "subject"   =>'[#{$service_order_id}]SSL Certificate Configuration',
                 "message"   =>'<p>Dear {$client_name} ,</p>\r\n<p>It is our pleasure to provide  high secure SSL certificate service to you, we have setup your SSL order, and now, please access this configuration link to get start:</p>\r\n<p>Configuration URL:  {$whmcs_url}clientarea.php?action=productdetails&amp;id={$service_order_id}</p>\r\n<p>Please feel free to contact us by open one new ticket if you get any trouble.</p>\r\n<p><span style=\"color: #000000;font-size: 13.3px; background-color: #ffffff;\">{$signature}</span></p>',
-                "language"  => ""
+                "language"  => "",
+                "custom"    =>1
             ],
             [
                 "type"      =>"product",
@@ -127,6 +130,7 @@ function TrustOceanSSLAdmin_activate(){
                 "subject"   =>'[#{$service_order_id}]请配置您的SSL证书',
                 "message"   =>'<p style=\"color: #626262;\">亲爱的 {$client_name} ,</p>\r\n<p style=\"color: #626262;\">非常荣幸您能够选择使用由我们提供的全球信任安全加密SSL证书服务, 现在, 请您登陆下列配置链接开始配置您的SSL证书申请:</p>\r\n<p style=\"color: #626262;\">SSL证书配置链接:  {$whmcs_url}clientarea.php?action=productdetails&amp;id={$service_order_id}</p>\r\n<p style=\"color: #626262;\">配置过程中遇到任何问题, 请通过在线客服或提交工单联系我们获取帮助。</p>\r\n<p style=\"color: #626262;\"><span style=\"background-color: #ffffff; color: #000000; font-size: 13.3px;\">{$signature}</span></p>',
                 "language"  =>"chinese",
+                "custom"    =>1
             ]
         ]);
     }
