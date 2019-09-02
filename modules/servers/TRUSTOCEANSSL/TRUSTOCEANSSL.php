@@ -976,7 +976,8 @@ function TRUSTOCEANSSL_trySubmittoca($vars){
     );
 
     $doaminArray = json_decode($service->domains, 1);
-    $dcvString = $_POST['domaindcvmathod'][$doaminArray[0]];
+    $domain = str_replace("*",'_issuewild', $doaminArray[0]);
+    $dcvString = $_POST['domaindcvmathod'][$domain];
 
     # todo:: 多域名 域名列表
     if($vars['configoption4'] === "on"){
