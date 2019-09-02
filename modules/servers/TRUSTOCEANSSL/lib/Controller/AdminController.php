@@ -157,6 +157,7 @@ class AdminController
             $expireAt = date('Y-m-d H:i:s', $certInfo['validTo_time_t']);
         }
         $smarty->assign('validTo', $expireAt);
+        $smarty->assign('domains', $serviceModel->getDomains());
         $smarty->assign('dcvInformation', $serviceModel->getDcvInfo());
         $smarty->assign('certCode', $serviceModel->getCertCode());
         $smarty->assign('certModel', $serviceModel);

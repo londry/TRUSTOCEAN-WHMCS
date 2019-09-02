@@ -11,6 +11,9 @@
         <a style="border-radius: 0px; background-color: black; border: none; color: #ffffff;" class="tab-top active" href="#tabOrder" role="tab" data-toggle="tab" id="tabLink1" data-tab-id="1" aria-expanded="true">订单概览</a>
     </li>
     <li>
+        <a style="border-radius: 0px; background-color: black; border: none; color: #ffffff;" class="tab-top" href="#tabDomains" role="tab" data-toggle="tab" id="tabLink7" data-tab-id="7" aria-expanded="true">域名列表</a>
+    </li>
+    <li>
         <a style="border-radius: 0px; background-color: black; border: none; color: #ffffff;" class="tab-top" href="#tabDCV" role="tab" data-toggle="tab" id="tabLink2" data-tab-id="2" aria-expanded="true">域名验证</a>
     </li>
     <li>
@@ -86,6 +89,10 @@
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="tab-pane" id="tabDomains">
+        <pre>{foreach from=$domains item=$domain}{$domain}
+{/foreach}</pre>
     </div>
     <div class="tab-pane" id="tabOrg">
         {if $certModel->getClass() eq "dv"}
