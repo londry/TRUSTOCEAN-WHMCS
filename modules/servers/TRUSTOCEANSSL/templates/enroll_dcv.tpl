@@ -71,7 +71,7 @@
                                 </td>
                                 <td style="display: flex;">
                                 {*<form style="display: flex;" action="{$smarty.server.PHP_SELF}?action=productdetails&id={$vars.serviceid}&modop=custom&a=setdcvforall" method="post">*}
-                                 <select name="domaindcvmathod[{$domain}]" {if $domain === $vars.domains.0}data-maindcv="true"{else}data-sandcv="true"{/if} dcv-cert-id={$serviceid} dcv-domain-name={$domain} dcv-domain={$domain|md5} class="form-control input-sm" style="width: 120px; text-align: center;" {if $info.method neq 'email'}{if $info.status eq 'verified'}disabled{/if}{/if}>
+                                 <select name="domaindcvmathod[{$domain|replace:'*':'_issuewild'}]" {if $domain === $vars.domains.0}data-maindcv="true"{else}data-sandcv="true"{/if} dcv-cert-id={$serviceid} dcv-domain-name={$domain} dcv-domain={$domain|md5} class="form-control input-sm" style="width: 120px; text-align: center;" {if $info.method neq 'email'}{if $info.status eq 'verified'}disabled{/if}{/if}>
                                      <option data-method="dns" value="dns" {if $info.method eq 'dns'}selected{/if} {if $info.isip eq 'true'}disabled{/if} {if $info.isip eq 'true'}style="display:none;"{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.dns}</option>
                                      <option data-method="http" value="http" {if $info.method eq 'http'}selected{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.http}</option>
                                      <option data-method="https" value="https" {if $info.method eq 'https'}selected{/if}>{$MODLANG.trustoceanssl.enroll.setup3.table.https}</option>

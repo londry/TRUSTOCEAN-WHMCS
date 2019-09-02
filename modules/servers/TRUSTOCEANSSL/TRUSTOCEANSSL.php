@@ -349,7 +349,7 @@ function TRUSTOCEANSSL_CreateAccount($vars){
     $period = Capsule::table('tblhosting')->where('id', $vars['serviceid'])->value('billingcycle');
 
     // todo:: 域名数量
-    if($vars['configoption3'] === "on"){
+    if($vars['configoption4'] === "on"){
         $domain_count = (int)$vars['configoptions']['DomainCount'];
     }else{
         $domain_count = 1;
@@ -975,18 +975,30 @@ function TRUSTOCEANSSL_trySubmittoca($vars){
         'pid'       =>$vars['configoption1'],
     );
 
+    $doaminArray = json_decode($service->domains, 1);
+    $dcvString = $_POST['domaindcvmathod'][$doaminArray[0]];
+
     # todo:: 多域名 域名列表
     if($vars['configoption4'] === "on"){
         $domainString = "";
-        foreach (json_decode($service->domains, 1) as $domain){
+        foreach ($doaminArray as $domain){
             $domainString  = $domainString.$domain.",";
         }
         $domainString = substr($domainString, 0, strlen($domainString)-1);
         $caprams['domains'] = $domainString;
+
+        # todo:: DCV信息列表
+        $dcvString = "";
+        foreach ($doaminArray as $domain){
+            // 修复 form 表单数组使用*无法识别问题
+            $domain = str_replace("*",'_issuewild', $domain);
+
+            $dcvString = $dcvString.$_POST['domaindcvmathod'][$domain].",";
+        }
+        $dcvString = substr($dcvString, 0, strlen($dcvString)-1);
     }
 
-    # todo:: DCV信息列表
-    $dcvString = implode(',', $_POST['domaindcvmathod']);
+
     // 其他非主域名还需要使用相同的method进行填充后并核对顺序才可以使用
 
     $caprams['dcv_method'] = $dcvString;
@@ -1521,7 +1533,7 @@ function TRUSTOCEANSSL_syncRemoveSANDomain($vars){
         TRUSTOCEANSSL_clientApiResponse(['status'=>'error','message'=>"添加删除失败, 证书至少需要保留1条域名"]);
     }
     #检查是否为多域名证书
-    if($vars['configoption3'] !== "on"){
+    if($vars['configoption4'] !== "on"){
             TRUSTOCEANSSL_clientApiResponse(['status'=>'error','message'=>'删除域名失败, 只有多域名证书才可以删除域名。']);
     }
     $domains = json_decode($service->domains, 1);
