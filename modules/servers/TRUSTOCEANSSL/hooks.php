@@ -94,7 +94,7 @@ function trustoceanSslAddSanToCertOrderAndGetInvoice($vars){
         }else{
             // AN总计的价格 保留2位小数
             $needSan = $vars['newSan'];
-            $amount = round($needSan * $netPrice);
+            $amount = round($needSan * $netPrice,2);
 
             if($amount > 0){
                 // 新开账单并确认付款状态 参考 https://developers.whmcs.com/api-reference/createinvoice/
