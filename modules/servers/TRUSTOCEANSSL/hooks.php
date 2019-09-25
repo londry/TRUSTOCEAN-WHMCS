@@ -65,9 +65,16 @@ function trustoceanSslAddSanToCertOrderAndGetInvoice($vars){
         // $optionId = Capsule::table('tblhostingconfigoptions')->where('relid', $vars['serviceid'])->where('configid', $domaincount['id'])->value('optionid');
         $optionId = $domaincount["id"];
 
+        // 修复多个配置项导致ID不匹配不扣费问题
+        // 获取绝对的配置项价格configoptions的tblpricing.relid 对应  tblproductconfigoptionssub.id
+        $relIdforConfigoptionPricingCheck = Capsule::table('tblproductconfigoptionssub')
+            ->where('configid', $optionId)->where('optionname','LIKE','DomainCount%')
+            ->first();
+        $relIdforConfigoptionPricing = $relIdforConfigoptionPricingCheck->id;
+
         // 获取period内的单个SAN价格
         $netPrice = Capsule::table('tblpricing')->where('type','configoptions')
-            ->where('relid', $optionId)
+            ->where('relid', $relIdforConfigoptionPricing)
             ->where('currency', $whmcsClient->currency)
             ->value(strtolower($hosting['billingcycle']));
 
@@ -87,7 +94,7 @@ function trustoceanSslAddSanToCertOrderAndGetInvoice($vars){
         }else{
             // AN总计的价格 保留2位小数
             $needSan = $vars['newSan'];
-            $amount = round($needSan * $netPrice);
+            $amount = round($needSan * $netPrice,2);
 
             if($amount > 0){
                 // 新开账单并确认付款状态 参考 https://developers.whmcs.com/api-reference/createinvoice/
@@ -273,4 +280,3 @@ add_hook('InvoicePaid', 1, function($vars) {
         );
     }
 });
-

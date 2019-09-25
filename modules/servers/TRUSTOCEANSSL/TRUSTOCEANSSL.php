@@ -772,7 +772,7 @@ function TRUSTOCEANSSL_ajaxTryToReissueSSL($vars){
         // todo:: 检查多域名证书的第一个域名
         $firstDN = new \blobfolio\domain\domain($domains['domains'][0]);
         if($firstDN->is_ip()){
-            TRUSTOCEANSSL_APIRESPONSE(['status'=>'error','message'=>$MODLANG['trustoceanssl']['apierror']['notfirstip']]);
+            //TRUSTOCEANSSL_APIRESPONSE(['status'=>'error','message'=>$MODLANG['trustoceanssl']['apierror']['notfirstip']]);
         }else{
             // todo:: 设置多域名证书的第一个域名用于创建CSR DN
             $requestParams['domain'] = $domains['domains'][0];
@@ -1609,7 +1609,7 @@ function TRUSTOCEANSSL_ajaxUploadCertInfo($vars){
         // todo:: 检查多域名证书的第一个域名
         $firstDN = new \blobfolio\domain\domain($domains['domains'][0]);
         if($firstDN->is_ip()){
-            TRUSTOCEANSSL_APIRESPONSE(['status'=>'error','message'=>$MODLANG['trustoceanssl']['apierror']['notfirstip']]);
+            //TRUSTOCEANSSL_APIRESPONSE(['status'=>'error','message'=>$MODLANG['trustoceanssl']['apierror']['notfirstip']]);
         }else{
             // todo:: 设置多域名证书的第一个域名用于创建CSR DN
             $requestParams['domain'] = $domains['domains'][0];
