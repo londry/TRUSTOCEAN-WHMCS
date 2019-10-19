@@ -44,7 +44,7 @@ function TrustOceanSSLAdmin_activate(){
             $table->timestamp('issued_at')->default('0000-00-00 00:00:00');
             $table->timestamp('created_at');
             $table->timestamp('dcvredo_clicked')->nullable();
-            $table->timestamp('checkcert_cliecked')->nullable();
+            $table->timestamp('checkcert_clicked')->nullable();
             $table->timestamp('expiration90_sent_at')->nullable();
             $table->timestamp('expiration30_sent_at')->nullable();
             $table->timestamp('expiration7_sent_at')->nullable();
