@@ -108,7 +108,7 @@ function TrustOceanSSLAdmin_activate(){
                 "name"      =>"TrustOcean SSL Expiration Notification",
                 "subject"   =>'[#{$trustocean_cert_serviceid}]SSL Expiration Reminder{$trustocean_cert_commonname})',
                 "message"   =>'<p>Dear  {$client_name} ,</p>\r\n<p>We hereby inform you that one SSL certificate you purchased from us ( {$company_name} ) is about to expire. Please log in to our website as soon as possible to renew your SSL Certificate.</p>\r\n<p>Renewal URL:  {$whmcs_link}</p>\r\n<hr />\r\n<p>Certificate type:  {$trustocean_cert_type}</p>\r\n<p>Date of issue: {$trustocean_cert_issue_date}</p>\r\n<p>Expiration date: {$trustocean_expire_date}</p>\r\n<p>These domains will be affected or not accessible after expiration:</p>\r\n<p>{$trustocean_domain_string}</p>\r\n<hr />\r\n<p>{$signature}</p>',
-                "language"  => "",
+                "language"  => "english",
                 "custom"    =>1
             ]
         ]);
@@ -121,7 +121,7 @@ function TrustOceanSSLAdmin_activate(){
                 "name"      =>"TrustOcean SSL Configuration",
                 "subject"   =>'[#{$service_order_id}]SSL Certificate Configuration',
                 "message"   =>'<p>Dear {$client_name} ,</p>\r\n<p>It is our pleasure to provide  high secure SSL certificate service to you, we have setup your SSL order, and now, please access this configuration link to get start:</p>\r\n<p>Configuration URL:  {$whmcs_url}clientarea.php?action=productdetails&amp;id={$service_order_id}</p>\r\n<p>Please feel free to contact us by open one new ticket if you get any trouble.</p>\r\n<p><span style=\"color: #000000;font-size: 13.3px; background-color: #ffffff;\">{$signature}</span></p>',
-                "language"  => "",
+                "language"  => "english",
                 "custom"    =>1
             ],
             [

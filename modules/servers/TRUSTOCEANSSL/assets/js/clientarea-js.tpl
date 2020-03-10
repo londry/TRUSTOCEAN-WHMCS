@@ -292,7 +292,7 @@ function syncMDCDomainStatus(){
             $.each(resp.dcvinfo, function(index, info){
                 $('select[ca-dcv-domain='+info.domainmd5hash+']').val(info.method);
                 $('button[data-ca-remove-btn='+info.domainmd5hash+']').show();
-                if(info.status === "Valid"){
+                if(info.status === "verified"){
                     $('div[data-dcv-contain='+info.domainmd5hash+']').html(info.method);
                     $('div[data-dcv-contain='+info.domainmd5hash+']').css('display','flex');
                     $('select[ca-dcv-domain='+info.domainmd5hash+']').attr('disabled', true);
@@ -301,7 +301,7 @@ function syncMDCDomainStatus(){
                     $('td[data-ca-status-td='+info.domainmd5hash+']').html('<span class="text-success" style="padding-left: 10px;"><i class="oi" data-glyph="circle-check" style="margin-left: -18px;margin-top: 2px; position: absolute; padding-bottom: 2px;"></i>'+MODLANG.enroll.status.verified+'</span>');
                 }else{
                     var isexitDCVBtn = $('input[onclick="selectAllDcvMethod()"]').length > 0;
-                    if(isexitDCVBtn === false && isMainDCV === true && resp.dcvinfo[index-1] !== undefined && resp.dcvinfo[index-1]['status'] === "Valid"){
+                    if(isexitDCVBtn === false && isMainDCV === true && resp.dcvinfo[index-1] !== undefined && resp.dcvinfo[index-1]['status'] === "verified"){
                         $('div[data-dcv-contain='+info.domainmd5hash+'] > select').removeAttr('data-sandcv');
                         $('div[data-dcv-contain='+info.domainmd5hash+'] > select').attr('data-maindcv', 'true');
                         $('div[data-dcv-contain='+info.domainmd5hash+']').append('<input type="button" onclick="selectAllDcvMethod()" data-toggle="tooltip" data-title="'+MODLANG.enroll.status.selectdcvmethodforall+'" data-original-title="" title="" class="btn btn-xs btn-default" value="'+MODLANG.enroll.status.selectall+'">');
@@ -315,11 +315,8 @@ function syncMDCDomainStatus(){
                         $('tr[dcv-tds='+info.domainmd5hash+']').find('td[dcv-tab]').hide();
                     }
                 }
-                if(info.status === "Processing"){
+                if(info.status === "needverification"){
                     $('td[data-ca-status-td='+info.domainmd5hash+']').html('<span class="text-info" style="padding-left: 10px;"><i class="oi fa fa-spin" data-glyph="aperture" style="margin-left: -18px;margin-top: 2px; position: absolute; padding-bottom: 2px;"></i> '+MODLANG.enroll.status.processing+'</span>');
-                }
-                if(info.status === "Sent"){
-                    $('td[data-ca-status-td='+info.domainmd5hash+']').html('<span class="text-info" style="padding-left: 10px;"><i class="oi fa fa-spin" data-glyph="aperture" style="margin-left: -18px;margin-top: 2px; position: absolute; padding-bottom: 2px;"></i> '+MODLANG.enroll.status.sentemail+'</span>');
                 }
             });
             tonotify('mainorderdcv' ,'success', MODLANG.trustoceanssl.enroll.ajax.dcvsuccess);

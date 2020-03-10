@@ -214,9 +214,7 @@ function TRUSTOCEANSSL_adminSynccertorderdata($vars) {
                 'status'  => 'issued_active',
                 'org_info'  => $order['org_info'],
                 'domains'  => json_encode($order['domains']),
-                'reissue' => 0,
                 'dcv_info' =>json_encode($order['dcv_info']),
-                'renew' => 0,
                 'issued_at' => date('Y-m-d H:i:s'),
         ));
     }
@@ -296,13 +294,13 @@ function TRUSTOCEANSSL_CALLAPI($params){
     $postVars = http_build_query ($params);
 
     // todo:: 检查设置的API版本
-    $apiURL = 'https://api.trustocean.com/ssl/v2/'.$method;
+    $apiURL = 'https://api.trustocean.com/ssl/v5/'.$method;
 
     $location  = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apiservertype')->value('value');
     if($location === "CN-Beijing"){
-        $apiURL = "https://api.trustocean.com/ssl/v2/$method"; // API located in Beijing CN
+        $apiURL = "https://api.trustocean.com/ssl/v5/$method"; // API located in Beijing CN
     }else{
-        $apiURL = "https://sapi.trustocean.com/ssl/v2/$method"; // API located in London UK
+        $apiURL = "https://sapi.trustocean.com/ssl/v5/$method"; // API located in London UK
     }
 
     $curlHandle = curl_init ();
