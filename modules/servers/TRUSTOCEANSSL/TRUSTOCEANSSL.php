@@ -294,13 +294,13 @@ function TRUSTOCEANSSL_CALLAPI($params){
     $postVars = http_build_query ($params);
 
     // todo:: 检查设置的API版本
-    $apiURL = 'https://api.trustocean.com/ssl/v5/'.$method;
+    $apiURL = 'https://api.crazyssl.com/ssl/v2/'.$method;
 
     $location  = Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting','apiservertype')->value('value');
     if($location === "CN-Beijing"){
-        $apiURL = "https://api.trustocean.com/ssl/v5/$method"; // API located in Beijing CN
+        $apiURL = "https://api.crazyssl.com/ssl/v2/$method"; // API located in Beijing CN
     }else{
-        $apiURL = "https://sapi.trustocean.com/ssl/v5/$method"; // API located in London UK
+        $apiURL = "https://api.crazyssl.com/ssl/v2/$method"; // API located in London UK
     }
 
     $curlHandle = curl_init ();
