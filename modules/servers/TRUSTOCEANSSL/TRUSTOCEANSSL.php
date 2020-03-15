@@ -366,6 +366,7 @@ function TRUSTOCEANSSL_CreateAccount($vars){
             "submitted_at" => date('Y-m-d H:i:s'),
             "class"     =>  $vars['configoption2'],
             'multidomain'  =>  $vars['configoption4'] === "on" ?1:0,
+            'created_at'    => date('Y-m-d H:i:s', time()),
         ));
 
     return "success";
