@@ -366,6 +366,7 @@ function TRUSTOCEANSSL_CreateAccount($vars){
             "submitted_at" => date('Y-m-d H:i:s'),
             "class"     =>  $vars['configoption2'],
             'multidomain'  =>  $vars['configoption4'] === "on" ?1:0,
+            'created_at'    => date('Y-m-d H:i:s', time()),
         ));
 
     return "success";
@@ -973,6 +974,9 @@ function TRUSTOCEANSSL_trySubmittoca($vars){
         'pid'       =>$vars['configoption1'],
     );
 
+    // DEBUG FOR NEW WHMCS VARS
+//    file_put_contents(__DIR__.'/crazyssl_debuy_logs.txt', json_encode($vars));
+
     $doaminArray = json_decode($service->domains, 1);
     $domain = str_replace("*",'_issuewild', $doaminArray[0]);
     $dcvString = $_POST['domaindcvmathod'][$domain];
@@ -1018,6 +1022,8 @@ function TRUSTOCEANSSL_trySubmittoca($vars){
             $caprams[$key] = $value;
         }
     }
+
+//    file_put_contents(__DIR__.'/crazyssl_debuy_logs.txt', json_encode($caprams), FILE_APPEND);
 
     $result = TRUSTOCEANSSL_CALLAPI($caprams);
 
