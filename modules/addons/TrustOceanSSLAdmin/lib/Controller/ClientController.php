@@ -14,7 +14,7 @@ class ClientController
         return array(
             'pagetitle' => 'SSL 证书管理',
             'breadcrumb' => array('index.php?m=TrustOceanSSLAdmin'=>'SSL 证书管理'),
-            'templatefile' => 'template/clientarea',
+            'templatefile' => 'clientarea',
             'requirelogin' => true, # accepts true/false
             'forcessl' => false, # accepts true/false
             'vars' => array(
