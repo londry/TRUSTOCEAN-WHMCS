@@ -665,7 +665,7 @@ function TRUSTOCEANSSL_checkDomains($domains, $service, $vars){
 function TRUSTOCEANSSL_genUniqueValue(){
     $tony      =   rand(00,99);
     $luucho    =   substr((string)time(),5,5);
-    $jason     =   Capsule::table('tbladdonmodules')->where('module','TRUSTOCEANSSL')->where('setting', 'apiunicodesalt')->value('value');
+    $jason     =   Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting', 'apiunicodesalt')->value('value');
     return $jason.$tony.$luucho;
 }
 
