@@ -68,8 +68,8 @@
                                         <input type="text" name="registered_address_line1" autocomplete="new-password" class="form-control domnsinputs" placeholder="" value="">
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputNs1" class="control-label">{$MODLANG.trustoceanssl.enroll.organization.registerted_no}</label>
-                                        <input type="text" name="registerted_no" autocomplete="new-password" class="form-control domnsinputs" placeholder="" value="">
+                                        <label for="inputNs1" class="control-label">{$MODLANG.trustoceanssl.enroll.organization.registered_no}</label>
+                                        <input type="text" name="registered_no" autocomplete="new-password" class="form-control domnsinputs" placeholder="" value="">
                                     </div>
                                     <div class="form-group">
                                         <label for="inputNs1" class="control-label">{$MODLANG.trustoceanssl.enroll.organization.country}</label>
