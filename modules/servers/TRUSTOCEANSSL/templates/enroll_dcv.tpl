@@ -27,17 +27,20 @@
             {$MODLANG.trustoceanssl.enroll.setup3.dcvdns1}
         </p>
         <p>
-            {$MODLANG.trustoceanssl.enroll.setup3.dcvdns2} </p>
+            {$MODLANG.trustoceanssl.enroll.setup3.dcvdns2}
+        </p>
         <p>
             {$MODLANG.trustoceanssl.enroll.setup3.dcvhttp1}
         </p>
         <p>
-            {$MODLANG.trustoceanssl.enroll.setup3.dcvhttp2}</p>
+            {$MODLANG.trustoceanssl.enroll.setup3.dcvhttp2}
+        </p>
         <p>
             {$MODLANG.trustoceanssl.enroll.setup3.dcvhttps1}
         </p>
         <p>
-            {$MODLANG.trustoceanssl.enroll.setup3.dcvhttps2}</p>
+            {$MODLANG.trustoceanssl.enroll.setup3.dcvhttps2}
+        </p>
     </div>
     <div class="section-body">
         <form action="clientarea.php?action=productdetails&id={$serviceid}" method="post">

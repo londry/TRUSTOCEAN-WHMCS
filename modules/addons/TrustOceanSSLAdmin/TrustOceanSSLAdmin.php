@@ -88,7 +88,8 @@ function TrustOceanSSLAdmin_activate(){
         // 插入默认的配置信息
         Capsule::table('tbltrustocean_configuration')->insert([
             ["setting"=>"expiration-cronjob-status", "value"=>"finished"],
-            ["setting"=>"siteseal", "value"=>"show"]
+            ["setting"=>"siteseal", "value"=>"show"],
+            ["setting"=>"api_products", "value"=>json_encode([])],
         ]);
     }
 
@@ -144,11 +145,9 @@ function TrustOceanSSLAdmin_activate(){
  */
 function TrustOceanSSLAdmin_upgrade($vars){
     $version = $vars['version'];
-
+    $schema = Capsule::schema();
     # 为小于 v1.1.1 版本的之前模块修复数据库字段
     if($version < "1.1.1"){
-        $schema = Capsule::schema();
-
         if($schema->hasTable("tbltrustocean_certificate")){
             if(!$schema->hasColumn('tbltrustocean_certificate','is_requested_refund')){
                 $schema->table("tbltrustocean_certificate", function($table){
@@ -169,6 +168,14 @@ function TrustOceanSSLAdmin_upgrade($vars){
             );
         }
     }
+    # 为小于 1.2.1 版本的模块增加API产品配置信息
+    if($version < '1.2.1'){
+        if($schema->hasTable('tbltrustocean_configuration')){
+           Capsule::table('tbltrustocean_configuration')->insert(
+               ["setting"=>"api_products", "value"=>json_encode([])]
+           );
+        }
+    }
 }
 
 /**
@@ -180,7 +187,7 @@ function TrustOceanSSLAdmin_config() {
     $configarray = array(
     "name" => "TRUSTOCEAN SSL Admin",
     "description" => "This is a WHMCS Admin module for TrustOcean SSL Partner",
-    "version" => "1.1.1",
+    "version" => "1.2.1",
     "language" => "chinese",
     "author" => "QiaoKr Corporation Limited",
     "fields" => array(

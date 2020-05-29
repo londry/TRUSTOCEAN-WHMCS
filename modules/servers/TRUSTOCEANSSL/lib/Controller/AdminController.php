@@ -56,39 +56,25 @@ class AdminController
 
         $rlt = $this->apiService->getProductList();
 
-        $options = [];
+        // 更新本地产品缓存
+        Capsule::table('tbltrustocean_configuration')->where('setting','api_products')->update([
+            'value'=>json_encode($rlt)
+        ]);
 
+        // 格式化WHMCS选择项
+        $options = [];
         foreach ($rlt as $pid => $product){
             $options[$pid] = $product['name'];
         }
-
+        // 如果通信失败，获取产品列表失败，则返回错误信息在选项中
+        if($rlt == NULL){
+            $options['disabled'] = "产品获取失败, 请您检查API账户或 API 白名单设置后重试";
+        }
         return array(
             // a text field type allows for single line text input
-            'Product' => array(
+            'SSL Product Link' => array(
                 'Type' => 'dropdown',
                 'Options' => $options,
-            ),
-            'Class' => array(
-                'Type' => 'dropdown',
-                'Options' => array(
-                    'dv' => "Domain Validation",
-                    'ov' => "Organization Validation",
-                    'ev' => "Extend Validation"
-                ),
-                'Description' => 'Validation Class',
-            ),
-            // the radio field type displays a series of radio button options
-            'Wildcard' => array(
-                'Type' => 'yesno',
-                'Description' => 'Is Support Wildcard?',
-            ),
-            'MultiDomain' => array(
-                'Type' => 'yesno',
-                'Description' => 'Is Support MultiDomain?',
-            ),
-            'IP' => array(
-                'Type' => 'yesno',
-                'Description' => 'Is Support IP address?',
             )
         );
     }

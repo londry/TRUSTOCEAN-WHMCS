@@ -280,3 +280,11 @@ add_hook('InvoicePaid', 1, function($vars) {
         );
     }
 });
+
+/**
+ * 在产品配置页输出自定义的脚本，兼容自动配置产品参数
+ */
+add_hook('AdminProductConfigFields', 1, function ($vars) {
+    // Perform hook code here...
+    echo '<script src="/modules/servers/TRUSTOCEANSSL/assets/js/auto-product-config.js"></script>';
+});
