@@ -168,6 +168,29 @@ function TRUSTOCEANSSL_resetorderstatus($vars) {
 }
 
 /**
+ * 重置订单状态为初始配置
+ * @param $vars
+ * @return string
+ * @throws Exception
+ */
+function TRUSTOCEANSSL_resetorderstatusAdmin($vars) {
+    $service = Capsule::table('tbltrustocean_certificate')->where('serviceid',$vars['serviceid'])->first();
+    global $MODLANG;
+
+    if($service->status === "enroll_submithand" || $service->status === "enroll_ca" || $service->status === "enroll_caprocessing" || $service->status === "issued_active"){
+        return $MODLANG['trustoceanssl']['apierror']['cannotresetorder'];
+    }else{
+        Capsule::table('tbltrustocean_certificate')->where('serviceid',$vars['serviceid'])->update(array(
+            'status'  => 'configuration',
+            'dcv_info' => "",
+            'domains' => "",
+            'csr_code' => "",
+        ));
+        return "success";
+    }
+}
+
+/**
  * 设置为续费订单
  * @param $vars
  * @return string
@@ -1859,7 +1882,7 @@ function TRUSTOCEANSSL_ClientAreaAllowedFunctions(){
 function TRUSTOCEANSSL_AdminCustomButtonArray(){
     return array(
 //        "同步订单信息" => 'adminSynccertorderdata',
-        "重设为新订单" => 'resetorderstatus',
+        "重设为新订单" => 'resetorderstatusAdmin',
 //        "发送签发通知" => 'adminSendIssuedNotification',
 //        "设为续费订单"=>'setRenewOrder',
 //        "removeDomain"=>"removeDomain",
