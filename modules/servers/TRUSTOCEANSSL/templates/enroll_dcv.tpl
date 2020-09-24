@@ -137,7 +137,7 @@
                         {literal}
                         <script>
                             function resetOrderStatus(serviceid){
-                                $.post('/clientarea.php?action=productdetails&id='+serviceid+'&modop=custom&a=resetorderstatus', {serviceid:serviceid}, function(resp){
+                                $.post('/clientarea.php?action=productdetails&id='+serviceid+'&modop=custom&a=resetorderstatus', {responsetype:"json",serviceid:serviceid}, function(resp){
                                     if(resp.status === "success"){
                                         window.location.reload();
                                     }else{
