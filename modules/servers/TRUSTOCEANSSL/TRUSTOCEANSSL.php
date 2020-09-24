@@ -155,7 +155,7 @@ function TRUSTOCEANSSL_resetorderstatus($vars) {
     global $MODLANG;
 
     if($service->status === "enroll_submithand" || $service->status === "enroll_ca" || $service->status === "enroll_caprocessing" || $service->status === "issued_active"){
-        return $MODLANG['trustoceanssl']['apierror']['cannotresetorder'];
+        TRUSTOCEANSSL_APIRESPONSE(['status'=>'error','message'=>$MODLANG['trustoceanssl']['apierror']['cannotresetorder']]);
     }else{
         Capsule::table('tbltrustocean_certificate')->where('serviceid',$vars['serviceid'])->update(array(
             'status'  => 'configuration',
@@ -163,7 +163,7 @@ function TRUSTOCEANSSL_resetorderstatus($vars) {
             'domains' => "",
             'csr_code' => "",
         ));
-        return "success";
+        TRUSTOCEANSSL_APIRESPONSE(['status'=>'success']);
     }
 }
 
@@ -1847,7 +1847,8 @@ function TRUSTOCEANSSL_ClientAreaAllowedFunctions(){
         'ajaxTrySubmittoca'=>'ajaxTrySubmittoca',
         'trySubmittoca' => 'trySubmittoca',
         'prepareForReissue'=>'prepareForReissue',
-        'ajaxTryToReissueSSL','ajaxTryToReissueSSL',
+        'ajaxTryToReissueSSL'=>'ajaxTryToReissueSSL',
+        'resetorderstatus'=>'resetorderstatus',
     );
 }
 
@@ -1858,7 +1859,7 @@ function TRUSTOCEANSSL_ClientAreaAllowedFunctions(){
 function TRUSTOCEANSSL_AdminCustomButtonArray(){
     return array(
 //        "同步订单信息" => 'adminSynccertorderdata',
-//        "设为新订单" => 'resetorderstatus',
+        "重设为新订单" => 'resetorderstatus',
 //        "发送签发通知" => 'adminSendIssuedNotification',
 //        "设为续费订单"=>'setRenewOrder',
 //        "removeDomain"=>"removeDomain",

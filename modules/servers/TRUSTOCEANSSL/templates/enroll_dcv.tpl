@@ -21,6 +21,7 @@
     <div class="text-danger">{$error}</div>
     <ul class="tabul list-group list-group-tab-nav" style="margin: 0px 15px;">
         <button onclick="$('.dnd-info').toggle();" data-dcv class="btn btn-sm btn-default btn-se1" data-toggle="tab">{$MODLANG.trustoceanssl.enroll.setup3.dndinfo}</button>
+        <button onclick="resetOrderStatus('{$serviceid}');" data-dcv class="btn btn-sm btn-default btn-se1" data-toggle="tab">Reconfigure / Recover This Order</button>
     </ul>
     <div class="dnd-info" style="display: none;margin: 0px 15px;">
         <p>
@@ -135,6 +136,15 @@
                         {/foreach}
                         {literal}
                         <script>
+                            function resetOrderStatus(serviceid){
+                                $.post('/clientarea.php?action=productdetails&id='+serviceid+'&modop=custom&a=resetorderstatus', {serviceid:serviceid}, function(resp){
+                                    if(resp.status === "success"){
+                                        window.location.reload();
+                                    }else{
+                                        window.alert(resp.message);
+                                    }
+                                });
+                            }
                             function selectAllDcvMethod() {
                                 var b = $("select[data-maindcv] option:selected").attr("data-method");
                                 console.log(b);
