@@ -363,8 +363,8 @@ function TRUSTOCEANSSL_CreateAccount($vars){
 
     // todo:: 检查是否已经开通过了
     $check = Capsule::table('tbltrustocean_certificate')->where('uid', $vars['clientsdetails']['id'])
-    ->where('serviceid', $vars['serviceid'])->get();
-    if(!empty($check)){
+    ->where('serviceid', $vars['serviceid'])->first();
+    if($check != NULL){
         throw new Exception('Already have an active service created in database');
     }
     $period = Capsule::table('tblhosting')->where('id', $vars['serviceid'])->value('billingcycle');
