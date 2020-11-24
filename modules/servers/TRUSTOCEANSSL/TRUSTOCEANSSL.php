@@ -686,11 +686,31 @@ function TRUSTOCEANSSL_checkDomains($domains, $service, $vars){
  * 本地生成UniqueId
  * @return string
  */
-function TRUSTOCEANSSL_genUniqueValue(){
+function TRUSTOCEANSSL_genUniqueValueOld(){
     $tony      =   rand(00,99);
     $luucho    =   substr((string)time(),5,5);
     $jason     =   Capsule::table('tbladdonmodules')->where('module','TrustOceanSSLAdmin')->where('setting', 'apiunicodesalt')->value('value');
     return $jason.$tony.$luucho;
+}
+
+/**
+ * 尝试从远端创建用于请求UniqueID
+ * 调用此接口创建UniqueID之后应该保证在24小时内传递到addSSLOrder接口进行使用
+ * 单个账户创建过多无用的UniqueID可能会导致API账户禁权
+ * @return mixed
+ * @throws Exception
+ */
+function TRUSTOCEANSSL_genUniqueValueFromTrustOcean(){
+    try {
+        $response = TRUSTOCEANSSL_CALLAPI(['action'=>'createNewUniqueId']);
+        if($response['status'] === "success"){
+            return $response['unique_id'];
+        }else{
+            throw new Exception("创建UniqueID时出现错误， 请您稍后再试或联系管理员获取帮助");
+        }
+    } catch (Exception $e) {
+        throw new Exception($e->getMessage());
+    }
 }
 
 /**
@@ -709,20 +729,14 @@ function TRUSTOCEANSSL_strRand($length = 32, $char = '0123456789abcdefghijklmnop
     }
     return $string;
 }
+
 /**
  * UniqueId通过数据库查重, unique_id大小写不敏感 ，因此全部采用小写
+ * @return mixed
+ * @throws Exception
  */
 function TRUSTOCEANSSL_getUniqueValue(){
-    $absoluteUniqueId = '';
-    for($i=1; $i<=20; $i++){
-        $uniqueId = TRUSTOCEANSSL_genUniqueValue();
-        $checkUnique = Capsule::table('tbltrustocean_certificate')->where('unique_id', strtolower($uniqueId))->first();
-        if(empty($checkUnique)){
-            $absoluteUniqueId = $uniqueId;
-            break;
-        }
-    }
-    return strtolower($absoluteUniqueId);
+    return TRUSTOCEANSSL_genUniqueValueFromTrustOcean();
 }
 
 /**
@@ -846,7 +860,12 @@ function TRUSTOCEANSSL_ajaxTryToReissueSSL($vars){
     $caprams = array();
     $caprams['action'] = "reissueSSLOrder";
     $caprams['csr_code'] = $csr_code;
-    $caprams['unique_id'] = TRUSTOCEANSSL_genUniqueValue();
+    try{
+        $caprams['unique_id'] = TRUSTOCEANSSL_genUniqueValueFromTrustOcean();
+    }catch(Exception $e){
+        TRUSTOCEANSSL_APIRESPONSE(['status'=>'error','message'=>$e->getMessage()]);
+    }
+
     $caprams['trustocean_id'] = $service->trustocean_id;
 
     # todo:: 多域名 域名列表
@@ -1707,15 +1726,20 @@ function TRUSTOCEANSSL_ajaxUploadCertInfo($vars){
         ]);
 
     // 更新数据库信息
-    $updateParams = array(
+    try{
+        $updateParams = array(
             'csr_code'=>$csr_code,
             'key_code'=>$key_code,
             'contact_email'=>$requestParams['email'],
             'status'=>'enroll_dcv',
             'domains'=>json_encode($domains['domains']),
-            'unique_id'=>TRUSTOCEANSSL_genUniqueValue(),
+            'unique_id'=>TRUSTOCEANSSL_genUniqueValueFromTrustOcean(),
             'dcv_info'=>json_encode(TRUSTOCEANSSL_findDcvDomains($domains['domains'])),
         );
+    }catch(Exception $e){
+        TRUSTOCEANSSL_APIRESPONSE(['status'=>'error','message'=>$e->getMessage()]);
+    }
+
     //todo:: 企业订单应该存储企业信息
     if($vars['configoption2'] !== "dv"){
         $updateParams['org_info'] = json_encode(array(
