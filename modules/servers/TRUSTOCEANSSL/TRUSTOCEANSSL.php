@@ -948,7 +948,8 @@ function TRUSTOCEANSSL_ajaxTrySubmittoca($vars){
     $caprams['period'] = $service->period;
     // todo:; unique_id
     $caprams['unique_id'] = $service->unique_id;
-
+    // callback_Url
+    $caprams['callback'] = 'https://'.$_SERVER['HTTP_HOST'].'/modules/servers/TRUSTOCEANSSL/TrustOceanEventsPush.php';
     // todo:: 企业联系信息
     if($vars['configoption2'] !== "dv"){
         $org_info = json_decode($service->org_info, 1);
@@ -1035,6 +1036,8 @@ function TRUSTOCEANSSL_trySubmittoca($vars){
     $caprams['period'] = $service->period;
     // todo:; unique_id
     $caprams['unique_id'] = $service->unique_id;
+    // callback_Url
+    $caprams['callback'] = 'https://'.$_SERVER['HTTP_HOST'].'/modules/servers/TRUSTOCEANSSL/TrustOceanEventsPush.php';
 
     // todo:: 企业联系信息
     if($vars['configoption2'] !== "dv"){
