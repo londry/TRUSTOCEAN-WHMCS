@@ -1918,7 +1918,8 @@ function TRUSTOCEANSSL_downloadcertificate($param){
         $apacheFile2 = fopen($filepath.$filename.'/Apache/'."MustInstallThis-CAChains.crt", "w+");
         fwrite($apacheFile2, trim($cert->ca_code));
         fclose($apacheFile2);
-        if($cert->key_code !== ""){
+        var_dump($cert->key_code);
+        if($cert->key_code  != ""){
             $apacheKey1 = fopen($filepath.$filename.'/Apache/'.$certfilename."-privatekey.pem", "w+");
             fwrite($apacheKey1, trim($cert->key_code));
             fclose($apacheKey1);
@@ -1943,14 +1944,14 @@ function TRUSTOCEANSSL_downloadcertificate($param){
         fwrite($nginxFile1, PHP_EOL);
         fwrite($nginxFile1, trim($cert->ca_code));
         fclose($nginxFile1);
-        if($cert->key_code !== ""){
+        if($cert->key_code != ""){
             $nginxKey1 = fopen($filepath.$filename.'/Nginx/'.$certfilename."-privatekey.pem", "w+");
             fwrite($nginxKey1, trim($cert->key_code));
             fclose($nginxKey1);
         }
 
         // 生成IIS .pfx 证书文件
-        if($cert->key_code !== "" && openssl_get_privatekey($cert->key_code) !== false){
+        if($cert->key_code != "" && openssl_get_privatekey($cert->key_code) !== false){
                  mkdir($filepath.$filename.'/IIS',0777,TRUE);
                 $pfx_content = "";
                 $re = openssl_pkcs12_export(
@@ -1975,7 +1976,9 @@ function TRUSTOCEANSSL_downloadcertificate($param){
             $zip->addEmptyDir('Apache');
             $zip->addEmptyDir('Nginx');
             $zip->addEmptyDir('CDN');
-            $zip->addEmptyDir('IIS');
+            if($cert->key_code  != "") {
+                $zip->addEmptyDir('IIS');
+            }
 
             $zip->addFile($filepath.$filename.'/Apache/'.$certfilename.".crt", 'Apache/'.$certfilename.".crt");
             $zip->addFile($filepath.$filename.'/Apache/'."MustInstallThis-CAChains.crt",'Apache/'."MustInstallThis-CAChains.crt");
@@ -1984,7 +1987,7 @@ function TRUSTOCEANSSL_downloadcertificate($param){
             $zip->addFile($filepath.$filename.'/Nginx/'.$certfilename.".pem", 'Nginx/'.$certfilename.".pem");
 
             // key file
-            if($cert->key_code !== ""){
+            if($cert->key_code != ""){
                 $zip->addFile($filepath.$filename.'/CDN/'.$certfilename."-privatekey.pem", 'CDN/'.$certfilename."-privatekey.pem");
                 $zip->addFile($filepath.$filename.'/Apache/'.$certfilename."-privatekey.pem", 'Apache/'.$certfilename."-privatekey.pem");
                 $zip->addFile($filepath.$filename.'/Nginx/'.$certfilename."-privatekey.pem", 'Nginx/'.$certfilename."-privatekey.pem");
