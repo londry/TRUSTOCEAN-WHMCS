@@ -72,9 +72,32 @@ class AdminController
         }
         return array(
             // a text field type allows for single line text input
-            'SSL Product Link' => array(
+            'Product' => array(
                 'Type' => 'dropdown',
                 'Options' => $options,
+            ),
+            // class
+            'Class' => array(
+                'Type' => 'dropdown',
+                'Description'=>"验证级别",
+                'Options'=>[
+                    'dv'=>'域名验证(DV)',
+                    'ov'=>'组织验证(OV)',
+                    'ev'=>'扩展验证(EV)'
+                ]
+            ),
+            'Wildcard' => array(
+                'Type' => 'yesno',
+                'Description'=>"产品是否支持通配符域名？"
+            ),
+            // multiDomain
+            'Multi-Domain' => array(
+                'Type' => 'yesno',
+                'Description'=>"产品是否支持多域名？"
+            ),
+            'IPv4' => array(
+                'Type' => 'yesno',
+                'Description'=>"产品是否支持IPv4地址？"
             )
         );
     }

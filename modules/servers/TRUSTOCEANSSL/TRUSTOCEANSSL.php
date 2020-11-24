@@ -378,6 +378,7 @@ function TRUSTOCEANSSL_CreateAccount($vars){
 
     // 认证级别
     $product = Capsule::table('tblproducts')->where('id', $vars['pid'])->first();
+
     Capsule::table('tbltrustocean_certificate')
         ->insert(array(
             "uid"       =>  $vars['clientsdetails']['id'],
